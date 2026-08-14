@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/ReZaAdineH/tid-cmm/security/policy
+    about: Report privately, never as a public issue.
+  - name: Run the assessment
+    url: https://tid-cmm.com/assess
+    about: Free, browser-only, nothing transmitted.
+  - name: Read the white paper
+    url: https://tid-cmm.com/downloads
+    about: The reasoning behind the model.

@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  model:
+    name: Model and engine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt jsonschema
+      - name: Validate the model
+        run: python -m tidcmm validate
+      - name: Test suite
+        run: python -m pytest tests -q
+      - name: Provenance — no authoring-tool traces in shipped files
+        run: python tools/check_provenance.py
+
+  artefacts:
+    name: Deliverables rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: pip install -r requirements.txt
+      - run: npm install docx --no-save
+      - name: Rebuild everything from source
+        run: |
+          python -m tidcmm export-json build/model.json
+          python tools/build_workbook.py build/TID-CMM-Self-Assessment-v1.1.xlsx
+          python tools/fill_example.py
+          python tools/build_app.py build/tid-cmm-assessment.html
+          NODE_PATH=$(pwd)/node_modules node tools/build_whitepaper.js build/TID-CMM-White-Paper-v1.1.docx
+          python tools/build_site.py
+      - name: Assessment tool must be valid JavaScript
+        run: |
+          python - <<'PY'
+          import pathlib
+          h = pathlib.Path("build/tid-cmm-assessment.html").read_text()
+          pathlib.Path("/tmp/app.js").write_text(h.split("<script>",1)[1].rsplit("</script>",1)[0])
+          PY
+          node --check /tmp/app.js
+      - name: Site must make no external requests
+        run: |
+          ! grep -rEo 'src="https?://|@import|<link[^>]*href="https?://[^"]*\.(css|js)' build/site --include="*.html" --include="*.css"
+      - name: No product names in model descriptors
+        run: |
+          python - <<'PY'
+          import sys
+          from tidcmm.model import load_model
+          banned = ("crowdstrike","splunk","sentinelone","carbon black","qradar","arcsight","cortex xdr")
+          bad = []
+          for s in load_model().subcapabilities():
+              blob = " ".join(s.levels.values()).lower()
+              hits = [b for b in banned if b in blob]
+              if hits and "for example" not in blob and "such as" not in blob:
+                  bad.append((s.id, hits))
+          if bad:
+              print("Product names in descriptors:", bad); sys.exit(1)
+          print("Clean.")
+          PY
+      - name: Provenance — rebuilt artefacts and document metadata
+        run: python tools/check_provenance.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tid-cmm-build
+          path: |
+            build/*.xlsx
+            build/*.pdf
+            build/*.html
+            build/*.json
+            build/tid-cmm-site-upload.zip
+          retention-days: 14

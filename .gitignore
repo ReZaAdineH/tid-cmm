@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+.DS_Store
+*~
+*.tmp
+
+# Build output. Regenerate with `make all`; binaries are attached to releases
+# instead of committed, so clones stay small.
+build/
+!build/.gitkeep
+
+# macOS
+.DS_Store

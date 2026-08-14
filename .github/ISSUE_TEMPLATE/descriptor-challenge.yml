@@ -1,0 +1,44 @@
+name: Descriptor challenge
+description: A level descriptor does not match what you see in practice
+title: "[descriptor] SUBCAP.ID — short summary"
+labels: ["model", "descriptor"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The most valuable contribution this project receives. Be specific about the
+        organisation type you have in mind — the descriptor may be right for one context
+        and wrong for another, which is itself useful to know.
+  - type: input
+    id: subcap
+    attributes:
+      label: Sub-capability ID
+      placeholder: "DE.5"
+    validations: { required: true }
+  - type: input
+    id: level
+    attributes:
+      label: Which level
+      placeholder: "4"
+    validations: { required: true }
+  - type: textarea
+    id: current
+    attributes:
+      label: What it currently says
+    validations: { required: true }
+  - type: textarea
+    id: problem
+    attributes:
+      label: Why that does not hold
+      description: The counter-example matters more than the argument.
+    validations: { required: true }
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed wording
+      description: Must be observable — two competent assessors should agree whether it is met.
+  - type: input
+    id: context
+    attributes:
+      label: Context you are drawing on
+      placeholder: "Regulated bank, in-house SOC, ~8,000 endpoints"

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TID-CMM Assessment</title>
+<style>
+:root{
+  --ink:#15181c;--muted:#5d6874;--line:#e3e7ec;--bg:#ffffff;--card:#ffffff;
+  --head:#12151a;--headink:#ffffff;--soft:#f4f6f8;--softink:#1f6f4a;
+  --input:#ffffff;--zebra:#fafbfc;--shadow:0 1px 3px rgba(20,24,28,.08);
+  --orange:#d2661c;--orangebg:#fdf1e7;--green:#1f8f56;--greenbg:#e9f5ee;
+  --teal:#12817f;--tealbg:#e6f3f3;--blue:#1f6f9c;
+  --accent:var(--orange);--navy:#12151a;
+  --ok:var(--green);--okbg:var(--greenbg);--warn:#b8791a;--warnbg:#fdf5e6;
+  --bad:#c0392b;--badbg:#fdecea;
+  --l0:#c0392b;--l1:#d2661c;--l2:#c9a227;--l3:#5a9e4a;--l4:#1f8f56;--l5:#12817f;
+}
+html[data-theme=dark]{
+  --ink:#e6eaee;--muted:#98a3af;--line:#262a30;--bg:#000000;--card:#0e1114;
+  --head:#000000;--headink:#f2f5f8;--soft:#171b20;--softink:#5fd39a;
+  --input:#0a0d10;--zebra:#12161a;--shadow:0 1px 3px rgba(0,0,0,.6);
+  --orange:#f0913f;--orangebg:#2a1a0c;--green:#4cc98a;--greenbg:#0e2a1c;
+  --teal:#45b8b8;--tealbg:#0c2626;--blue:#5aa9d6;
+  --accent:var(--orange);--navy:#f2f5f8;
+  --ok:var(--green);--okbg:var(--greenbg);--warn:#e0a850;--warnbg:#2a2211;
+  --bad:#e06a5c;--badbg:#2c1615;
+  --l0:#e06a5c;--l1:#f0913f;--l2:#e0c05a;--l3:#8fce76;--l4:#4cc98a;--l5:#45b8b8;
+}
+html{color-scheme:light}html[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55}
+header{background:var(--bg);color:var(--ink);padding:12px 22px;display:flex;
+  gap:14px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:30;
+  border-bottom:1px solid var(--line)}
+header b{font-size:16px;letter-spacing:-.2px}
+header .sub{font-size:11.5px;color:var(--muted)}
+header .byline{font-size:10.5px;color:var(--muted);opacity:.85;letter-spacing:.3px;margin-top:1px}
+header .mark{width:26px;height:26px;flex:0 0 26px}
+header .sp{margin-left:auto;display:flex;gap:8px;align-items:center}
+.ib{background:transparent;color:var(--ink);border:1px solid var(--line);
+  padding:6px 12px;border-radius:20px;cursor:pointer;font:inherit;font-size:12.5px;font-weight:600;
+  text-decoration:none;white-space:nowrap}
+.ib:hover{border-color:var(--accent);color:var(--accent)}
+/* stepper — a pill per step with a status dot: grey empty, amber partial, green done */
+.rail{background:var(--bg);border-bottom:1px solid var(--line);padding:9px 18px;
+  display:flex;gap:6px;overflow-x:auto;position:sticky;top:50px;z-index:29}
+.rail button{background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:6px 13px;cursor:pointer;font:inherit;font-size:12.5px;color:var(--muted);
+  display:flex;gap:7px;align-items:center;white-space:nowrap;transition:.12s}
+.rail button:hover{border-color:var(--accent);color:var(--ink)}
+.rail button .dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex:0 0 8px}
+.rail button.part .dot{background:var(--warn)}
+.rail button.done .dot{background:var(--green)}
+.rail button.on{border-color:var(--accent);color:var(--accent);font-weight:700;
+  box-shadow:0 0 0 2px var(--orangebg)}
+.rail button.on .dot{outline:2px solid var(--orangebg)}
+.wrap{max-width:940px;margin:0 auto;padding:24px 20px 40px}
+h1{font-size:23px;margin:0 0 6px;color:var(--navy);letter-spacing:-.2px}
+h2{font-size:16px;margin:24px 0 8px;color:var(--accent)}
+p.lede{color:var(--muted);margin:0 0 20px;font-size:14.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:20px;
+  margin-bottom:16px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}}
+label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.5px}
+select,input[type=text],input[type=date],textarea{width:100%;padding:9px 10px;border:1px solid var(--line);
+  border-radius:7px;font:inherit;font-size:14px;background:var(--input);color:var(--ink)}
+textarea{min-height:52px;resize:vertical}
+input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chk{display:flex;gap:9px;align-items:center;padding:9px 11px;border:1px solid var(--line);
+  border-radius:8px;cursor:pointer;background:var(--input);font-size:14px}
+.chk.on{border-color:var(--accent);background:var(--soft)}
+.btn{background:var(--accent);color:#fff;border:0;padding:10px 20px;border-radius:8px;cursor:pointer;
+  font:inherit;font-size:14px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{padding:6px 13px;font-size:13px}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;padding-top:16px;
+  border-top:1px solid var(--line)}
+.note{font-size:12.5px;color:var(--muted)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;
+  background:var(--soft);color:var(--softink);margin:2px 4px 2px 0}
+.tag.a{background:var(--okbg);color:var(--ok)}.tag.b{background:var(--warnbg);color:var(--warn)}
+.tag.c{background:var(--soft);color:var(--softink)}
+.chip{display:inline-flex;gap:6px;align-items:center;background:var(--soft);color:var(--softink);
+  border-radius:20px;padding:4px 6px 4px 11px;font-size:12.5px;font-weight:600;margin:3px 5px 3px 0}
+.chip button{background:none;border:0;color:inherit;cursor:pointer;font-size:14px;padding:0 4px}
+.list{max-height:330px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.row{display:flex;gap:10px;align-items:center;padding:8px 11px;border-bottom:1px solid var(--line);
+  cursor:pointer;font-size:13.5px}
+.row:last-child{border-bottom:0}.row:hover{background:var(--zebra)}
+.row.on{background:var(--soft)}
+.row .r{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px}
+.kpi .v{font-size:26px;font-weight:800;color:var(--navy);line-height:1.1}
+.kpi .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:5px}
+.kpi .n{font-size:12px;color:var(--muted);margin-top:5px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--head);color:var(--headink);text-align:left;padding:8px 10px;font-size:12px}
+td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--zebra)}
+.bar{height:8px;border-radius:5px;background:var(--soft);overflow:hidden;min-width:70px}
+.bar>i{display:block;height:100%;border-radius:5px;transition:width .25s}
+.msg{border-left:3px solid var(--warn);background:var(--warnbg);padding:10px 13px;
+  border-radius:0 7px 7px 0;font-size:13px;margin-bottom:9px}
+.msg.bad{border-color:var(--bad);background:var(--badbg)}
+.msg.ok{border-color:var(--ok);background:var(--okbg)}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px;background:var(--card)}
+summary{cursor:pointer;font-weight:600;font-size:13.5px;color:var(--accent)}
+.sub{border:1px solid var(--line);border-radius:9px;padding:13px 15px;margin-bottom:10px;background:var(--card)}
+.sub.done{border-left:4px solid var(--l3)}
+.sub.flag{border-left:4px solid var(--bad)}
+.lv{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:8px 0}
+@media(max-width:760px){.lv{grid-template-columns:repeat(3,1fr)}}
+.lv div{border:1px solid var(--line);border-radius:6px;padding:7px 8px;cursor:pointer;font-size:11.5px;
+  background:var(--input)}
+.lv div:hover{border-color:var(--accent)}
+.lv div.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lv div b{display:block;font-size:11px;opacity:.75;margin-bottom:3px}
+@media print{header,.rail,.nav,.noprint{display:none!important}
+  html[data-theme=dark]{--bg:#fff;--card:#fff;--ink:#1f2933;--line:#ccc;--muted:#5b6b78;
+    --navy:#0b2545;--accent:#0b4f6c;--soft:#eef3f6;--zebra:#f7f7f7;--head:#0b2545;--headink:#fff;--shadow:none}
+  body{background:#fff}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M32 7 L55 17 v18 c0 13-9 21-23 25 -14-4-23-12-23-25 V17 Z" fill="none"
+          stroke="var(--orange)" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="32" cy="33" r="8" fill="none" stroke="var(--green)" stroke-width="5"/>
+  </svg>
+  <div>
+    <div><b>TID-CMM</b> <span class="sub">Threat-Informed Detection Capability Maturity Model</span></div>
+    <div class="byline">Created by Reza Adineh</div>
+  </div>
+  <div class="sp">
+    <span class="sub" id="saved"></span>
+    <button class="ib" id="themebtn" onclick="toggleTheme()">☾ Dark</button>
+    <a class="ib" href="/">↩ Site</a>
+  </div>
+</header>
+<nav class="rail" id="rail"></nav>
+<div class="wrap" id="view"></div>
+
+<script>
+const D = /*__DATA__*/;
+const M = D.model, TECH = D.techniques, ACTORS = D.actors, AN = D.analytics;
+const TACT = D.tactics, PLAT = D.platforms, SRC = D.sources, CAT = D.catalogue;
+const TIDX = {}; TECH.forEach((t,i)=>TIDX[t.i]=i);
+const KEY = "tid-cmm-v11";
+
+const STEPS = [
+  ["env",   "1 Environment",  "What you run"],
+  ["jewels","2 Crown jewels", "What matters"],
+  ["threat","3 Threats",      "Who targets you"],
+  ["paths", "4 Attack paths", "How they'd reach it"],
+  ["tele",  "5 Telemetry",    "What you can see"],
+  ["assess","6 Assessment",   "How you work"],
+  ["result","7 Results",      "Where you stand"],
+  ["road",  "8 Roadmap",      "What to fix, ranked"],
+  ["plan",  "9 Action plan",  "What to do first"],
+];
+
+let S = {
+  step:0,
+  org:"", date:new Date().toISOString().slice(0,10), assessor:"",
+  env:{windows:true,linux:false,macos:false,estate:"on-premises",cloud:"none",
+       productivity:"none",identity:"active-directory",endpoint_telemetry:"native-os-logging-only",
+       network_telemetry:"none",workload:"servers",operating_model:"no-soc",
+       regulated:false,size:"small"},
+  profileOverride:"", jewels:[], actors:[], paths:[], coverage:{}, resp:{}, strict:true
+};
+
+/* ---------------------------------------------------------------- storage */
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));
+  document.getElementById("saved").textContent="saved";}catch(e){}};
+const load=()=>{try{const r=localStorage.getItem(KEY);
+  if(r){S=sanitise(JSON.parse(r));return true}}catch(e){}return false};
+function toggleTheme(){const n=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-theme",n);
+  try{localStorage.setItem("tid-cmm-theme",n)}catch(e){}
+  document.getElementById("themebtn").textContent=n==="dark"?"☀ Light":"☾ Dark";}
+(function(){let t=null;try{t=localStorage.getItem("tid-cmm-theme")}catch(e){}
+  if(!t)t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  document.documentElement.setAttribute("data-theme",t);})();
+
+/* ------------------------------------------------------- derivation engine */
+const OS_SRC = D.maps.os_sources, OS_INST = D.maps.os_instrumented, LSM = D.maps.log_source;
+function oses(){return ["windows","linux","macos"].filter(o=>S.env[o])}
+function reachable(){
+  const p=new Set();
+  for(const dim in LSM){ if(dim==="endpoint_telemetry")continue;
+    (LSM[dim][S.env[dim]]||[]).forEach(x=>p.add(x)); }
+  const tier=S.env.endpoint_telemetry;
+  if(tier!=="none"){ oses().forEach(o=>{
+    (OS_SRC[o]||[]).forEach(x=>p.add(x));
+    ((OS_INST[o]||{})[tier]||[]).forEach(x=>p.add(x)); }); }
+  if(tier==="open-source-instrumentation"||tier==="commercial-edr"){p.add("fs:fsusage");p.add("esxi:")}
+  return [...p];
+}
+const OSPLAT={windows:"Windows",linux:"Linux",macos:"macOS"};
+function platforms(){
+  const p=new Set(oses().map(o=>OSPLAT[o]));
+  const PM=D.maps.platform;
+  for(const dim in PM){ if(dim==="estate")continue;
+    (PM[dim][S.env[dim]]||[]).forEach(x=>p.add(x)); }
+  const e=S.env.estate;
+  if(e==="on-premises"||e==="hybrid"){p.add("Network Devices");p.add("ESXi")}
+  if(e==="hybrid"||e==="cloud-native"||e==="developer-platform")p.add("IaaS");
+  if(e==="saas-only"||e==="hybrid"){p.add("SaaS");p.add("Office Suite")}
+  p.add("PRE"); return p;
+}
+function deriveProfile(){
+  const e=S.env;
+  if(e.operating_model==="no-soc"&&e.size==="small"&&!e.regulated)return "essential";
+  let s=0;
+  s+= e.operating_model==="in-house-soc"?2: e.operating_model==="hybrid-mssp"?1:0;
+  s+= ["hybrid","cloud-native","ot-ics","developer-platform"].includes(e.estate)?1:0;
+  s+= e.cloud!=="none"?1:0; s+= e.regulated?1:0; s+= e.size==="large"?1:0;
+  return s>=5?"comprehensive": s>=2?"standard":"essential";
+}
+const profile=()=>S.profileOverride||deriveProfile();
+const PORD={essential:0,standard:1,comprehensive:2};
+function profileNotice(){
+  if(!S.profileOverride)return null;
+  const d=deriveProfile();
+  if(PORD[S.profileOverride]>=PORD[d])return null;
+  return `You chose ${S.profileOverride} but your declared environment derives ${d}. `+
+    `Your score will not be comparable with peers assessed at ${d}, and the excluded `+
+    `sub-capabilities are not recorded as accepted risks.`;
+}
+function inProfile(sc){return PORD[sc.profile]<=PORD[profile()]}
+
+function actorTechs(){const s=new Set();
+  S.actors.forEach(id=>{const a=ACTORS.find(x=>x.i===id); if(a)a.t.forEach(i=>s.add(i))}); return s}
+function envTechs(){const p=platforms();
+  return new Set(TECH.map((t,i)=>[t,i]).filter(([t])=>!t.p.length||t.p.some(x=>p.has(PLAT[x]))).map(([,i])=>i))}
+function scope(){
+  const env=envTechs(), act=actorTechs(), tree=new Set(S.paths.map(x=>TIDX[x]).filter(x=>x!=null));
+  const out={}, c={A:0,B:0,C:0};
+  env.forEach(i=>{ const t=tree.has(i), a=act.has(i);
+    if(t&&a){out[i]="A";c.A++} else if(t){out[i]="B";c.B++} else if(a){out[i]="C";c.C++} });
+  const notices=[];
+  if(!tree.size)notices.push("No attack paths marked, so nothing is Tier A. Every in-scope technique is Tier C — relevant to your adversaries but not yet placed on a path to a crown jewel. That is the Tier 2 → 3 gap, and the most useful thing to fix.");
+  if(!act.size)notices.push("No threat actors selected. Scope comes from environment and paths only — that is threat modeling without threat intelligence.");
+  const r=Object.keys(out).length/TECH.length;
+  if(r>0.75)notices.push(`${Object.keys(out).length} of ${TECH.length} techniques in scope (${Math.round(r*100)}%). At that breadth this is not scoping, it is the absence of scoping, and the coverage number will not mean anything.`);
+  return {map:out,counts:c,notices,count:Object.keys(out).length};
+}
+function anForEnv(){const p=platforms();
+  return AN.filter(a=>!a.p.length||a.p.some(x=>p.has(PLAT[x])))}
+function relevantSources(sc){
+  const want=new Set(Object.keys(sc.map).map(Number)), m={};
+  anForEnv().forEach(a=>{ if(!want.has(a.t))return;
+    a.s.forEach(si=>{ m[SRC[si]]=(m[SRC[si]]||0)+1 }) });
+  return Object.entries(m).sort((x,y)=>y[1]-x[1]);
+}
+function covOf(src){
+  if(S.coverage[src]!=null)return S.coverage[src];
+  const p=reachable(); return p.some(x=>src.startsWith(x))?100:0;
+}
+function assurance(sc){
+  const want=new Set(Object.keys(sc.map).map(Number)), req={};
+  anForEnv().forEach(a=>{ if(!want.has(a.t))return;
+    (req[a.t]=req[a.t]||{n:0,s:new Set()}).n++; a.s.forEach(si=>req[a.t].s.add(SRC[si])) });
+  const per={}, bands={assured:0,partial:0,weak:0,blind:0};
+  for(const t in req){
+    const srcs=[...req[t].s]; const best=srcs.reduce((m,s)=>Math.max(m,covOf(s)),0);
+    const band=best>=90?"assured":best>=60?"partial":best>=1?"weak":"blind";
+    bands[band]++; per[t]={best,band,srcs,missing:srcs.filter(s=>covOf(s)===0)};
+  }
+  const tot=Object.keys(per).length||1;
+  return {per,bands,assured:+(100*bands.assured/tot).toFixed(1),blind:+(100*bands.blind/tot).toFixed(1),
+          total:Object.keys(per).length};
+}
+function recommendations(sc,as_,limit){
+  const blocked={};
+  for(const t in as_.per){ if(as_.per[t].band==="assured")continue;
+    as_.per[t].missing.forEach(s=>{(blocked[s]=blocked[s]||new Set()).add(t)}) }
+  return Object.entries(blocked).sort((a,b)=>b[1].size-a[1].size).slice(0,limit||10)
+    .map(([s,ts])=>Object.assign({src:s,n:ts.size},CAT[s]||{}));
+}
+
+/* ------------------------------------------------------------ scoring */
+function results(){
+  const log=[], doms=[];
+  M.domains.forEach(d=>{
+    let w=0,acc=0,tw=0,tacc=0,n=0,na=0,ch=0;
+    d.subcapabilities.forEach(s=>{
+      if(!inProfile(s)){na++;return}
+      const r=S.resp[s.id]; if(!r||r.score==null){na++;return}
+      let e=r.score; n++;
+      if(S.strict&&r.score>=4&&!(r.ev||"").trim()){e=3;ch++;log.push(`C3: ${s.id} scored ${r.score} with no evidence; counted as 3.`)}
+      w+=s.weight; acc+=s.weight*e; tw+=s.weight; tacc+=s.weight*(r.target!=null?r.target:4);
+    });
+    doms.push({id:d.id,name:d.name,weight:d.weight,raw:w?acc/w:null,adj:w?acc/w:null,
+               target:tw?tacc/tw:null,n,na,ch,notes:[]});
+  });
+  const by={}; doms.forEach(d=>by[d.id]=d);
+  if(S.strict){
+    if(by.TI&&by.TM&&by.TI.raw!=null&&by.TM.raw!=null){
+      const cap=Math.max(by.TI.raw,by.TM.raw)+1;
+      ["DC","DE"].forEach(k=>{ if(by[k]&&by[k].adj>cap){
+        log.push(`C4: ${k} ${by[k].adj.toFixed(2)} exceeds max(TI,TM)+1; capped to ${cap.toFixed(2)}.`);
+        by[k].adj=cap; by[k].notes.push("C4 intent ceiling")}});
+    }
+    if(by.DE&&by.DC&&by.DE.adj!=null&&by.DC.adj!=null&&by.DE.adj>by.DC.adj+1){
+      const cap=by.DC.adj+1; log.push(`C2: DE exceeds DC+1; capped to ${cap.toFixed(2)}.`);
+      by.DE.adj=cap; by.DE.notes.push("C2 visibility ceiling");
+    }
+    if(by.AV&&by.AV.adj!=null){ const cap=by.AV.adj+1;
+      doms.forEach(d=>{ if(d.id!=="AV"&&d.adj!=null&&d.adj>cap){
+        log.push(`C1: ${d.id} ${d.adj.toFixed(2)} exceeds AV ${by.AV.adj.toFixed(2)}+1; capped to ${cap.toFixed(2)}.`);
+        d.adj=cap; d.notes.push("C1 validation ceiling")}});
+    }
+  }
+  const sc=doms.filter(d=>d.adj!=null), tw=sc.reduce((a,d)=>a+d.weight,0);
+  const overall=tw?sc.reduce((a,d)=>a+d.weight*d.adj,0)/tw:null;
+  const raw=tw?sc.reduce((a,d)=>a+d.weight*d.raw,0)/tw:null;
+  return {doms,overall,raw,log,answered:doms.reduce((a,d)=>a+d.n,0)};
+}
+function tiers(res){
+  if(res.overall==null)return null;
+  const eff={};
+  M.domains.forEach(d=>d.subcapabilities.forEach(s=>{
+    const r=S.resp[s.id]; if(!r||r.score==null||!inProfile(s))return;
+    eff[s.id]=(S.strict&&r.score>=4&&!(r.ev||"").trim())?3:r.score }));
+  let achieved=0,blocked=null,fails=[];
+  for(const t of [...D.tiers].sort((a,b)=>a.value-b.value)){
+    const f=[];
+    if(res.overall<(t.min_score||0))
+      f.push({ref:"overall",need:t.min_score,got:res.overall.toFixed(2),why:"Weighted score below the band for this tier."});
+    (t.gates||[]).forEach(g=>{ const got=eff[g.ref];
+      if(got==null||got<g.min)f.push({ref:g.ref,need:g.min,got:got==null?"not scored":got,why:g.why||""}) });
+    if(f.length){blocked=t;fails=f;break}
+    achieved=t.value;
+  }
+  const nm={}; D.tiers.forEach(t=>nm[t.value]=t.name);
+  return {achieved,name:nm[achieved]||"Below Ad Hoc",blocked,fails};
+}
+const BAND=v=>v==null?"—":["Level 0 Absent","Level 1 Ad hoc","Level 2 Repeatable",
+  "Level 3 Threat-Informed","Level 4 Measured & Validated","Level 5 Adaptive"][Math.min(5,Math.floor(v))];
+const COL=v=>v==null?"var(--muted)":["var(--l0)","var(--l1)","var(--l2)","var(--l3)","var(--l4)","var(--l5)"][Math.min(5,Math.floor(v))];
+
+/* --------------------------------------------------- roadmap & action plan */
+// Sub-capabilities that are cheap to start and pay back immediately.
+const QUICK = {
+ "AV.1":"A test runner and a day of someone's time. It tells you which of the detection you already own is real.",
+ "DC.2":"Data quality monitoring is configuration, not procurement, and it finds detections that cannot fire.",
+ "DE.6":"Detection health monitoring reuses telemetry you already collect.",
+ "TI.4":"Extraction discipline is a template and a habit, not a platform.",
+ "DE.3":"A mandatory metadata schema costs one workshop and makes every later automation possible.",
+ "AV.5":"Ask your next pentest supplier for an activity timeline. Costs nothing, produces a detection rate.",
+ "IR.6":"Add one question to the post-incident template: when could we first have detected this?",
+ "TM.1":"Crown-jewel identification is a workshop with the business, not a tool.",
+ "TM.3":"The first attack trees are a whiteboard and two hours per crown-jewel objective.",
+ "DC.6":"A visibility gap register is a spreadsheet with owners and dates.",
+ "AA.5":"Hypothesis-driven hunting needs a template and protected time, not a product.",
+ "DE.9":"A sourcing strategy is a page naming where detection ideas come from.",
+};
+const UNLOCKS = {
+ AV:{gates:["TI","TM","DC","DE","AA","IR","GV"],why:"C1 caps every other domain at AV + 1, so this raises several domains at once."},
+ DC:{gates:["DE"],why:"C2 caps detection engineering at telemetry + 1. Fixing this unlocks detection work already paid for."},
+ TI:{gates:["DC","DE"],why:"C4 caps telemetry and detection at max(TI,TM) + 1."},
+ TM:{gates:["DC","DE"],why:"C4 caps telemetry and detection at max(TI,TM) + 1."},
+};
+function capabilityGaps(res){
+  const out=[];
+  M.domains.forEach(d=>{
+    const dr=res.doms.find(x=>x.id===d.id);
+    d.subcapabilities.forEach(s=>{
+      if(!inProfile(s))return;
+      const r=S.resp[s.id]; if(!r||r.score==null)return;
+      let eff=r.score; if(S.strict&&r.score>=4&&!(r.ev||"").trim())eff=3;
+      const tgt=r.target!=null?r.target:4;
+      if(tgt<=eff)return;
+      const unl=UNLOCKS[d.id];
+      const capped=unl?res.doms.filter(x=>unl.gates.includes(x.id)&&x.notes.length).map(x=>x.id):[];
+      out.push({kind:"capability",id:s.id,domain:d.id,name:s.name,cur:eff,target:tgt,gap:tgt-eff,
+        impact:(d.weight/100)*(s.weight/100)*(tgt-eff)*1000,
+        next:s.levels[Math.min(eff+1,5)],evidence:(s.evidence||[]).join("; "),
+        quick:QUICK[s.id]||null,unlocks:capped,unlockWhy:capped.length?unl.why:null});
+    });
+  });
+  return out.sort((a,b)=>b.impact-a.impact);
+}
+function telemetryGaps(sc,as_){
+  const tierA=new Set(Object.keys(sc.map).filter(i=>sc.map[i]==="A"));
+  return recommendations(sc,as_,14).map(r=>{
+    const blocked=Object.keys(as_.per).filter(t=>as_.per[t].band!=="assured"&&as_.per[t].missing.includes(r.src));
+    const a=blocked.filter(t=>tierA.has(+t));
+    return Object.assign({kind:"telemetry",tierA:a.length,
+      impact:r.n*(a.length?3:1)},r);
+  }).sort((a,b)=>b.impact-a.impact);
+}
+function gateItems(t){
+  if(!t||!t.blocked)return [];
+  return t.fails.filter(f=>f.ref!=="overall").map(f=>{
+    let name=f.ref,next="";
+    M.domains.forEach(d=>d.subcapabilities.forEach(s=>{ if(s.id===f.ref){
+      name=s.name; next=s.levels[Math.min(f.need,5)] }}));
+    return {kind:"gate",id:f.ref,name,need:f.need,got:f.got,why:f.why,next,
+            tier:t.blocked.value,tierName:t.blocked.name};
+  });
+}
+function actionPlan(res,sc,as_,t){
+  const caps=capabilityGaps(res), tel=telemetryGaps(sc,as_), gates=gateItems(t);
+  // The capping domain is never itself capped, so look at who WAS capped and by what.
+  const note=p=>res.doms.some(d=>d.notes.some(n=>n.startsWith(p)));
+  const binding = note("C1") ? "AV" : note("C2") ? "DC" : note("C4") ? "TI/TM" : null;
+  const now=[],next=[],later=[];
+  const taken=new Set();
+  // a sub-capability named by a tier gate is already represented; do not list it twice
+  const gateRefs=new Set(gates.map(g=>g.id));
+  const push=(arr,i,k)=>{const key=i.kind+":"+(i.id||i.src);
+    if(taken.has(key)||arr.length>=k)return;
+    if(i.kind==="capability"&&gateRefs.has(i.id)){taken.add(key);return}
+    taken.add(key); arr.push(i)};
+  gates.forEach(g=>push(now,g,9));                                   // what actually blocks the tier
+  tel.filter(x=>x.tierA>0).slice(0,3).forEach(x=>push(now,x,9));     // invisible choke points
+  // even with no Tier A blind spot, a materially blind estate belongs in the first 30 days
+  if(as_.blind>=10) tel.slice(0,2).forEach(x=>push(now,x,9));
+  const bindDoms = binding==="TI/TM"?["TI","TM"]:binding?[binding]:[];
+  caps.filter(c=>bindDoms.includes(c.domain)).slice(0,3).forEach(c=>push(now,c,9));
+  caps.filter(c=>c.quick).slice(0,3).forEach(c=>push(now,c,9));
+  tel.slice(0,3).forEach(x=>push(next,x,7));
+  caps.slice(0,7).forEach(c=>push(next,c,7));
+  caps.forEach(c=>push(later,c,99)); tel.forEach(x=>push(later,x,99));
+  return {now,next,later,binding,caps,tel,gates};
+}
+
+/* ------------------------------------------------------------ rendering */
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// "" = not started, "part" = begun, "done" = complete. Shown as a dot on every step
+// so it is obvious at a glance where you are and what you skipped.
+function stepStatus(key){
+  const anyScore=()=>Object.values(S.resp).some(r=>r&&r.score!=null);
+  switch(key){
+    case "env":    return (S.org.trim()&&oses().length)?"done":(S.org.trim()||oses().length?"part":"");
+    case "jewels": return S.jewels.filter(j=>j.name.trim()).length?"done":(S.jewels.length?"part":"");
+    case "threat": return S.actors.length?"done":"";
+    case "paths":  return S.paths.length?"done":"";
+    case "tele":   return Object.keys(S.coverage).length?"done":"";
+    case "assess": {
+      let tot=0,n=0;
+      M.domains.forEach(d=>d.subcapabilities.forEach(sc=>{ if(!inProfile(sc))return;
+        tot++; const r=S.resp[sc.id]; if(r&&r.score!=null)n++ }));
+      return n===0?"":(n>=tot?"done":"part");
+    }
+    default: return anyScore()?"done":"";   // results, roadmap, action plan
+  }
+}
+function rail(){
+  document.getElementById("rail").innerHTML = STEPS.map((st,i)=>{
+    const stat=stepStatus(st[0]);
+    const label=stat==="done"?"complete":stat==="part"?"partly done":"not started";
+    return `<button class="${i===S.step?"on ":""}${stat}" onclick="go(${i})"
+      title="${st[1]} — ${st[2]} · ${label}" aria-current="${i===S.step?"step":"false"}">
+      <span class="dot"></span>${st[1]}</button>`;
+  }).join("");
+}
+function go(i){ S.step=Math.max(0,Math.min(STEPS.length-1,i)); save(); render(); window.scrollTo(0,0); }
+function nav(nextLabel){
+  return `<div class="nav">
+    <button class="btn ghost" onclick="go(${S.step-1})" ${S.step===0?"disabled":""}>← Back</button>
+    ${S.step<STEPS.length-1
+      ? `<button class="btn" onclick="go(${S.step+1})">${nextLabel||"Next"} →</button>`
+      : `<button class="btn" onclick="window.print()">Print / save as PDF</button>`}
+  </div>`;
+}
+const sel=(k,opts,cur)=>`<select onchange="setEnv('${k}',this.value)">`+
+  opts.map(o=>`<option value="${o[0]}" ${cur===o[0]?"selected":""}>${o[1]}</option>`).join("")+`</select>`;
+function setEnv(k,v){S.env[k]=(v==="true")?true:(v==="false")?false:v;save();render()}
+function setTop(k,v){S[k]=v;save();if(k==="profileOverride")render()}
+
+function render(){
+  rail();
+  const v=document.getElementById("view");
+  v.innerHTML = ({env:vEnv,jewels:vJewels,threat:vThreat,paths:vPaths,tele:vTele,
+                  assess:vAssess,result:vResult,road:vRoad,plan:vPlan})[STEPS[S.step][0]]();
+  save();
+}
+
+/* --- step 1 --------------------------------------------------------- */
+function vEnv(){
+  const p=deriveProfile(), n=profileNotice();
+  return `<h1>What do you run?</h1>
+  <p class="lede">Everything downstream derives from this — which techniques apply to you, which
+     telemetry you could have, and how much of the model is proportionate. Two minutes.</p>
+  <div class="card">
+    <div class="grid g3">
+      <div><label>Organisation</label><input type="text" value="${esc(S.org)}" oninput="setTop('org',this.value)"></div>
+      <div><label>Date</label><input type="date" value="${esc(S.date)}" oninput="setTop('date',this.value)"></div>
+      <div><label>Assessor</label><input type="text" value="${esc(S.assessor)}" oninput="setTop('assessor',this.value)"></div>
+    </div>
+    <h2>Operating systems you actually run</h2>
+    <div class="grid g3">
+      ${["windows","linux","macos"].map(o=>`
+        <div class="chk ${S.env[o]?"on":""}" onclick="setEnv('${o}',${!S.env[o]})">
+          <input type="checkbox" ${S.env[o]?"checked":""} onclick="event.stopPropagation()"
+            onchange="setEnv('${o}',this.checked)"> ${o==="macos"?"macOS":o[0].toUpperCase()+o.slice(1)}
+        </div>`).join("")}
+    </div>
+    <p class="note" style="margin-top:8px">Asked rather than assumed. An all-Windows estate
+       should never be advised to collect macOS logs.</p>
+    <div class="grid g2" style="margin-top:18px">
+      <div><label>Estate</label>${sel("estate",[["on-premises","On-premises"],["hybrid","Hybrid"],
+        ["cloud-native","Cloud-native"],["saas-only","SaaS only"],["ot-ics","OT / ICS"],
+        ["developer-platform","Developer platform"]],S.env.estate)}</div>
+      <div><label>Cloud</label>${sel("cloud",[["none","None"],["aws","AWS"],["azure","Azure"],
+        ["gcp","Google Cloud"],["other","Other"]],S.env.cloud)}</div>
+      <div><label>Productivity suite</label>${sel("productivity",[["none","None"],
+        ["microsoft-365","Microsoft 365"],["google-workspace","Google Workspace"],["other","Other"]],S.env.productivity)}</div>
+      <div><label>Identity</label>${sel("identity",[["active-directory","Active Directory"],
+        ["entra-id","Entra ID"],["okta","Okta"],["other-idp","Other IdP"],["none","None"]],S.env.identity)}</div>
+      <div><label>Endpoint telemetry</label>${sel("endpoint_telemetry",[
+        ["none","None"],["native-os-logging-only","Native OS logging only"],
+        ["open-source-instrumentation","Open-source instrumentation"],
+        ["commercial-edr","Commercial EDR"]],S.env.endpoint_telemetry)}</div>
+      <div><label>Network telemetry</label>${sel("network_telemetry",[["none","None"],
+        ["flow-only","Flow only"],["passive-sensor","Passive sensor"],
+        ["inline-inspection","Inline inspection"]],S.env.network_telemetry)}</div>
+      <div><label>Workload</label>${sel("workload",[["servers","Servers"],["containers","Containers"],
+        ["serverless","Serverless"],["mainframe","Mainframe"],["none","None"]],S.env.workload)}</div>
+      <div><label>Operating model</label>${sel("operating_model",[["no-soc","No SOC"],
+        ["fully-outsourced","Fully outsourced"],["hybrid-mssp","Hybrid / MSSP"],
+        ["in-house-soc","In-house SOC"]],S.env.operating_model)}</div>
+      <div><label>Size</label>${sel("size",[["small","Small"],["medium","Medium"],["large","Large"]],S.env.size)}</div>
+      <div><label>Regulated</label>${sel("regulated",[["false","No"],["true","Yes"]],String(S.env.regulated))}</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0">Derived profile: <span style="color:var(--accent)">${p}</span></h2>
+    <p class="note">The full model is not proportionate for everyone. Your environment scopes the
+       assessment to ${M.domains.reduce((a,d)=>a+d.subcapabilities.filter(inProfile).length,0)}
+       of ${M.domains.reduce((a,d)=>a+d.subcapabilities.length,0)} sub-capabilities.</p>
+    <div style="margin-top:10px"><label>Override (recorded, not blocked)</label>
+      <select onchange="setTop('profileOverride',this.value)" style="max-width:280px">
+        <option value="">Use derived (${p})</option>
+        <option value="essential" ${S.profileOverride==="essential"?"selected":""}>Essential</option>
+        <option value="standard" ${S.profileOverride==="standard"?"selected":""}>Standard</option>
+        <option value="comprehensive" ${S.profileOverride==="comprehensive"?"selected":""}>Comprehensive</option>
+      </select></div>
+    ${n?`<div class="msg" style="margin-top:12px">${esc(n)}</div>`:""}
+    <p class="note" style="margin-top:12px">ATT&amp;CK platforms in scope:
+       ${[...platforms()].sort().map(x=>`<span class="tag">${x}</span>`).join("")}</p>
+  </div>${nav("Crown jewels")}`;
+}
+
+/* --- step 2 --------------------------------------------------------- */
+function vJewels(){
+  return `<h1>What are you protecting?</h1>
+  <p class="lede">Crown jewels anchor everything. Without them, attack paths have no destination
+     and prioritisation has no basis.</p>
+  <div class="card">
+    ${S.jewels.map((j,i)=>`<div class="grid g2" style="margin-bottom:10px">
+      <div><label>Asset ${i+1}</label><input type="text" value="${esc(j.name)}"
+        oninput="S.jewels[${i}].name=this.value;save()" placeholder="e.g. customer database"></div>
+      <div style="display:flex;gap:8px;align-items:flex-end">
+        <div style="flex:1"><label>Why it matters</label><input type="text" value="${esc(j.why)}"
+          oninput="S.jewels[${i}].why=this.value;save()" placeholder="business impact if compromised"></div>
+        <button class="btn ghost sm" onclick="S.jewels.splice(${i},1);save();render()">Remove</button>
+      </div></div>`).join("")}
+    <button class="btn ghost sm" onclick="S.jewels.push({name:'',why:''});save();render()">+ Add crown jewel</button>
+    ${S.jewels.length?"":`<p class="note" style="margin-top:12px">Most organisations have three to
+      seven. More than ten usually means the list is an asset inventory, not a crown-jewel register.</p>`}
+  </div>${nav("Threats")}`;
+}
+
+/* --- step 3 --------------------------------------------------------- */
+let actorQ="";
+function setActorQ(v){actorQ=v;renderActors()}
+function toggleActor(id){const i=S.actors.indexOf(id); i<0?S.actors.push(id):S.actors.splice(i,1);
+  save();renderActors();document.getElementById("actorSum").innerHTML=actorSummary()}
+function actorSummary(){
+  const n=actorTechs().size;
+  return `<b style="font-size:22px;color:var(--navy)">${S.actors.length}</b> selected ·
+    <b style="font-size:22px;color:var(--navy)">${n}</b> distinct techniques they use`;
+}
+function renderActors(){
+  const q=actorQ.toLowerCase();
+  const list=ACTORS.filter(a=>!q||a.n.toLowerCase().includes(q)||a.i.toLowerCase().includes(q)
+    ||(a.a||"").toLowerCase().includes(q)).slice(0,220);
+  document.getElementById("actorList").innerHTML = list.map(a=>
+    `<div class="row ${S.actors.includes(a.i)?"on":""}" onclick="toggleActor('${a.i}')">
+      <input type="checkbox" ${S.actors.includes(a.i)?"checked":""} onclick="event.stopPropagation();toggleActor('${a.i}')">
+      <div><b>${esc(a.n)}</b> <span class="note">${a.i}${a.a?" · "+esc(a.a.split(";")[0]):""}</span></div>
+      <span class="r">${a.k} · ${a.c} techniques</span></div>`).join("")
+    || `<div class="row"><span class="note">No match.</span></div>`;
+  document.getElementById("chips").innerHTML = S.actors.map(id=>{
+    const a=ACTORS.find(x=>x.i===id); return a?`<span class="chip">${esc(a.n)}
+      <button onclick="toggleActor('${id}')">×</button></span>`:""}).join("");
+}
+function vThreat(){
+  setTimeout(renderActors,0);
+  return `<h1>Who realistically targets you?</h1>
+  <p class="lede">Pick the groups and campaigns your threat profile actually ranks — sector,
+     geography, technology. Their techniques become your candidate scope. Selecting everything
+     is the same as selecting nothing.</p>
+  <div class="card">
+    <div id="chips" style="margin-bottom:10px"></div>
+    <input type="text" placeholder="Search ${ACTORS.length} groups and campaigns by name, alias or ID"
+      oninput="setActorQ(this.value)">
+    <div class="list" style="margin-top:10px" id="actorList"></div>
+    <p class="note" style="margin-top:10px" id="actorSum">${actorSummary()}</p>
+  </div>${nav("Attack paths")}`;
+}
+
+/* --- step 4 --------------------------------------------------------- */
+function togglePath(tid){const i=S.paths.indexOf(tid); i<0?S.paths.push(tid):S.paths.splice(i,1);
+  save();renderPaths()}
+function renderPaths(){
+  const act=actorTechs(), env=envTechs();
+  const cand=[...act].filter(i=>env.has(i));
+  const byT={};
+  cand.forEach(i=>{const t=TECH[i]; (t.t.length?t.t:[-1]).forEach(ti=>{
+    const k=ti<0?"Other":TACT[ti]; (byT[k]=byT[k]||[]).push(i)})});
+  const sc=scope();
+  document.getElementById("pathSum").innerHTML =
+    `<span class="tag a">Tier A ${sc.counts.A}</span><span class="tag b">Tier B ${sc.counts.B}</span>
+     <span class="tag c">Tier C ${sc.counts.C}</span> · ${sc.count} of ${TECH.length} in scope`;
+  document.getElementById("pathList").innerHTML = Object.keys(byT).sort().map(k=>
+    `<details><summary>${k} — ${byT[k].length} techniques,
+       ${byT[k].filter(i=>S.paths.includes(TECH[i].i)).length} on a path</summary>
+     <div style="margin-top:8px">${byT[k].map(i=>{const t=TECH[i];
+       return `<div class="row ${S.paths.includes(t.i)?"on":""}" onclick="togglePath('${t.i}')">
+         <input type="checkbox" ${S.paths.includes(t.i)?"checked":""}
+           onclick="event.stopPropagation();togglePath('${t.i}')">
+         <div><b>${t.i}</b> ${esc(t.n)}</div></div>`}).join("")}</div></details>`).join("")
+    || `<p class="note">Select threat actors first — their techniques become the candidates here.</p>`;
+}
+function vPaths(){
+  setTimeout(renderPaths,0);
+  return `<h1>Which of these sit on a path to a crown jewel?</h1>
+  <p class="lede">This is the attack-tree step, reduced to its essence. A technique on a modelled
+     path to something that matters is <b>Tier A</b> — the set worth being excellent at.
+     Everything else is context.</p>
+  <div class="card">
+    <div id="pathSum" style="margin-bottom:12px"></div>
+    <div id="pathList"></div>
+  </div>${nav("Telemetry")}`;
+}
+
+/* --- step 5 --------------------------------------------------------- */
+function setCov(src,v){S.coverage[src]=+v;save();renderTele()}
+function renderTele(){
+  const sc=scope(), as_=assurance(sc), rel=relevantSources(sc).slice(0,22);
+  document.getElementById("teleSum").innerHTML = `<div class="grid g4">
+    <div class="kpi"><div class="v" style="color:var(--ok)">${as_.assured}%</div><div class="l">Assured</div>
+      <div class="n">${as_.bands.assured} techniques</div></div>
+    <div class="kpi"><div class="v" style="color:var(--warn)">${as_.bands.partial+as_.bands.weak}</div>
+      <div class="l">Partial or weak</div><div class="n">not estate-wide</div></div>
+    <div class="kpi"><div class="v" style="color:var(--bad)">${as_.blind}%</div><div class="l">Blind</div>
+      <div class="n">${as_.bands.blind} techniques undetectable</div></div>
+    <div class="kpi"><div class="v">${as_.total}</div><div class="l">In scope</div>
+      <div class="n">assessed for visibility</div></div></div>`;
+  document.getElementById("teleList").innerHTML = rel.map(([s,n])=>{
+    const c=covOf(s), info=CAT[s];
+    return `<div class="card" style="padding:14px;margin-bottom:10px">
+      <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
+        <b>${esc(s)}</b><span class="note">needed by ${n} in-scope techniques</span>
+        <span class="r note" style="margin-left:auto">${c}% of estate</span></div>
+      <input type="range" min="0" max="100" step="5" value="${c}"
+        oninput="setCov('${esc(s).replace(/'/g,"\\'")}',this.value)">
+      ${info?`<details style="margin-top:6px;border:0;padding:0;background:none">
+        <summary>How to enable this</summary>
+        <p class="note" style="margin:8px 0 4px">${esc(info.what)}</p>
+        ${info.ch?`<p class="note"><b>Key channels:</b> ${esc(info.ch)}</p>`:""}
+        <p class="note"><b>How:</b> ${esc(info.how)}</p>
+        <p class="note"><b>Tool class:</b> ${esc(info.tool)} · <b>Free route:</b> ${esc(info.free)}
+           · effort ${esc(info.effort)}, volume ${esc(info.volume)}</p></details>`:""}
+    </div>`}).join("") || `<p class="note">Complete the earlier steps first.</p>`;
+}
+function vTele(){
+  setTimeout(renderTele,0);
+  return `<h1>Can you actually see it?</h1>
+  <p class="lede">Set how much of your estate each source really covers. Possession is not assurance —
+     a source on 30% of hosts is not the same capability as one deployed everywhere, and the model
+     will not pretend otherwise.</p>
+  <div id="teleSum"></div>
+  <div style="margin-top:16px" id="teleList"></div>${nav("Assessment")}`;
+}
+
+/* --- step 6 --------------------------------------------------------- */
+function setScore(id,v){const r=S.resp[id]=S.resp[id]||{};
+  r.score=(r.score===v?null:v); save(); renderAssess()}
+function setEv(id,v){(S.resp[id]=S.resp[id]||{}).ev=v; save()}
+function renderAssess(){
+  const res=results();
+  document.getElementById("assessSum").innerHTML = M.domains.map(d=>{
+    const dd=res.doms.find(x=>x.id===d.id), tot=d.subcapabilities.filter(inProfile).length;
+    return `<span class="tag">${d.id} ${dd.n}/${tot}</span>`}).join("")
+    + ` · <b>${res.answered}</b> scored`;
+}
+function vAssess(){
+  setTimeout(renderAssess,0);
+  const P=profile();
+  return `<h1>How do you work?</h1>
+  <p class="lede">Scoped to your <b>${P}</b> profile. Score what is true today — intent belongs in
+     the target, not the score. A 4 or 5 needs a named artefact, or it counts as 3.</p>
+  <div class="card"><div id="assessSum"></div></div>
+  ${M.domains.map(d=>{
+    const subs=d.subcapabilities.filter(inProfile);
+    if(!subs.length)return "";
+    return `<details ${d.id==="TI"?"open":""}>
+      <summary>${d.id} — ${esc(d.name)} <span class="note">(${subs.length} in your profile, weight ${d.weight}%)</span></summary>
+      <div style="margin-top:10px">${subs.map(s=>{
+        const r=S.resp[s.id]||{}, flag=S.strict&&r.score>=4&&!(r.ev||"").trim();
+        return `<div class="sub ${flag?"flag":r.score!=null?"done":""}">
+          <div><b>${s.id}</b> ${esc(s.name)} <span class="tag">${s.profile}</span></div>
+          <p class="note" style="margin:5px 0">${esc(s.question)}</p>
+          <div class="lv">${[0,1,2,3,4,5].map(i=>
+            `<div class="${r.score===i?"on":""}" onclick="setScore('${s.id}',${i})" title="${esc(s.levels[i])}">
+              <b>Level ${i}</b>${esc(s.levels[i]).slice(0,74)}…</div>`).join("")}</div>
+          <input type="text" placeholder="Evidence — required for 4 or 5" value="${esc(r.ev||"")}"
+            oninput="setEv('${s.id}',this.value)">
+          ${flag?`<p class="note" style="color:var(--bad);margin-top:6px">No evidence named — this
+            counts as 3 until you record one.</p>`:""}
+        </div>`}).join("")}</div></details>`}).join("")}
+  ${nav("See results")}`;
+}
+
+/* --- step 7 --------------------------------------------------------- */
+function vResult(){
+  const res=results(), t=tiers(res), sc=scope(), as_=assurance(sc), recs=recommendations(sc,as_,8);
+  const tierA=Object.keys(sc.map).filter(i=>sc.map[i]==="A");
+  const blindA=tierA.filter(i=>(as_.per[i]||{}).band==="blind").map(i=>TECH[i].i);
+  if(res.overall==null)return `<h1>Nothing scored yet</h1>
+    <p class="lede">Go back to the assessment step and score at least one sub-capability.</p>${nav()}`;
+  return `<h1>${esc(S.org||"Your organisation")} — results</h1>
+  <p class="lede">${esc(S.date)} · profile ${esc(profile())} · ${res.answered} sub-capabilities scored</p>
+
+  <div class="grid g4">
+    <div class="kpi"><div class="v" style="color:${COL(res.overall)}">${res.overall.toFixed(2)}</div>
+      <div class="l">Maturity</div><div class="n">${BAND(res.overall)}</div></div>
+    <div class="kpi"><div class="v">Tier ${t.achieved}</div><div class="l">${esc(t.name)}</div>
+      <div class="n">${t.blocked?"Tier "+t.blocked.value+" blocked by "+t.fails.length+" gate(s)":"Top tier"}</div></div>
+    <div class="kpi"><div class="v" style="color:var(--bad)">${as_.blind}%</div><div class="l">Blind</div>
+      <div class="n">of ${as_.total} in-scope techniques</div></div>
+    <div class="kpi"><div class="v">${sc.counts.A}</div><div class="l">Tier A choke points</div>
+      <div class="n">${blindA.length} of them invisible</div></div>
+  </div>
+
+  ${t.blocked?`<div class="card" style="margin-top:16px"><h2 style="margin-top:0">What blocks Tier ${t.blocked.value} — ${esc(t.blocked.name)}</h2>
+    ${t.fails.map(f=>`<div class="msg"><b>${esc(f.ref)}</b> needs ${f.need}, you have ${f.got}. ${esc(f.why)}</div>`).join("")}
+    <p class="note">A tier needs the score <em>and</em> every gate. Score alone can be reached by being
+       broadly mediocre; the gates are what make the ladder mean something.</p></div>`:""}
+
+  ${blindA.length?`<div class="card"><h2 style="margin-top:0">Choke points you cannot see</h2>
+    <div class="msg bad">These sit on a modelled path to a crown jewel and you have no telemetry for
+      them. No detection rule can fix this — only collection can.</div>
+    ${blindA.map(id=>{const t2=TECH[TIDX[id]];
+      return `<span class="tag">${id} ${esc(t2.n)}</span>`}).join("")}</div>`:""}
+
+  <div class="card"><h2 style="margin-top:0">Maturity by domain</h2>
+    <table><tr><th>Domain</th><th style="width:70px">Score</th><th style="width:110px"></th>
+      <th>Band</th><th>Constraint</th></tr>
+    ${res.doms.map(d=>`<tr><td><b>${d.id}</b> ${esc(d.name)}</td>
+      <td>${d.adj==null?"—":d.adj.toFixed(2)}</td>
+      <td><div class="bar"><i style="width:${d.adj?d.adj/5*100:0}%;background:${COL(d.adj)}"></i></div></td>
+      <td>${BAND(d.adj)}</td><td class="note">${d.notes.join(", ")}</td></tr>`).join("")}
+    <tr><td><b>OVERALL</b></td><td><b>${res.overall.toFixed(2)}</b></td><td></td>
+      <td colspan="2"><b>${BAND(res.overall)}</b>${res.raw-res.overall>0.004
+        ? ` · self-assessed ${res.raw.toFixed(2)} before constraints`:""}</td></tr></table>
+    ${res.log.length?`<div style="margin-top:12px">${res.log.map(l=>`<div class="msg">${esc(l)}</div>`).join("")}</div>`:""}
+  </div>
+
+  <div class="card"><h2 style="margin-top:0">Telemetry to enable, highest value first</h2>
+    <p class="note" style="margin-bottom:12px">Ranked by how many in-scope techniques each unblocks.
+       Capabilities and free routes, never product recommendations.</p>
+    <table><tr><th>Log source</th><th style="width:80px">Unblocks</th><th>How</th>
+      <th style="width:150px">Free route</th></tr>
+    ${recs.map(r=>`<tr><td><b>${esc(r.src)}</b>${r.ch?`<br><span class="note">${esc(r.ch).slice(0,70)}</span>`:""}</td>
+      <td>${r.n}</td><td class="note">${esc(r.how||"Not yet catalogued — see ATT&CK analytics.").slice(0,190)}</td>
+      <td class="note">${esc(r.free||"—")}</td></tr>`).join("")}</table></div>
+
+  ${sc.notices.length?`<div class="card"><h2 style="margin-top:0">Scoping notices</h2>
+    ${sc.notices.map(n=>`<div class="msg">${esc(n)}</div>`).join("")}</div>`:""}
+
+  <div class="card noprint"><h2 style="margin-top:0">Now turn this into work</h2>
+    <p class="note">The roadmap ranks every gap. The action plan sequences the first ninety days.</p>
+    <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
+      <button class="btn" onclick="go(7)">See the roadmap →</button>
+      <button class="btn ghost" onclick="go(8)">Skip to the action plan</button>
+      <button class="btn ghost" onclick="loadExample()">Load example</button>
+    </div></div>
+  ${nav("Roadmap")}`;
+}
+
+/* --- step 8: roadmap ------------------------------------------------ */
+function vRoad(){
+  const res=results(); if(res.overall==null)return `<h1>Nothing scored yet</h1>
+    <p class="lede">Score some sub-capabilities first.</p>${nav()}`;
+  const sc=scope(), as_=assurance(sc), caps=capabilityGaps(res), tel=telemetryGaps(sc,as_);
+  return `<h1>What to fix, ranked</h1>
+  <p class="lede">Two kinds of gap, ranked separately because they are not the same currency.
+     Capability gaps move your maturity score. Telemetry gaps move what you can see at all —
+     and no amount of detection engineering substitutes for collection you do not have.</p>
+
+  <div class="card"><h2 style="margin-top:0">Capability gaps</h2>
+    <p class="note" style="margin-bottom:10px">Impact = domain weight × sub-capability weight × gap
+       to target. Mechanical, so the list is not driven by whoever argued hardest.</p>
+    <table><tr><th style="width:64px">Impact</th><th style="width:56px">ID</th><th>Sub-capability</th>
+      <th style="width:70px">Now → target</th><th>What the next level requires</th></tr>
+    ${caps.length?caps.slice(0,20).map(c=>`<tr>
+      <td><b style="color:var(--navy)">${c.impact.toFixed(1)}</b></td>
+      <td><b>${c.id}</b></td>
+      <td>${esc(c.name)}${c.quick?' <span class="tag" style="background:var(--okbg);color:var(--ok)">QUICK WIN</span>':""}
+        ${c.unlocks.length?`<span class="tag b">UNBLOCKS ${c.unlocks.join(", ")}</span>`:""}</td>
+      <td><span style="color:${COL(c.cur)};font-weight:700">${c.cur}</span> → ${c.target}</td>
+      <td class="note">${esc(c.next).slice(0,180)}</td></tr>`).join("")
+      :`<tr><td colspan="5" class="note">No capability gaps — every scored sub-capability is at target.</td></tr>`}
+    </table>${caps.length>20?`<p class="note" style="margin-top:8px">Showing the top 20 of ${caps.length}. Export the CSV for the rest.</p>`:""}
+  </div>
+
+  <div class="card"><h2 style="margin-top:0">Telemetry gaps</h2>
+    <p class="note" style="margin-bottom:10px">Ranked by in-scope techniques unblocked, weighted
+       toward Tier A choke points. Capabilities and free routes, never products.</p>
+    <table><tr><th style="width:64px">Unblocks</th><th>Log source</th><th>How to enable</th>
+      <th style="width:140px">Free route</th></tr>
+    ${tel.length?tel.slice(0,14).map(r=>`<tr>
+      <td><b>${r.n}</b>${r.tierA?`<br><span class="tag a">${r.tierA} Tier A</span>`:""}</td>
+      <td><b>${esc(r.src)}</b>${r.ch?`<br><span class="note">${esc(r.ch).slice(0,64)}</span>`:""}</td>
+      <td class="note">${esc(r.how||"Not yet catalogued — see ATT&CK analytics for this source.").slice(0,200)}</td>
+      <td class="note">${esc(r.free||"—")}</td></tr>`).join("")
+      :`<tr><td colspan="4" class="note">No telemetry gaps for the in-scope set.</td></tr>`}
+    </table></div>
+  ${nav("Action plan")}`;
+}
+
+/* --- step 9: action plan -------------------------------------------- */
+function phaseBlock(title,why,items){
+  if(!items.length)return "";
+  return `<div class="card"><h2 style="margin-top:0">${title}
+      <span class="tag">${items.length} item${items.length===1?"":"s"}</span></h2>
+    <p class="note" style="margin-bottom:12px">${why}</p>
+    ${items.map(i=>{
+      if(i.kind==="gate")return `<div class="sub" style="border-left:4px solid var(--bad)">
+        <div><span class="tag" style="background:var(--badbg);color:var(--bad)">TIER GATE</span>
+          <b>${i.id}</b> ${esc(i.name)}</div>
+        <p class="note" style="margin:6px 0">Needs level <b>${i.need}</b>, currently <b>${i.got}</b>.
+          This is what blocks Tier ${i.tier} — ${esc(i.tierName)}.</p>
+        <div style="font-size:13.5px"><b>Do this:</b> ${esc(i.next).slice(0,260)}</div>
+        <p class="note" style="margin-top:6px">${esc(i.why)}</p></div>`;
+      if(i.kind==="telemetry")return `<div class="sub" style="border-left:4px solid var(--warn)">
+        <div><span class="tag b">TELEMETRY</span> <b>${esc(i.src)}</b>
+          ${i.tierA?`<span class="tag a">${i.tierA} Tier A choke point${i.tierA===1?"":"s"}</span>`:""}
+          <span class="note">unblocks ${i.n} in-scope techniques</span></div>
+        <div style="font-size:13.5px;margin-top:6px"><b>Do this:</b> ${esc(i.how||"See ATT&CK analytics for this source.")}</div>
+        ${i.ch?`<p class="note" style="margin-top:5px"><b>Key channels:</b> ${esc(i.ch)}</p>`:""}
+        <p class="note"><b>Tool class:</b> ${esc(i.tool||"—")} · <b>Free route:</b> ${esc(i.free||"—")}
+          · effort ${esc(i.effort||"?")}, volume ${esc(i.volume||"?")}</p></div>`;
+      return `<div class="sub">
+        <div><b>${i.id}</b> ${esc(i.name)}
+          ${i.quick?'<span class="tag" style="background:var(--okbg);color:var(--ok)">QUICK WIN</span>':""}
+          ${i.unlocks.length?`<span class="tag b">UNBLOCKS ${i.unlocks.join(", ")}</span>`:""}
+          <span class="note">level ${i.cur} → ${i.target}, impact ${i.impact.toFixed(1)}</span></div>
+        <div style="font-size:13.5px;margin-top:6px"><b>Do this:</b> ${esc(i.next)}</div>
+        ${i.quick?`<p class="note" style="margin-top:5px">Why it is cheap: ${esc(i.quick)}</p>`:""}
+        ${i.unlockWhy?`<p class="note">${esc(i.unlockWhy)}</p>`:""}
+        <p class="note" style="border-left:2px solid var(--line);padding-left:9px;margin-top:6px">
+          <b>Done when you can show:</b> ${esc(i.evidence)}</p></div>`;
+    }).join("")}</div>`;
+}
+function vPlan(){
+  const res=results(); if(res.overall==null)return `<h1>Nothing scored yet</h1>
+    <p class="lede">Score some sub-capabilities first.</p>${nav()}`;
+  const sc=scope(), as_=assurance(sc), t=tiers(res), p=actionPlan(res,sc,as_,t);
+  const blindA=Object.keys(sc.map).filter(i=>sc.map[i]==="A"&&(as_.per[i]||{}).band==="blind");
+  let why="";
+  if(p.binding==="AV")why=`Adversarial validation is capping other domains, so the fastest route upward is to prove what you already have rather than build more. Emulation will raise several domain scores at once and tell you which of your existing detection is real.`;
+  else if(p.binding==="DC")why=`Telemetry is capping detection engineering. Every hour spent on detection content above that ceiling will not show up in your score, or in an incident.`;
+  else if(p.binding==="TI/TM")why=`Threat intelligence and threat modeling are capping telemetry and detection. You are collecting and building faster than you are deciding what matters, which is how estates end up with expensive noise.`;
+  else why=`No domain is capping another, so sequencing is a matter of weighted impact and cost.`;
+
+  return `<h1>What to do first</h1>
+  <p class="lede">Sequenced so dependencies come before the work that depends on them. Tier gates
+     first, because they are what actually blocks progression — then the things you cannot see,
+     then impact.</p>
+
+  <div class="card"><h2 style="margin-top:0">The situation in three lines</h2>
+    <p>${esc(S.org||"You")} scored <b>${res.overall.toFixed(2)}</b> — ${BAND(res.overall)} — and sit at
+      <b>Tier ${t.achieved}, ${esc(t.name)}</b>.
+      ${t.blocked?`Tier ${t.blocked.value} (${esc(t.blocked.name)}) is blocked by
+      ${t.fails.length} unmet gate${t.fails.length===1?"":"s"}.`:"You are at the top tier."}</p>
+    <p>${why}</p>
+    <p>Of ${as_.total} in-scope techniques, <b>${as_.blind}%</b> are invisible with your current
+      collection${blindA.length?`, including <b>${blindA.length}</b> choke point${blindA.length===1?"":"s"} on a
+      path to a crown jewel`:""}. No detection rule fixes that — only collection does.</p>
+  </div>
+
+  ${phaseBlock("Now — first 30 days",
+    "Unmet tier gates, invisible choke points, and work that is cheap enough to start on Monday.",p.now)}
+  ${phaseBlock("Next — 30 to 90 days",
+    "Highest weighted impact once the binding constraint is moving.",p.next)}
+  ${p.later.length?`<div class="card"><h2 style="margin-top:0">Beyond 90 days
+      <span class="tag">${p.later.length} items</span></h2>
+    <p class="note">Structural work with longer lead times — programme, governance and capabilities
+      needing funding cycles or hiring. Track them; do not start them first.</p>
+    <table><tr><th style="width:80px">Type</th><th>Item</th><th style="width:80px">Impact</th></tr>
+    ${p.later.slice(0,18).map(i=>`<tr><td>${i.kind==="telemetry"?"Telemetry":"Capability"}</td>
+      <td>${i.kind==="telemetry"?esc(i.src):"<b>"+i.id+"</b> "+esc(i.name)}</td>
+      <td>${i.kind==="telemetry"?i.n+" tech":i.impact.toFixed(1)}</td></tr>`).join("")}</table></div>`:""}
+
+  <div class="card"><h2 style="margin-top:0">How to run this</h2>
+    <div style="font-size:13.5px">
+      <p><b>1. Put it where the work happens.</b> Export the CSV into whatever your team actually
+        uses. A plan that lives only in this browser will not get done.</p>
+      <p><b>2. Give every item an owner and a date.</b> Unowned items are aspirations.</p>
+      <p><b>3. Treat the evidence line as the acceptance criterion.</b> An item is finished when the
+        named artefact exists and someone other than the author has seen it.</p>
+      <p><b>4. Re-run in six months, not twelve.</b> Keep the same scope and in-scope technique set,
+        or the comparison is meaningless. Import your saved JSON to edit the same baseline.</p>
+      <p><b>5. Report the constraint log, not just the score.</b> The line saying a domain was capped
+        is the part that changes funding decisions.</p>
+    </div></div>
+
+  <div class="card"><h2 style="margin-top:0">For the board</h2>
+    <p style="border-left:3px solid var(--accent);padding-left:12px">
+      As of ${esc(S.date)}, ${esc(S.org||"the organisation")} assesses its threat-informed detection
+      capability at <b>${res.overall.toFixed(2)} out of 5</b> (Tier ${t.achieved}, ${esc(t.name)})
+      against TID-CMM v${M.model.version}, aligned to MITRE ATT&amp;CK Enterprise
+      v${M.alignment.attack.version}.
+      ${res.raw-res.overall>0.004?`The unadjusted self-assessment was ${res.raw.toFixed(2)}; the
+      published figure is lower because the model reduces scores where capability is claimed
+      without evidence that it works. `:""}
+      Of the ${as_.total} adversary techniques judged relevant to our estate, ${as_.blind}% generate
+      no telemetry we collect and therefore cannot be detected at any level of effort in detection
+      engineering.
+      ${p.binding==="AV"?`Our capability is limited not by what we have built but by what we have
+      tested; establishing a standing adversary emulation capability is the highest-return
+      investment available to us. `:""}
+      ${t.blocked?`Reaching Tier ${t.blocked.value} requires closing ${t.fails.length} specific
+      gap${t.fails.length===1?"":"s"}, named in the plan. `:""}
+      We will re-assess on the same scope in six months and report the movement.</p>
+    <p class="note">Assumptions: scores are self-assessed${S.strict?" with the model's integrity constraints applied":" with constraints disabled — do not report this figure externally"}; profile ${esc(profile())}; scope as recorded in step 1.</p></div>
+
+  <div class="card noprint"><h2 style="margin-top:0">Take it with you</h2>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="btn" onclick="window.print()">Print / save as PDF</button>
+      <button class="btn ghost" onclick="exportPlanCSV()">Export action plan (CSV)</button>
+      <button class="btn ghost" onclick="exportCSV()">Export assessment (CSV)</button>
+      <button class="btn ghost" onclick="exportJSON()">Export JSON</button>
+      <button class="btn ghost" onclick="document.getElementById('imp2').click()">Import</button>
+      <input type="file" id="imp2" accept="application/json" style="display:none" onchange="importJSON(event)">
+      <button class="btn ghost" onclick="loadExample()">Load example</button>
+      <button class="btn ghost" onclick="reset()">Clear</button>
+    </div>
+    <p class="note" style="margin-top:10px">Everything stays in this browser. Nothing is
+      transmitted — there is no server to transmit it to.</p></div>
+  ${nav()}`;
+}
+
+/* ------------------------------------------------------------- export */
+function dl(b,n){const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=n;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+function exportJSON(){dl(new Blob([JSON.stringify(S,null,2)],{type:"application/json"}),
+  `tid-cmm-${(S.org||"assessment").replace(/\W+/g,"-").toLowerCase()}.json`)}
+// Imported assessments are untrusted input: a shared file is exactly the vector a
+// stored-XSS would arrive through. Everything is coerced to a known shape and type
+// before it reaches state, so no render site can be tricked by a crafted value.
+const STR=(v,max)=>typeof v==="string"?v.slice(0,max||400):"";
+const NUM=(v,lo,hi)=>{const n=Number(v);return Number.isFinite(n)?Math.min(hi,Math.max(lo,Math.round(n))):null};
+const ONEOF=(v,list,dflt)=>list.includes(v)?v:dflt;
+function sanitise(raw){
+  if(!raw||typeof raw!=="object")throw new Error("not an object");
+  const d=S.env, e=raw.env&&typeof raw.env==="object"?raw.env:{};
+  const opt=k=>Object.keys((D.maps.log_source[k])||{});
+  const env={
+    windows:!!e.windows, linux:!!e.linux, macos:!!e.macos,
+    estate:ONEOF(e.estate,["on-premises","hybrid","cloud-native","saas-only","ot-ics","developer-platform"],d.estate),
+    cloud:ONEOF(e.cloud,opt("cloud"),d.cloud),
+    productivity:ONEOF(e.productivity,opt("productivity"),d.productivity),
+    identity:ONEOF(e.identity,opt("identity"),d.identity),
+    endpoint_telemetry:ONEOF(e.endpoint_telemetry,opt("endpoint_telemetry"),d.endpoint_telemetry),
+    network_telemetry:ONEOF(e.network_telemetry,opt("network_telemetry"),d.network_telemetry),
+    workload:ONEOF(e.workload,opt("workload"),d.workload),
+    operating_model:ONEOF(e.operating_model,["no-soc","fully-outsourced","hybrid-mssp","in-house-soc"],d.operating_model),
+    regulated:!!e.regulated,
+    size:ONEOF(e.size,["small","medium","large"],d.size),
+  };
+  const known=new Set(); M.domains.forEach(x=>x.subcapabilities.forEach(y=>known.add(y.id)));
+  const resp={};
+  Object.entries(raw.resp&&typeof raw.resp==="object"?raw.resp:{}).forEach(([k,v])=>{
+    if(!known.has(k)||!v||typeof v!=="object")return;
+    resp[k]={score:NUM(v.score,0,5),target:NUM(v.target,0,5),ev:STR(v.ev,600)};
+  });
+  const tset=new Set(TECH.map(t=>t.i)), aset=new Set(ACTORS.map(a=>a.i)), sset=new Set(SRC);
+  const cov={};
+  Object.entries(raw.coverage&&typeof raw.coverage==="object"?raw.coverage:{}).forEach(([k,v])=>{
+    if(sset.has(k)){const n=NUM(v,0,100); if(n!=null)cov[k]=n}});
+  return {
+    step:NUM(raw.step,0,STEPS.length-1)||0,
+    org:STR(raw.org,160), assessor:STR(raw.assessor,160),
+    date:/^\d{4}-\d{2}-\d{2}$/.test(raw.date)?raw.date:new Date().toISOString().slice(0,10),
+    env,
+    profileOverride:ONEOF(raw.profileOverride,["essential","standard","comprehensive",""],""),
+    jewels:(Array.isArray(raw.jewels)?raw.jewels:[]).slice(0,40)
+             .map(j=>({name:STR(j&&j.name,160),why:STR(j&&j.why,300)})),
+    actors:(Array.isArray(raw.actors)?raw.actors:[]).filter(x=>aset.has(x)).slice(0,400),
+    paths:(Array.isArray(raw.paths)?raw.paths:[]).filter(x=>tset.has(x)).slice(0,700),
+    coverage:cov, resp, strict:raw.strict!==false,
+  };
+}
+function importJSON(e){const f=e.target.files[0];if(!f)return;
+  if(f.size>8*1024*1024){alert("That file is unexpectedly large; not importing.");e.target.value="";return}
+  const r=new FileReader();
+  r.onload=()=>{try{S=sanitise(JSON.parse(r.result));save();render();
+      alert("Imported. Values outside the model were discarded.")}
+    catch(x){alert("Could not read that file: "+x.message)}};
+  r.readAsText(f);e.target.value=""}
+function exportCSV(){
+  const res=results(),rows=[["Domain","ID","Sub-capability","Profile","Score","Evidence"]];
+  M.domains.forEach(d=>d.subcapabilities.forEach(s=>{const r=S.resp[s.id]||{};
+    rows.push([d.id,s.id,s.name,s.profile,r.score==null?"":r.score,r.ev||""])}));
+  rows.push([],["DOMAIN","","","","Score",""]);
+  res.doms.forEach(d=>rows.push(["DOMAIN",d.id,d.name,"",d.adj==null?"":d.adj.toFixed(2),d.notes.join(" ")]));
+  rows.push(["OVERALL","","","",res.overall==null?"":res.overall.toFixed(2),BAND(res.overall)]);
+  const csv=rows.map(r=>r.map(c=>{const s=String(c==null?"":c);
+    return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\n");
+  dl(new Blob([csv],{type:"text/csv"}),"tid-cmm-results.csv")}
+function exportPlanCSV(){
+  const res=results(); if(res.overall==null){alert("Score something first.");return}
+  const sc=scope(),as_=assurance(sc),t=tiers(res),p=actionPlan(res,sc,as_,t);
+  const rows=[["Phase","Type","ID / source","Item","Now","Target","Impact","Unblocks","Do this","Done when you can show","Owner","Due"]];
+  const add=(ph,i)=>rows.push([ph,
+    i.kind==="gate"?"Tier gate":i.kind==="telemetry"?"Telemetry":"Capability",
+    i.kind==="telemetry"?i.src:i.id, i.kind==="telemetry"?(i.what||""):i.name,
+    i.kind==="capability"?i.cur:(i.kind==="gate"?i.got:""),
+    i.kind==="capability"?i.target:(i.kind==="gate"?i.need:""),
+    i.kind==="telemetry"?i.n+" techniques":(i.impact?i.impact.toFixed(1):""),
+    i.kind==="telemetry"?(i.tierA?i.tierA+" Tier A":""):(i.unlocks||[]).join(" "),
+    i.kind==="telemetry"?(i.how||""):(i.next||""),
+    i.kind==="telemetry"?(i.free||""):(i.evidence||""),"",""]);
+  p.now.forEach(i=>add("Now (0-30 days)",i));
+  p.next.forEach(i=>add("Next (30-90 days)",i));
+  p.later.forEach(i=>add("Beyond 90 days",i));
+  const csv=rows.map(r=>r.map(c=>{const s2=String(c==null?"":c);
+    return /[",\n]/.test(s2)?'"'+s2.replace(/"/g,'""')+'"':s2}).join(",")).join("\n");
+  dl(new Blob([csv],{type:"text/csv"}),"tid-cmm-action-plan.csv")}
+function reset(){if(!confirm("Clear everything, including the copy saved in this browser?"))return;
+  try{localStorage.removeItem(KEY)}catch(e){}
+  location.reload()}
+function loadExample(){
+  S.org="Northgate Financial Services (example)";
+  S.env={windows:true,linux:true,macos:false,estate:"hybrid",cloud:"azure",productivity:"microsoft-365",
+    identity:"entra-id",endpoint_telemetry:"native-os-logging-only",network_telemetry:"flow-only",
+    workload:"servers",operating_model:"hybrid-mssp",regulated:true,size:"medium"};
+  S.jewels=[{name:"Core banking database",why:"Regulatory and customer impact"},
+            {name:"Payment file transfer",why:"Direct financial loss"}];
+  S.actors=["G0102"];
+  S.paths=["T1566.001","T1204.002","T1059.001","T1547.001","T1003.001","T1021.001","T1486","T1490"];
+  S.coverage={"WinEventLog:Security":92,"WinEventLog:System":90,"linux:syslog":45};
+  S.resp={};
+  const base={TI:3,TM:1,DC:3,DE:3,AV:1,AA:2,IR:3,GV:2};
+  M.domains.forEach(d=>d.subcapabilities.forEach(s=>{S.resp[s.id]={score:base[d.id],target:4,ev:""}}));
+  S.resp["DC.1"].ev="Log source inventory LSI-2026-Q2, owner attested";
+  S.step=8; save(); render();
+}
+load(); render();
+</script>
+</body>
+</html>

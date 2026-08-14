@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TID-CMM — Detection Maturity Model &amp; Free ATT&amp;CK Coverage Assessment</title>
+<meta name="description" content="Free detection maturity assessment. Measure MITRE ATT&amp;CK coverage honestly, find the techniques you cannot detect with your current telemetry, and get a ranked plan. Open model, {{DOMAINS}} domains, {{SUBCAPS}} sub-capabilities, ATT&amp;CK v{{ATTACK_VERSION}}.">
+<link rel="canonical" href="https://tid-cmm.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TID-CMM — Threat-Informed Detection Capability Maturity Model">
+<meta property="og:description" content="Measure whether your detection capability is driven by adversary behaviour — and whether it has been proven to work.">
+<meta property="og:url" content="https://tid-cmm.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://tid-cmm.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://tid-cmm.com/og-image.png">
+<meta property="og:site_name" content="TID-CMM">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/shared.css">
+<script src="/shared.js"></script>
+</head>
+<body>
+
+<div class="topbar"><div class="inner">
+  <a class="logo" href="/">TID-CMM<small>Threat-Informed Detection Capability Maturity Model</small><em>Created by Reza Adineh</em></a>
+  <nav>
+    <a href="/#model">The model</a>
+    <a href="/guide">Assessment guide</a>
+    <a href="/scoring">Scoring</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/api">API</a>
+    <button class="iconbtn" id="themebtn" onclick="toggleTheme()">☾ Dark</button>
+    <a href="/assess" class="cta">Start assessment</a>
+  </nav>
+</div></div>
+
+<div class="hero"><div class="inner">
+  <h1>Would you actually see the adversaries<br>most likely to attack you?</h1>
+  <p class="lede">Most organisations cannot answer that. They can tell you how many rules they run and how many
+    alerts they close — neither of which measures capability. TID-CMM measures whether your detection is driven
+    by adversary behaviour, and whether it has been <em>proven</em> to work.</p>
+  <div class="btnrow">
+    <a class="btn" href="/assess">Start the free assessment →</a>
+    <a class="btn outline" href="/downloads/TID-CMM-White-Paper-v{{FILEV}}.pdf">Read the white paper (PDF)</a>
+    <a class="btn outline" href="/downloads">All downloads</a>
+  </div>
+  <p class="meta">Version {{VERSION}} · {{DOMAINS}} domains · {{SUBCAPS}} sub-capabilities · aligned to MITRE ATT&amp;CK Enterprise
+    v{{ATTACK_VERSION}} ({{TECHNIQUES}} techniques) · crosswalked to NIST CSF 2.0, SOC-CMM and ISO/IEC 27001:2022 ·
+    open licence, nothing to buy, nothing to install.</p>
+</div></div>
+
+<div class="wrap">
+
+  <section class="band">
+    <h2>The problem</h2>
+    <p class="sub">A rule that has never fired on a true positive, running on a log source that stopped reporting six
+      weeks ago, mapped to a technique your adversaries do not use, counts exactly the same as a detection proven to
+      catch a real intrusion in minutes. Every standard metric treats them identically.</p>
+    <div class="grid g3">
+      <div class="card">
+        <h3>Coverage claimed without visibility</h3>
+        <p>A rule exists, is enabled, is mapped to a technique — and cannot fire, because the data source is deployed
+          on 60% of the estate or stopped parsing after an agent upgrade. Nothing tests it. Nothing monitors it.</p>
+      </div>
+      <div class="card">
+        <h3>Detection built without a threat model</h3>
+        <p>Enable a content subscription and matrix coverage rises impressively. But the adversary who matters doesn't
+          need a technique the content covers — they need the path through your estate that nobody modelled.</p>
+      </div>
+      <div class="card">
+        <h3>Capability asserted without evidence</h3>
+        <p>"Would we detect credential dumping?" "There's a rule for it, so yes." That answer then reaches a risk
+          register, a board pack and a budget decision. It is tested for the first time by an adversary.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="telemetry">
+    <h2>Detection is bounded by visibility, and now that is measurable</h2>
+    <p class="sub">MITRE ATT&amp;CK v19 replaced its old data-source model with detection strategies
+      and analytics that reference <em>concrete log sources and channels</em>. That turns a caveat
+      into a computation.</p>
+    <blockquote><b>423 techniques — 89% of all Windows techniques in ATT&amp;CK Enterprise v19.2 —
+      have detection analytics that reference Sysmon.</b> For 20 of them, Sysmon is the only log
+      source referenced. If you do not run it or an EDR supplying equivalent process, command line
+      and module telemetry, that is not a gap in your rule set. It is a gap in physics.</blockquote>
+    <p>TID-CMM computes this for the techniques <em>you</em> scoped as relevant, bands each one as
+      assured, partial, weak or blind against how much of your estate each source actually covers,
+      and ranks what to enable by how many in-scope techniques it unblocks — naming capabilities and
+      free routes, never products.</p>
+    <p><a class="btn solid small" href="/assess">Check your telemetry assurance &rarr;</a></p>
+  </section>
+
+  <section class="band" id="model">
+    <h2>What makes this different</h2>
+    <p class="sub">Three deliberate design decisions, and they are the whole point.</p>
+    <div class="grid g3">
+      <div class="card">
+        <span class="pill">1</span>
+        <h3>Validation is a domain, not a footnote</h3>
+        <p>Atomic testing, breach and attack simulation, threat-actor emulation, purple teaming, penetration testing
+          and red teaming are scored together as the evidence engine of the model.</p>
+      </div>
+      <div class="card">
+        <span class="pill">2</span>
+        <h3>Threat modeling and attack paths are a domain</h3>
+        <p>Attack trees with every node mapped to ATT&amp;CK and every leaf carrying a prevent/detect/accept decision.
+          Computed attack paths through identity and cloud entitlement. Traceability from a modelled node to a
+          deployed detection.</p>
+      </div>
+      <div class="card">
+        <span class="pill">3</span>
+        <h3>The assessment cannot flatter itself</h3>
+        <p>Four integrity constraints are applied mechanically at scoring time. Exhortation to "be honest" does not survive a budget cycle. Arithmetic does.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px">The four integrity constraints</h3>
+    <table>
+      <tr><th style="width:60px">ID</th><th style="width:190px">Constraint</th><th>Rule</th></tr>
+      <tr><td><b>C1</b></td><td>Validation ceiling</td>
+          <td>No domain may exceed the validation domain score + 1. <em>An untested capability is an assumed capability.</em></td></tr>
+      <tr><td><b>C2</b></td><td>Visibility ceiling</td>
+          <td>Detection engineering may not exceed telemetry coverage + 1. <em>Detection logic cannot outrun its data.</em></td></tr>
+      <tr><td><b>C3</b></td><td>Evidence rule</td>
+          <td>A score of 4 or 5 with no named artefact is counted as 3.</td></tr>
+      <tr><td><b>C4</b></td><td>Intent ceiling</td>
+          <td>Telemetry and detection may not exceed threat intelligence and threat modeling + 1.
+              <em>Sensors without architectural intent produce noise, not defence.</em></td></tr>
+    </table>
+
+    <blockquote>In the worked example, an organisation with genuinely strong security operations self-assesses at
+      <b>2.44</b> and scores <b>2.34</b> after constraints — because four separate domains were capped by a validation
+      score of 1.63. The model does not merely report a lower number. It identifies the single investment that would
+      raise every other domain.</blockquote>
+  </section>
+
+  <section class="band">
+    <h2>The eight domains</h2>
+    <p class="sub">Each scored 0–5 against explicit descriptors, weighted, and rolled up. Weights are exposed as
+      editable parameters in every tool, because they are a judgement and you should be able to argue with them.</p>
+    <table>
+      <tr><th style="width:58px">ID</th><th>Domain</th><th style="width:82px">Weight</th>
+          <th style="width:70px">Sub-caps</th><th>The question it answers</th></tr>
+      {{DOMAIN_ROWS}}
+    </table>
+  </section>
+
+  <section class="band">
+    <h2>Honest coverage, not a green matrix</h2>
+    <p class="sub">TID-CMM replaces "% of ATT&amp;CK covered" with the Validated Coverage Score, computed only over the
+      techniques you have scoped as genuinely relevant to your platforms and threat profile.</p>
+    <div class="grid g2">
+      <div class="card">
+        <table style="box-shadow:none;border:0">
+          <tr><th style="width:76px">Status</th><th>Meaning</th></tr>
+          <tr><td><b>0</b></td><td>No telemetry — you are blind</td></tr>
+          <tr><td><b>1</b></td><td>Telemetry only — queryable, nothing alerts</td></tr>
+          <tr><td><b>2</b></td><td>Detection logic exists — deployed and healthy, but unproven</td></tr>
+          <tr><td><b>3</b></td><td>Validated by emulation — proven to fire, within the recency window</td></tr>
+        </table>
+        <p class="note" style="margin-top:12px">Status 3 expires. A detection proven eighteen months ago, across two
+          platform migrations and a schema change, is not proven now.</p>
+      </div>
+      <div class="card">
+        <h3>Why it matters</h3>
+        <p>In the worked example the organisation would report <b>48.9% ATT&amp;CK coverage</b> — a respectable figure
+          that would pass unchallenged in most board packs.</p>
+        <p>The proportion it has actually proven is <b>12.7%</b>.</p>
+        <p>The gap between those two numbers is the entire argument for this model.</p>
+        <div class="grid g2" style="margin-top:18px">
+          <div><div class="num" style="color:var(--l2)">48.9%</div><div class="numlabel">Has detection logic</div></div>
+          <div><div class="num" style="color:var(--l0)">12.7%</div><div class="numlabel">Actually proven</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2>What you get</h2>
+    <p class="sub">Open licence. No account, no email address, no sales call.</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>The assessment tool</h3>
+        <p>Seven guided steps that follow the model's own logic: what you run, what you protect, who targets you,
+          how they would reach it, what you can see, how you work, where you stand.</p>
+        <p>It derives your in-scope ATT&amp;CK set from your environment, your threat actors and your attack paths —
+          typically 200 techniques rather than 697 — then tells you which of them you are
+          <b>structurally unable to detect</b> with the telemetry you have, and exactly what to enable.</p>
+        <p>Runs entirely in your browser. No server, no analytics, no network requests.</p>
+        <a class="btn solid small" href="/assess">Start the assessment →</a>
+      </div>
+      <div class="card">
+        <h3>Everything else</h3>
+        <ul>
+          <li><b>White paper</b> — {{PAGES}} pages: rationale, positioning against SOC-CMM, DEBMM, CTEM and NIST CSF 2.0, the full model, method and worked example.</li>
+          <li><b>Excel workbook</b> — 15 tabs, live formulas, radar chart, all {{TECHNIQUES}} ATT&amp;CK techniques, ranked roadmap.</li>
+          <li><b>Worked example</b> — a completed assessment, pre-filled.</li>
+          <li><b>Machine-readable model</b> — YAML, JSON Schema, Python scoring engine.</li>
+          <li><b>ATT&amp;CK dataset</b> — normalised, with required data components per technique.</li>
+        </ul>
+        <a class="btn solid small" href="/downloads">All downloads →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2>How it fits what you already run</h2>
+    <p class="sub">TID-CMM is designed to sit alongside your existing frameworks, not replace them.</p>
+    <table>
+      <tr><th style="width:200px">Framework</th><th>Relationship</th></tr>
+      <tr><td><b>MITRE ATT&amp;CK</b></td><td>Consumed. Every coverage claim is anchored to technique and sub-technique IDs at v{{ATTACK_VERSION}}.</td></tr>
+      <tr><td><b>SOC-CMM</b></td><td>Complementary. SOC-CMM assesses the SOC as an operating unit; TID-CMM asks whether it would see the adversary. Crosswalked per sub-capability.</td></tr>
+      <tr><td><b>NIST CSF 2.0</b></td><td>Reporting layer. Every sub-capability maps to CSF outcomes, so an assessment feeds existing reporting without a second exercise.</td></tr>
+      <tr><td><b>Elastic DEBMM</b></td><td>Overlapping and compatible. DEBMM goes deeper on detection engineering; TID-CMM covers the whole loop.</td></tr>
+      <tr><td><b>Gartner CTEM</b></td><td>Complementary. CTEM asks whether an exposure can be exploited; TID-CMM asks whether the exploitation would be seen.</td></tr>
+      <tr><td><b>ISO/IEC 27001:2022</b></td><td>Control-existence oriented. TID-CMM is the evidence layer underneath.</td></tr>
+    </table>
+  </section>
+
+  <section class="band">
+    <h2>Start here</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3>Half a day</h3>
+        <p>Run a rapid self-assessment to get a baseline and see which conversations you need to have. Don't report
+          the number yet.</p>
+        <a class="btn solid small" href="/assess">Open the tool</a>
+      </div>
+      <div class="card">
+        <h3>Two weeks</h3>
+        <p>Run a structured assessment with evidence and the right people in the room. Read the guide first — the
+          participation set and the scoping step both matter more than the scoring.</p>
+        <a class="btn solid small" href="/guide">Read the guide</a>
+      </div>
+      <div class="card">
+        <h3>Contribute</h3>
+        <p>The model is open and versioned. Descriptors, weights and crosswalks are all open to challenge. If a level
+          descriptor doesn't match what you see in practice, say so with the counter-example.</p>
+        <a class="btn solid small" href="{{REPO}}">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="faq">
+    <h2>Common questions</h2>
+
+    <h3>What is a threat-informed detection capability maturity model?</h3>
+    <p>A threat-informed detection capability maturity model measures whether an organisation's
+      threat detection is driven by the behaviour of the adversaries most likely to attack it, and
+      whether that detection has been proven to work. TID-CMM scores eight domains and
+      {{SUBCAPS}} sub-capabilities from 0 to 5, anchored to MITRE ATT&amp;CK Enterprise
+      v{{ATTACK_VERSION}}.</p>
+
+    <h3>Is 100% MITRE ATT&amp;CK coverage a realistic goal?</h3>
+    <p>No. ATT&amp;CK is a catalogue of behaviour observed across all sectors and platforms, not a
+      requirements list. Of its {{TECHNIQUES}} techniques, 475 are sub-techniques, and the
+      techniques are not comparable units, so summing them into a percentage is misleading. A
+      realistic goal is deep, validated coverage of a scoped set derived from your platforms, your
+      prioritised threat actors and your attack paths — typically 150 to 250 techniques.</p>
+
+    <h3>How do I know whether I have the telemetry to detect a technique?</h3>
+    <p>Compare the log sources each technique's ATT&amp;CK detection analytics require against what
+      you actually collect, weighted by how much of your estate each source covers. TID-CMM computes
+      this automatically and reports each technique as assured, partial, weak or blind, then ranks
+      the telemetry to enable by how many in-scope techniques it unblocks.</p>
+
+    <h3>How much of MITRE ATT&amp;CK depends on Sysmon?</h3>
+    <p>423 techniques — 89% of all Windows techniques in ATT&amp;CK Enterprise v19.2 — have
+      detection analytics that reference Sysmon. For 20 of them Sysmon is the only log source
+      referenced. Organisations without Sysmon or an EDR providing equivalent process, command line
+      and module telemetry are structurally unable to detect those behaviours.</p>
+
+    <h3>Is TID-CMM free?</h3>
+    <p>Yes. The model is licensed CC-BY-4.0 and the tooling Apache-2.0. The assessment tool, Excel
+      workbook, white paper and datasets are free to download and use commercially with attribution.
+      There is no account, no certification scheme and nothing to buy.</p>
+  </section>
+
+</div>
+
+<footer><div class="inner">
+  <p><b>TID-CMM</b> v{{VERSION}} · released {{RELEASED}} ·
+     <a href="/downloads">Downloads</a> · <a href="/guide">Guide</a> ·
+     <a href="/scoring">Scoring</a> · <a href="/api">API</a> ·
+     <a href="{{REPO}}">GitHub</a> · <a href="mailto:{{CONTACT}}">{{CONTACT}}</a></p>
+  <p>Model content licensed CC-BY-4.0 · code and tooling Apache-2.0 · commercial use permitted with attribution.
+     Assessments are self-declared; there is no certification scheme.</p>
+  <p>Created and maintained by <b>Reza Adineh</b>.</p>
+  <p style="opacity:.7">MITRE ATT&amp;CK® is a registered trademark of The MITRE Corporation. This project is not
+     affiliated with or endorsed by MITRE, NIST or SOC-CMM.</p>
+</div></footer>
+
+</body>
+</html>

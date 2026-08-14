@@ -1,0 +1,36 @@
+name: Telemetry catalogue entry
+description: Add or correct guidance for a log source
+title: "[telemetry] source:name"
+labels: ["data", "telemetry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        32 of the 266 log sources ATT&CK references are catalogued. Adding one means an
+        organisation gets told how to turn it on rather than only that it is missing.
+        **No product recommendations** — name the capability class and a free route.
+  - type: input
+    id: source
+    attributes:
+      label: ATT&CK log source name
+      placeholder: "WinEventLog:Sysmon"
+    validations: { required: true }
+  - type: textarea
+    id: how
+    attributes:
+      label: How to enable it
+      description: Include the traps. The ones that silently produce useless data are the most valuable.
+    validations: { required: true }
+  - type: input
+    id: channels
+    attributes:
+      label: Key channels or event IDs
+  - type: input
+    id: free
+    attributes:
+      label: Open-source route
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Effort
+      options: ["low", "medium", "high"]

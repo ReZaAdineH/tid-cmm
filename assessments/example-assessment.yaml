@@ -1,0 +1,356 @@
+# TID-CMM worked example — mature operations, weak threat modeling and validation.
+# Note how C1 and C4 pull the headline below the self-assessed figure.
+organisation: Northgate Financial Services (illustrative example)
+assessed_on: '2026-08-10'
+assessor: Internal assessment, reviewed by external assessor
+scope: Group SOC covering UK and EU entities. Excludes the recently acquired payments subsidiary.
+strict: true
+responses:
+  TI.1:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Head of CTI
+    notes: ''
+  TI.2:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Head of CTI
+    notes: ''
+  TI.3:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Head of CTI
+    notes: ''
+  TI.4:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Head of CTI
+    notes: ''
+  TI.5:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Head of CTI
+    notes: ''
+  TI.6:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Head of CTI
+    notes: ''
+  TM.1:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Security Architecture
+    notes: ''
+  TM.2:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Security Architecture
+    notes: ''
+  TM.7:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: ''
+    notes: added in v1.1
+  TM.3:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Security Architecture
+    notes: ''
+  TM.4:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Security Architecture
+    notes: ''
+  TM.5:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Security Architecture
+    notes: ''
+  TM.6:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Security Architecture
+    notes: ''
+  DC.1:
+    score: 3
+    target: 4
+    evidence: Log source inventory (LSI-2026-Q2) with owner attestation, reviewed 2026-05-14
+    owner: Detection Platform Lead
+    notes: ''
+  DC.2:
+    score: 4
+    target: 4
+    evidence: Data quality dashboard with SLOs per source; canary events on 22 of 41 sources
+    owner: Detection Platform Lead
+    notes: ''
+  DC.3:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Detection Platform Lead
+    notes: ''
+  DC.4:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Detection Platform Lead
+    notes: ''
+  DC.5:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Detection Platform Lead
+    notes: ''
+  DC.6:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Detection Platform Lead
+    notes: ''
+  DE.1:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.2:
+    score: 4
+    target: 4
+    evidence: 'GitHub repo sec-detections, branch protection + CODEOWNERS, CI run #4821'
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.3:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.4:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.5:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.6:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.7:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.8:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Detection Engineering Lead
+    notes: ''
+  DE.9:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: ''
+    notes: added in v1.1
+  DE.10:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: ''
+    notes: added in v1.1
+  AV.1:
+    score: 3
+    target: 4
+    evidence: Atomic Red Team runner results, quarterly run 2026-Q2, 214 tests
+    owner: Purple Team Lead
+    notes: ''
+  AV.2:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AV.3:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AV.4:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AV.5:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AV.6:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AV.7:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AV.8:
+    score: 1
+    target: 4
+    evidence: ''
+    owner: Purple Team Lead
+    notes: ''
+  AA.1:
+    score: 4
+    target: 4
+    evidence: SOAR enrichment spec v3.1; triage-time study 2026-03 (18min -> 6min)
+    owner: SOC Manager
+    notes: ''
+  AA.2:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: SOC Manager
+    notes: ''
+  AA.3:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: SOC Manager
+    notes: ''
+  AA.4:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: SOC Manager
+    notes: ''
+  AA.5:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: SOC Manager
+    notes: ''
+  AA.7:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: ''
+    notes: added in v1.1
+  AA.6:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: SOC Manager
+    notes: ''
+  AA.8:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: ''
+    notes: added in v1.1
+  IR.1:
+    score: 4
+    target: 4
+    evidence: IR-PLAN-v4.2 and 9 scenario playbooks; ransomware playbook exercised 2026-04-22
+    owner: Incident Response Manager
+    notes: ''
+  IR.2:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Incident Response Manager
+    notes: ''
+  IR.3:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Incident Response Manager
+    notes: ''
+  IR.4:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Incident Response Manager
+    notes: ''
+  IR.5:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Incident Response Manager
+    notes: ''
+  IR.6:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Incident Response Manager
+    notes: ''
+  GV.1:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''
+  GV.2:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''
+  GV.3:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''
+  GV.4:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''
+  GV.5:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''
+  GV.6:
+    score: 3
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''
+  GV.7:
+    score: 2
+    target: 4
+    evidence: ''
+    owner: Deputy CISO
+    notes: ''

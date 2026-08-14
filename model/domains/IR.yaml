@@ -1,0 +1,145 @@
+---
+domain:
+  id: IR
+  name: Incident Response & Recovery
+  weight: 10
+  intent: >
+    Detection without response is an expensive alarm. This domain measures the
+    organisation's ability to act on what it detects, and — uniquely in this model —
+    the strength of the feedback path from incidents back into detection.
+  anti_pattern: >
+    A polished incident response plan that has never been exercised, and post-incident
+    reviews that produce lessons "identified" but never engineered.
+
+subcapabilities:
+  - id: IR.1
+    name: Response plan, playbooks and readiness
+    weight: 18
+    profile: essential
+    question: >
+      Are there current, tested response procedures covering the scenarios the
+      threat profile says are most likely?
+    levels:
+      0: No documented incident response plan.
+      1: A generic plan exists, out of date, unfamiliar to the people who would use it.
+      2: A maintained plan with defined roles and escalation, plus playbooks for a few common scenarios.
+      3: Scenario playbooks are derived from the prioritised threat profile and attack trees — ransomware, business email compromise, cloud identity compromise, supply chain, insider, destructive attack, extortion without encryption — each with decision points, authority levels and communication requirements.
+      4: Playbook coverage of prioritised scenarios is measured; playbooks are updated after every real incident and every exercise; out-of-hours and degraded-infrastructure operation is explicitly addressed and tested.
+      5: Playbooks are living, partly executable (linked to orchestration), version-controlled, and validated in the same cycle as detection content, with measured readiness per scenario.
+    evidence:
+      - Scenario playbook set traced to threat profile
+      - Post-incident and post-exercise update records
+      - Out-of-band operating procedure test
+    crosswalk:
+      nist_csf_2: [RS.MA-01, ID.IM-04, PR.IR-03, RC.RP-01]
+      soc_cmm: [Process.Incident response]
+
+  - id: IR.2
+    name: Detection-to-response handoff and SLAs
+    weight: 17
+    profile: essential
+    question: >
+      Is the path from alert to responder defined, measured and reliable at all
+      hours?
+    levels:
+      0: No defined handoff. Alerts are picked up when noticed.
+      1: Informal handoff by chat message; coverage depends on who is awake.
+      2: Defined triage tiers and escalation paths; response times are not measured.
+      3: Severity-based SLAs exist for acknowledgement, triage and escalation, with defined coverage hours, on-call rotation and escalation-of-last-resort.
+      4: SLA attainment is measured per severity and reported; breaches are analysed for cause; queue ageing and abandonment are monitored; detection severity is calibrated against actual incident outcomes.
+      5: Handoff is automated with dynamic routing by detection type and asset criticality; time to acknowledge and time to contain are trended and actively reduced; capacity is modelled against alert volume forecasts.
+    evidence:
+      - Severity/SLA matrix with coverage model
+      - SLA attainment and queue ageing reports
+      - Severity calibration analysis
+    crosswalk:
+      nist_csf_2: [DE.AE-08, RS.MA-01, RS.MA-02, RS.MA-03]
+      soc_cmm: [Process.Incident response, Business.Services]
+
+  - id: IR.3
+    name: Forensic readiness and evidence handling
+    weight: 15
+    profile: standard
+    question: >
+      Can you acquire and defensibly preserve the evidence needed to answer what
+      happened — including in cloud and SaaS?
+    levels:
+      0: No forensic capability. Evidence is destroyed by remediation.
+      1: Ad hoc collection using whatever tools are to hand; no chain of custody.
+      2: Documented collection procedures for endpoints; retention adequate for common cases; cloud and SaaS evidence is uncertain.
+      3: Forensic readiness is planned — retention aligned to realistic dwell times, remote acquisition capability, memory capture, cloud and SaaS evidence sources identified and pre-authorised, chain of custody maintained, and legal/HR/regulatory requirements built in.
+      4: Readiness is tested (can you actually acquire from that cloud workload, that SaaS tenant, that OT segment, on a Sunday?); acquisition times are measured; gaps in evidential coverage are registered and closed.
+      5: Evidence acquisition is automated on incident declaration, forensic data is preserved before containment destroys it, and readiness is validated in every major exercise and red team engagement.
+    evidence:
+      - Forensic readiness plan covering cloud and SaaS
+      - Acquisition test results and timings
+      - Automated preservation-on-declaration configuration
+    crosswalk:
+      nist_csf_2: [RS.AN-03, RS.AN-06, RS.AN-07, PR.DS-01]
+      soc_cmm: [Process.Incident response, Technology.Forensics]
+
+  - id: IR.4
+    name: Containment, eradication and recovery
+    weight: 17
+    profile: standard
+    question: >
+      Can you contain and recover at the speed and scale a real intrusion demands,
+      and have you proven it?
+    levels:
+      0: No defined containment capability; response is improvised.
+      1: Manual containment by individual administrators, slow and inconsistent.
+      2: Containment options exist for endpoints (isolate, block hash) with defined authority; identity and cloud containment are manual and slow.
+      3: Containment is defined across all planes — endpoint isolation, identity disablement and session/token revocation, network segmentation, cloud role and key revocation, email clawback, third-party access suspension — with authority, prerequisites and business impact documented for each.
+      4: Containment and recovery times are measured in exercises and real incidents; mass-scale actions are tested; recovery capability is validated against destructive scenarios including backup integrity and immutability testing.
+      5: Containment is largely automated with risk-adaptive gating, tested at scale on a defined cadence, and recovery objectives are demonstrated rather than asserted, including for identity infrastructure and cloud control planes.
+    evidence:
+      - Containment action catalogue by plane with authority levels
+      - Timed containment and recovery exercise results
+      - Backup immutability and restoration test evidence
+    crosswalk:
+      nist_csf_2: [RS.MI-01, RS.MI-02, RC.RP-01, RC.RP-05, PR.DS-11]
+      soc_cmm: [Process.Incident response, Technology]
+
+  - id: IR.5
+    name: Exercising and crisis management
+    weight: 16
+    profile: standard
+    question: >
+      Are response and crisis capabilities exercised realistically, including at
+      executive level, with findings tracked?
+    levels:
+      0: No exercises of any kind are conducted.
+      1: An occasional informal walkthrough of the plan.
+      2: Annual tabletop exercise, generic scenario, limited participation.
+      3: A programme of exercises at varying intensity — tabletop, functional, technical simulation, and executive crisis — using scenarios drawn from the threat profile and involving legal, communications, business owners and relevant third parties.
+      4: Every exercise generates tracked findings with owners and dates; exercise realism increases over time; participation and performance are measured; regulatory notification and disclosure decision-making is exercised under time pressure.
+      5: Exercises are unannounced where appropriate, integrated with red team engagements so the exercise is a real detection event, and improvement across cycles is demonstrated with objective measures.
+    evidence:
+      - Multi-year exercise programme and scenario provenance
+      - Findings register with closure
+      - Evidence of exercises integrated with red team activity
+    crosswalk:
+      nist_csf_2: [ID.IM-02, PR.AT-01, RS.CO-02, RC.CO-03]
+      soc_cmm: [People.Training, Process.Incident response]
+
+  - id: IR.6
+    name: Post-incident review to detection backlog
+    weight: 17
+    profile: essential
+    question: >
+      Does every incident measurably improve detection — and is the "why did we not
+      see this sooner?" question answered structurally every time?
+    levels:
+      0: No post-incident review.
+      1: Informal debriefs after major incidents only; nothing recorded.
+      2: Reviews are held and documented for significant incidents; actions are recorded but rarely closed.
+      3: Every incident above a defined threshold gets a blameless review that explicitly reconstructs the timeline, identifies the earliest point at which detection was possible, and produces detection, telemetry and control actions with owners.
+      4: Action closure is tracked and reported; the gap between adversary first action and first detection is measured per incident and trended; recurring root causes are escalated as systemic issues.
+      5: Reviews feed threat models, attack trees, emulation plans and the detection backlog automatically; "would we detect this now?" is answered by re-emulating the incident and proving it, with the result recorded against the review.
+    evidence:
+      - Blameless review records with earliest-detection-point analysis
+      - Action closure and time-to-first-detection trends
+      - Re-emulation proof that the incident is now detected
+    crosswalk:
+      nist_csf_2: [ID.IM-01, ID.IM-04, RC.RP-06, RS.AN-08]
+      soc_cmm: [Process.Incident response, Business.Governance]

@@ -1,0 +1,267 @@
+log_source,analytic_references,platforms
+WinEventLog:Sysmon,869,IaaS; Linux; Office Suite; Windows; macOS
+macos:unifiedlog,539,macOS
+auditd:SYSCALL,477,Containers; Linux; macOS
+WinEventLog:Security,337,Identity Provider; Office Suite; Windows
+NSM:Flow,247,Containers; ESXi; Linux; Network Devices; Windows; macOS
+AWS:CloudTrail,141,Containers; IaaS; Identity Provider; SaaS; Windows
+macos:osquery,104,macOS
+m365:unified,87,Identity Provider; Office Suite; SaaS; Windows
+linux:syslog,81,Linux; Network Devices
+WinEventLog:PowerShell,66,Office Suite; Windows
+esxi:hostd,56,ESXi; IaaS
+networkdevice:syslog,52,Linux; Network Devices
+esxi:vmkernel,48,ESXi
+linux:osquery,47,Linux
+auditd:EXECVE,45,Linux
+macos:endpointsecurity,40,macOS
+WinEventLog:System,38,Windows
+esxi:shell,36,ESXi
+azure:signinlogs,35,Identity Provider; Office Suite; SaaS; Windows
+Internet Scan,33,PRE
+fs:fsusage,32,macOS
+NSM:Connections,25,Identity Provider; Linux; Network Devices; Windows; macOS
+WinEventLog:Application,23,Office Suite; Windows
+Network Traffic,22,PRE; Windows
+networkdevice:cli,21,Network Devices
+saas:okta,17,Identity Provider; SaaS
+auditd:PATH,16,Linux
+AWS:VPCFlowLogs,16,IaaS
+networkdevice:config,14,Network Devices
+Domain Name,14,PRE
+etw:Microsoft-Windows-Kernel-Process,13,Windows
+azure:audit,13,Identity Provider; Office Suite
+m365:exchange,12,Office Suite; Windows
+auditd:FILE,11,Linux
+linux:Sysmon,11,Linux
+NSM:Firewall,11,ESXi; Network Devices; Windows; macOS
+kubernetes:audit,11,Containers; Linux
+Malware Repository,11,PRE
+gcp:audit,11,IaaS; Office Suite; SaaS
+kubernetes:apiserver,10,Containers
+ebpf:syscalls,9,Containers; IaaS; Linux
+AWS:CloudWatch,9,IaaS
+docker:events,9,Containers
+esxi:syslog,9,ESXi
+esxi:vpxd,9,ESXi
+azure:activity,9,IaaS; Identity Provider; Windows
+m365:signinlogs,9,Office Suite; SaaS
+docker:daemon,8,Containers
+fs:fsevents,7,macOS
+WinEventLog:Microsoft-Windows-CodeIntegrity/Operational,7,Windows
+saas:googleworkspace,7,SaaS
+fs:fileevents,7,Linux; macOS
+WinEventLog:WMI,6,Windows
+Application Log,6,PRE
+Application:Mail,6,Linux
+esxi:auth,6,ESXi
+saas:slack,6,SaaS
+auditd:CONFIG_CHANGE,6,Linux
+saas:github,6,SaaS
+macos:syslog,5,macOS
+saas:salesforce,5,SaaS
+containerd:runtime,5,Containers
+m365:messagetrace,5,Office Suite; Windows
+saas:zoom,5,SaaS
+saas:auth,5,Identity Provider; SaaS
+linux:cli,5,Linux
+WinEventLog:TaskScheduler,4,Windows
+auditd:PROCTITLE,4,Linux
+m365:sharepoint,4,Office Suite; Windows
+m365:defender,4,Identity Provider; Office Suite; Windows
+Windows:perfmon,4,Windows
+containerd:events,4,Containers; Linux
+esxcli:network,4,ESXi
+Persona,4,PRE
+linux:cron,4,Linux
+saas:confluence,4,SaaS
+m365:office,4,Office Suite
+PF:Logs,3,macOS
+EDR:file,3,Windows
+kubernetes:events,3,Containers; Linux
+saas:audit,3,SaaS
+journald:package,3,Linux
+gcp:workspaceaudit,3,Identity Provider; SaaS
+esxi:cron,3,ESXi
+saas:box,3,SaaS
+WinEventLog:Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,3,Windows
+auditd:USER_LOGIN,3,Linux
+esxi:vobd,3,ESXi
+iptables:LOG,3,Linux
+esxi:vpxa,3,ESXi
+networkdevice:Firewall,3,Network Devices
+NSM:Content,3,ESXi; Windows; macOS
+etw:Microsoft-Windows-Win32k,2,Windows
+OpenBSM:AuditTrail,2,macOS
+macos:keychain,2,macOS
+saas:application,2,SaaS
+networkdevice:runtime,2,Network Devices
+Certificate,2,PRE
+journald:systemd,2,Linux
+saas:access,2,SaaS
+vpxd.log,2,ESXi
+EDR:hunting,2,Windows
+azure:policy,2,Identity Provider
+WinEventLog:Microsoft-Windows-Windows Defender/Operational,2,Windows
+auditd:MMAP,2,Linux
+linux:procfs,2,Linux
+Okta:SystemLog,2,IaaS; Identity Provider
+fs:launchdaemons,2,macOS
+Firewall Audit Logs,2,Network Devices
+WinEventLog:Windows Defender,2,Windows
+WinEventLog:Microsoft-Office-Alerts,2,Windows
+networkdevice:firmware,2,Network Devices
+ETW:Token,2,Windows
+etw:Microsoft-Windows-WinINet,2,Windows
+dns:query,2,Windows
+esxi:esxupdate,2,ESXi
+EDR:detection,2,Linux; Windows
+m365:purview,2,Office Suite; Windows
+EDR:AMSI,2,Windows
+saas:googledrive,2,SaaS
+linux:auth,2,Linux
+NSM:firewall,1,macOS
+auditd:DAEMON,1,Linux
+M365Defender:DeviceNetworkEvents,1,Windows
+NSX:FlowLogs,1,ESXi
+GCPAuditLogs:login.googleapis.com,1,SaaS
+ApplicationLog:MailServer,1,Linux
+WinEventLog:Microsoft-Windows-TCPIP,1,Windows
+Apple TCC Logs,1,macOS
+ApplicationLog:API,1,Containers
+container:proxy,1,Containers
+azure:ad,1,Office Suite
+AWS:CloudMetrics,1,IaaS
+NSM:FLow,1,ESXi
+snmp:status,1,Network Devices
+CloudTrail:Signin,1,IaaS
+WinEventLog:ADFS,1,Windows
+auditd:FS,1,Linux
+linuxsyslog,1,Linux
+saas:Snowflake,1,SaaS
+journald:Application,1,Linux
+m365:mailboxaudit,1,Office Suite
+m365:audit,1,Identity Provider
+networkconfig ,1,Linux
+etw:Microsoft-Windows-RPC,1,Windows
+WinEventLog:Microsoft-Office/OutlookAddinMonitor,1,Office Suite
+gcp:config,1,IaaS
+WinEventLog:Microsoft-Windows-SMBClient/Security,1,Windows
+esxi:vob,1,ESXi
+sar:network,1,Linux
+fwupd:logs,1,Linux
+EDR:cli,1,Windows
+esxis:vmkernel,1,ESXi
+ApplicationLog:IIS,1,Windows
+ApplicationLog:WebServer,1,Linux
+ApplicationLog:Ingress,1,Containers
+ALB:HTTPLogs,1,IaaS
+networkdevice:controlplane,1,Network Devices
+m365:teams,1,Office Suite
+containerd:Events,1,Containers
+fs:plist,1,macOS
+saas:api,1,SaaS
+WLANLogs:Association,1,Network Devices
+etw:Microsoft-Windows-DotNETRuntime,1,Windows
+etw:Microsoft-Antimalware-Scan-Interface,1,Windows
+linus:syslog,1,Linux
+macos:launchd,1,macOS
+docker:registry,1,Containers
+ebpf:tracepoints,1,Linux
+docker:runtime,1,Containers
+snmp:access,1,Network Devices
+WinEventLog:CodeIntegrity,1,Windows
+m365:dirsync,1,Windows
+apache:access_log,1,Linux
+CloudTrail:PutObject,1,IaaS
+CloudTrail:GetCallerIdentity,1,IaaS
+WinEventLog:WinRM,1,Windows
+ETW:ProcThread,1,Windows
+Autoruns:RegistryScan,1,Windows
+WinEventLog:iis,1,Windows
+macos:auth,1,macOS
+gcp:iam,1,Identity Provider
+WinEventLog:Microsoft-Windows-Windows Camera Frame Server/Operational,1,Windows
+containers:osquery,1,Containers
+docker:stats,1,Containers
+saas:RepoEvents,1,SaaS
+saas:PRMetadata,1,SaaS
+macos:cron,1,macOS
+fs:quarantine,1,macOS
+desktop:file_manager,1,Linux
+firmware:integrity ,1,Windows
+networkdevice:Flow,1,Network Devices
+fs:plist_monitoring,1,macOS
+ApplicationLog:EntraIDPortal,1,Identity Provider
+ApplicationLog:Intune/MDM Logs,1,Windows
+snmp:trap,1,Network Devices
+cni:netflow,1,Containers
+CloudTrail:GetObject,1,IaaS
+saas:finance,1,SaaS
+gcp:vpcflow,1,IaaS
+ESXiLogs:messages,1,ESXi
+etw:Microsoft-Windows-Security-Auditing,1,Windows
+Microsoft Entra ID Audit Logs,1,Identity Provider
+Microsoft Graph API Logs,1,Office Suite
+Google Admin Audit,1,SaaS
+macos:jamf,1,macOS
+m365:oauth,1,Office Suite
+auditd:AUTH,1,Linux
+auditd:memprotect,1,Linux
+auditd:file-events,1,Linux
+WinEventLog:Microsoft-Windows-Shell-Core,1,Windows
+saas:collaboration,1,SaaS
+Netfilter/iptables,1,Linux
+systemd:unit,1,Containers
+saas-app:auth,1,SaaS
+networkdevice:IDS,1,Network Devices
+WinEventLog:Microsoft-IIS-Configuration,1,Windows
+macos:MDM,1,macOS
+etw:Microsoft-Windows-Directory-Services-SAM,1,Windows
+ApplicationLog:CallRecords,1,Windows
+NetFlow:Flow,1,Linux
+IDS:TLSInspection,1,Network Devices
+macos:fsevents,1,macOS
+ETW,1,Windows
+saas:integration,1,SaaS
+VPCFlowLogs:All,1,IaaS
+etw:Microsoft-Windows-Kernel-Base,1,Windows
+azure:vpcflow,1,IaaS
+WinEventLog:Microsoft-Windows-Security-Mitigations/KernelMode,1,Windows
+ESXiLogs:authlog,1,ESXi
+prometheus:metrics,1,Containers
+container:cni,1,Containers
+EDR:scriptblock,1,Windows
+firmware:runtime,1,Network Devices
+WinEventLog:Kerberos,1,Windows
+windows:osquery,1,Windows
+wineventlog:dhcp,1,Windows
+gatekeeper/quarantine database,1,macOS
+azure:vmguest,1,IaaS
+etw:Microsoft-Windows-Kernel-Storage,1,Windows
+saas:adminapi,1,SaaS
+linux:shell,1,Linux
+EDR:memory,1,Windows
+fs:filesystem,1,macOS
+snmp:syslog,1,Network Devices
+saas:appsscript,1,SaaS
+macOS:unifiedlog,1,macOS
+WinEventLog:Microsoft-Windows-VSS,1,Windows
+networkdevice:audit,1,Network Devices
+etw:Microsoft-Windows-Kernel-File,1,Windows
+EDR:Telemetry,1,Windows
+WinEventLog:Microsoft-Windows-Kernel-Boot,1,Windows
+WinEventLog:Microsoft-Windows-Backup,1,Windows
+Windows Firewall Log,1,Windows
+etw:Microsoft-Windows-NDIS-PacketCapture,1,Windows
+linux:fim,1,ESXi
+docker:api,1,Containers
+kubernetes:orchestrator,1,Containers
+ApplicationLogs:SQL,1,Linux
+networkconfig,1,Network Devices
+network:auth,1,Network Devices
+saas:email,1,Office Suite
+WinEventLog:Microsoft-Windows-WLAN-AutoConfig,1,Windows
+WIDS:AssociationLogs,1,Network Devices
+WinEventLog:AppLocker,1,Windows
+WinEventLog:Microsoft-Windows-COM/Operational,1,Windows

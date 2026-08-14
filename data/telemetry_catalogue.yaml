@@ -1,0 +1,372 @@
+---
+# TID-CMM telemetry catalogue
+#
+# Actionable guidance keyed on the log source names ATT&CK v19 analytics reference.
+# Covers the sources carrying the bulk of analytic references, so an organisation
+# can be told what to turn on rather than only what it is missing.
+#
+# tool_class is a CAPABILITY CLASS, never a product. Where a capability can be met
+# with free software, open_source names it, because an organisation that cannot buy
+# tooling must still have a route to high maturity.
+meta:
+  attack_version: "19.2"
+  note: >
+    Guidance is a starting point, not a deployment plan. Event volumes, retention and
+    privacy obligations differ by estate; every recommendation here should be sized and
+    approved before rollout.
+
+sources:
+  "WinEventLog:Sysmon":
+    what: >
+      Windows process creation with full command line and hashes, network connections,
+      image loads, file creation and registry activity. The single most referenced
+      source in ATT&CK's analytics.
+    key_channels: "EventCode=1 (process create), 3 (network), 7 (image load), 11 (file create), 12-14 (registry), 22 (DNS)"
+    how: >
+      Deploy Sysmon with a maintained configuration rather than the default; the default
+      config logs almost nothing useful. Start from a community baseline configuration,
+      cut the noisiest rules, and forward the Microsoft-Windows-Sysmon/Operational channel.
+    tool_class: Endpoint instrumentation (agent) plus a log pipeline
+    open_source: "Sysmon (Sysinternals) with a community configuration; forwarded by any agent"
+    substitutes: ["commercial EDR telemetry", "etw:Microsoft-Windows-Kernel-Process"]
+    effort: medium
+    volume: high
+
+  "WinEventLog:Security":
+    what: >
+      Native Windows security auditing — logon events, process creation, object access,
+      account and group changes. Present on every Windows host without an agent.
+    key_channels: "EventCode=4688 (process create), 4624/4648 (logon), 4663/4656 (object access), 4657 (registry), 4720+ (account changes)"
+    how: >
+      Enable Advanced Audit Policy via Group Policy. Critically, 4688 does not include the
+      command line until you enable "Include command line in process creation events" —
+      without it, most process-based analytics cannot work even though the event exists.
+    tool_class: Native OS logging plus a log pipeline
+    open_source: "Built into Windows; forward with any agent"
+    substitutes: []
+    effort: low
+    volume: high
+
+  "WinEventLog:PowerShell":
+    what: PowerShell script block, module and transcription logging.
+    key_channels: "EventCode=4104 (script block), 4103 (module), 4105/4106"
+    how: >
+      Enable Script Block Logging and Module Logging by Group Policy, and forward
+      Microsoft-Windows-PowerShell/Operational. Script block logging captures deobfuscated
+      script content, which is what makes obfuscated payloads readable.
+    tool_class: Native OS logging plus a log pipeline
+    open_source: Built into Windows
+    substitutes: []
+    effort: low
+    volume: medium
+
+  "WinEventLog:System":
+    what: Service installation, driver load, system-level changes.
+    key_channels: "EventCode=7045 (service install), 7036, 104 (log cleared)"
+    how: Forwarded by default on most agents; no policy change required.
+    tool_class: Native OS logging plus a log pipeline
+    open_source: Built into Windows
+    substitutes: []
+    effort: low
+    volume: low
+
+  "etw:Microsoft-Windows-Kernel-Process":
+    what: Kernel-level process and thread events, harder for an adversary to evade than user-mode hooks.
+    key_channels: Process start/stop, image load
+    how: Requires an agent capable of ETW subscription. Most commercial EDR consumes this already.
+    tool_class: Endpoint detection and response, or an ETW-capable agent
+    open_source: "SilkETW / open ETW collectors"
+    substitutes: ["WinEventLog:Sysmon"]
+    effort: high
+    volume: high
+
+  "auditd:SYSCALL":
+    what: >
+      Linux syscall auditing — process execution, file access, network connections.
+      The primary Linux equivalent of Sysmon process telemetry.
+    key_channels: "execve (execution), open/openat (file), connect (network), ptrace"
+    how: >
+      Install auditd and deploy a maintained ruleset rather than the default, which audits
+      almost nothing. Community rulesets mapped to ATT&CK exist. Watch volume on busy hosts
+      and exclude high-churn paths.
+    tool_class: Native OS auditing plus a log pipeline
+    open_source: "auditd with a community ATT&CK-mapped ruleset"
+    substitutes: ["linux:Sysmon", "commercial EDR telemetry", "eBPF-based collectors"]
+    effort: medium
+    volume: high
+
+  "auditd:EXECVE":
+    what: Command-line arguments for executed processes on Linux.
+    key_channels: execve argument records
+    how: Included when auditd rules audit execve; pairs with SYSCALL records.
+    tool_class: Native OS auditing plus a log pipeline
+    open_source: auditd
+    substitutes: ["linux:Sysmon"]
+    effort: low
+    volume: high
+
+  "linux:Sysmon":
+    what: Sysmon for Linux — process, network and file events in Sysmon's schema.
+    key_channels: "EventCode=1, 3, 11"
+    how: Install sysmonforlinux with a configuration file; often easier to tune than raw auditd.
+    tool_class: Endpoint instrumentation (agent) plus a log pipeline
+    open_source: Sysmon for Linux
+    substitutes: ["auditd:SYSCALL"]
+    effort: medium
+    volume: high
+
+  "linux:syslog":
+    what: General Linux system and application logging, including auth and cron.
+    key_channels: auth.log, secure, cron, daemon
+    how: Present by default; forward via rsyslog or journald to the pipeline.
+    tool_class: Native OS logging plus a log pipeline
+    open_source: rsyslog / systemd-journald
+    substitutes: []
+    effort: low
+    volume: medium
+
+  "linux:osquery":
+    what: Queryable OS state — processes, sockets, users, packages, scheduled tasks.
+    key_channels: Scheduled query packs
+    how: Deploy osquery with ATT&CK-aligned query packs; excellent for hunting and periodic state checks.
+    tool_class: Endpoint state query agent
+    open_source: osquery, Fleet, Velociraptor
+    substitutes: []
+    effort: medium
+    volume: low
+
+  "macos:unifiedlog":
+    what: The primary macOS logging subsystem — process, network, and system subsystems.
+    key_channels: "process, exec, network subsystems"
+    how: >
+      Present by default but not persisted at useful depth; collection requires an agent that
+      subscribes to the unified log and forwards selected predicates.
+    tool_class: Endpoint instrumentation (agent) plus a log pipeline
+    open_source: "Collect via osquery or an open log shipper with predicate filters"
+    substitutes: ["macos:endpointsecurity"]
+    effort: medium
+    volume: high
+
+  "macos:endpointsecurity":
+    what: Apple's Endpoint Security framework — authoritative process, file and signing events.
+    key_channels: ES_EVENT_TYPE_NOTIFY_EXEC and related
+    how: Requires an agent with the Endpoint Security entitlement and full disk access approval via MDM.
+    tool_class: Endpoint detection and response, or an ES-entitled agent
+    open_source: "Open ES-based agents exist but require notarised distribution"
+    substitutes: ["macos:unifiedlog"]
+    effort: high
+    volume: medium
+
+  "macos:osquery":
+    what: Queryable macOS state.
+    key_channels: Scheduled query packs
+    how: Deploy osquery via MDM with ATT&CK-aligned packs.
+    tool_class: Endpoint state query agent
+    open_source: osquery, Velociraptor
+    substitutes: []
+    effort: medium
+    volume: low
+
+  "fs:fsusage":
+    what: File system activity monitoring.
+    key_channels: File open, write, rename
+    how: Typically supplied by an endpoint agent's file monitoring component.
+    tool_class: Endpoint instrumentation (agent)
+    open_source: "Sysmon EventCode=11, auditd file rules"
+    substitutes: ["WinEventLog:Sysmon", "auditd:SYSCALL"]
+    effort: medium
+    volume: high
+
+  "NSM:Flow":
+    what: Network flow records — who talked to whom, when, how much.
+    key_channels: Connection records, bytes, duration
+    how: >
+      Enable NetFlow/IPFIX on routers and firewalls, or deploy a passive sensor on a span
+      or tap. Flow alone gives you relationships, not content.
+    tool_class: Network flow collection or passive sensor
+    open_source: "Zeek conn.log, nfdump, softflowd"
+    substitutes: ["AWS:VPCFlowLogs", "NSM:Connections"]
+    effort: medium
+    volume: medium
+
+  "NSM:Connections":
+    what: Enriched connection records including protocol and service identification.
+    key_channels: Connection logs with protocol analysis
+    how: Deploy a passive network sensor on a tap or span port at chokepoints and egress.
+    tool_class: Passive network sensor
+    open_source: Zeek
+    substitutes: ["NSM:Flow"]
+    effort: medium
+    volume: medium
+
+  "NSM:Firewall":
+    what: Firewall allow and deny decisions.
+    key_channels: Policy hit logs
+    how: Forward firewall logs; ensure denies are logged, not only allows.
+    tool_class: Existing network control plus a log pipeline
+    open_source: "Any firewall's syslog output"
+    substitutes: ["NSM:Flow"]
+    effort: low
+    volume: medium
+
+  "Network Traffic":
+    what: Full packet or protocol content inspection.
+    key_channels: Protocol content, payload
+    how: >
+      Requires inline inspection or a tap with decryption where lawful. Increasingly limited
+      by pervasive encryption — plan for metadata and endpoint telemetry to carry the load.
+    tool_class: Inline inspection or tap with decryption
+    open_source: "Zeek, Suricata"
+    substitutes: ["NSM:Connections"]
+    effort: high
+    volume: high
+
+  "Domain Name":
+    what: DNS resolution activity.
+    key_channels: Query name, response, NXDOMAIN
+    how: Enable DNS server query logging, or capture via a resolver or passive sensor. Cheap and high value.
+    tool_class: DNS server logging or passive sensor
+    open_source: "BIND query log, Windows DNS analytical log, Zeek dns.log"
+    substitutes: ["WinEventLog:Sysmon"]
+    effort: low
+    volume: medium
+
+  "networkdevice:syslog":
+    what: Router, switch and network appliance events including configuration change and authentication.
+    key_channels: Config change, auth, interface state
+    how: Point device syslog at the collector; ensure authentication and config events are included.
+    tool_class: Existing network devices plus a log pipeline
+    open_source: Built into the devices
+    substitutes: []
+    effort: low
+    volume: low
+
+  "AWS:CloudTrail":
+    what: AWS control plane API activity — the authoritative record of what was done in the account.
+    key_channels: "AssumeRole, RunInstances, GetObject, CreateUser, PutBucketPolicy"
+    how: >
+      Enable an organisation trail covering all regions and all accounts, including management
+      events. Enable data events selectively for crown-jewel buckets and functions — they are
+      off by default and are where exfiltration is visible.
+    tool_class: Cloud provider native audit logging
+    open_source: Native to AWS
+    substitutes: []
+    effort: low
+    volume: medium
+
+  "AWS:VPCFlowLogs":
+    what: Network flow records inside AWS VPCs.
+    key_channels: Accept and reject flow records
+    how: Enable flow logs per VPC to S3 or CloudWatch; include rejects.
+    tool_class: Cloud provider native network logging
+    open_source: Native to AWS
+    substitutes: ["NSM:Flow"]
+    effort: low
+    volume: high
+
+  "azure:signinlogs":
+    what: Entra ID sign-in activity including conditional access and risk state.
+    key_channels: Interactive and non-interactive sign-ins, service principal sign-ins
+    how: >
+      Route diagnostic settings to a workspace or event hub. Include non-interactive and
+      service principal sign-ins — they are where token abuse and workload identity attacks appear.
+    tool_class: Identity provider native logging
+    open_source: Native to Entra ID
+    substitutes: ["m365:signinlogs"]
+    effort: low
+    volume: medium
+
+  "azure:audit":
+    what: Entra ID directory changes — role assignment, application consent, credential addition.
+    key_channels: Directory audit events
+    how: Route audit logs via diagnostic settings. Application consent and credential-add events are high value and low volume.
+    tool_class: Identity provider native logging
+    open_source: Native to Entra ID
+    substitutes: []
+    effort: low
+    volume: low
+
+  "gcp:audit":
+    what: Google Cloud admin activity and data access audit logs.
+    key_channels: Admin activity, data access
+    how: Admin activity is on by default; data access logging must be enabled explicitly per service.
+    tool_class: Cloud provider native audit logging
+    open_source: Native to GCP
+    substitutes: []
+    effort: low
+    volume: medium
+
+  "m365:unified":
+    what: Microsoft 365 unified audit log across Exchange, SharePoint, Teams and Entra.
+    key_channels: "UserLoggedIn, MailSend, inbox rule creation, federation changes, file access"
+    how: >
+      Ensure unified audit logging is enabled on the tenant and retention meets your dwell-time
+      assumption. Default retention is often far shorter than realistic dwell time.
+    tool_class: SaaS provider native audit logging
+    open_source: Native to Microsoft 365
+    substitutes: ["m365:exchange"]
+    effort: low
+    volume: medium
+
+  "m365:exchange":
+    what: Mailbox audit — inbox rules, delegation, message send and access.
+    key_channels: New-InboxRule, Add-MailboxPermission, MailItemsAccessed
+    how: Enable mailbox auditing; MailItemsAccessed requires the appropriate licence tier and is central to BEC investigation.
+    tool_class: SaaS provider native audit logging
+    open_source: Native to Microsoft 365
+    substitutes: ["m365:unified"]
+    effort: low
+    volume: medium
+
+  "saas:okta":
+    what: Okta system log — authentication, policy change, admin activity.
+    key_channels: user.session.start, policy changes, app assignment
+    how: Stream the system log to the pipeline via the API or an event hook.
+    tool_class: Identity provider native logging
+    open_source: Native to Okta
+    substitutes: []
+    effort: low
+    volume: medium
+
+  "kubernetes:audit":
+    what: Kubernetes API server audit — who did what to which resource.
+    key_channels: exec into pod, secret access, RBAC change
+    how: >
+      Enable the audit policy on the API server with a policy that captures at least metadata
+      for all requests and request bodies for sensitive resources. Off or minimal by default
+      on many managed distributions.
+    tool_class: Container platform native audit logging
+    open_source: Native to Kubernetes
+    substitutes: ["kubernetes:apiserver"]
+    effort: medium
+    volume: high
+
+  "docker:events":
+    what: Container lifecycle events on the host.
+    key_channels: container create, exec, mount
+    how: Collect the Docker events stream via an agent.
+    tool_class: Container runtime logging
+    open_source: Native to Docker
+    substitutes: ["kubernetes:audit"]
+    effort: low
+    volume: low
+
+  "esxi:hostd":
+    what: ESXi host management activity, including VM operations and shell access.
+    key_channels: VM power, config change, session
+    how: Configure ESXi syslog to forward to the collector; often overlooked and a common blind spot for hypervisor-targeting ransomware.
+    tool_class: Hypervisor native logging
+    open_source: Native to ESXi
+    substitutes: ["esxi:syslog", "esxi:vmkernel"]
+    effort: low
+    volume: low
+
+  "esxi:shell":
+    what: ESXi shell and SSH command activity.
+    key_channels: shell.log, auth
+    how: Forward shell and auth logs; enable only where shell access is legitimately required.
+    tool_class: Hypervisor native logging
+    open_source: Native to ESXi
+    substitutes: ["esxi:hostd"]
+    effort: low
+    volume: low

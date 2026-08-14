@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tid-cmm.com/schema/assessment.schema.json",
+  "title": "TID-CMM assessment",
+  "type": "object",
+  "required": ["organisation", "assessed_on", "responses"],
+  "properties": {
+    "organisation": {"type": "string"},
+    "assessed_on": {"type": "string"},
+    "assessor": {"type": "string"},
+    "scope": {"type": "string"},
+    "strict": {"type": "boolean", "default": true},
+    "responses": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[A-Z]{2}\\.\\d+$"},
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "score": {"type": ["integer", "null"], "minimum": 0, "maximum": 5},
+          "target": {"type": ["integer", "null"], "minimum": 0, "maximum": 5},
+          "evidence": {"type": ["string", "null"]},
+          "owner": {"type": ["string", "null"]},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

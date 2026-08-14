@@ -1,0 +1,21 @@
+name: Crosswalk addition
+description: Map TID-CMM to another framework or regulation
+title: "[crosswalk] FRAMEWORK"
+labels: ["model", "crosswalk"]
+body:
+  - type: input
+    id: framework
+    attributes:
+      label: Framework or regulation
+      placeholder: "DORA, NIS2, PCI DSS 4.0, CMMC..."
+    validations: { required: true }
+  - type: textarea
+    id: mapping
+    attributes:
+      label: Proposed mapping
+      description: One line per sub-capability, e.g. `AV.1 -> DORA Art.26(2)`. Indicative mappings are fine; say so.
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: Framework version you mapped against

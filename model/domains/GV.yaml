@@ -1,0 +1,168 @@
+---
+domain:
+  id: GV
+  name: Governance, Metrics & Continuous Improvement
+  weight: 10
+  intent: >
+    Determines whether the capability is deliberately directed and sustainable, or
+    dependent on a few motivated individuals. Also covers the honesty of the metrics
+    used to report it upward.
+  anti_pattern: >
+    Reporting alert volume and "threats blocked" to the board as evidence of
+    security performance, while nobody can state how much of the threat profile is
+    actually detectable.
+
+subcapabilities:
+  - id: GV.1
+    name: Strategy, mandate and funding
+    weight: 15
+    profile: essential
+    question: >
+      Does the detection capability have an articulated strategy, an explicit
+      mandate and funding tied to the risks it is meant to reduce?
+    levels:
+      0: No strategy. The capability exists as a by-product of tool purchases.
+      1: Direction is set informally by whoever leads the function; funding is reactive.
+      2: A written plan exists, largely a list of tools and headcount for the year.
+      3: A multi-year strategy states target maturity per domain, is explicitly derived from the threat profile and business risk appetite, and has executive sponsorship and committed funding.
+      4: Strategy progress is reviewed against measured maturity at least twice a year; investment decisions cite validation evidence and coverage gaps; trade-offs are documented.
+      5: Strategy is dynamically adjusted from threat landscape change and measured risk reduction, with funding decisions demonstrably driven by validated efficacy data rather than vendor cycles.
+    evidence:
+      - Signed multi-year strategy with target maturity per domain
+      - Investment cases citing coverage and validation data
+      - Review minutes showing strategy adjustment
+    crosswalk:
+      nist_csf_2: [GV.OC-01, GV.RM-01, GV.RM-03, GV.RR-03]
+      soc_cmm: [Business.Governance, Business.Strategy]
+
+  - id: GV.2
+    name: Roles, skills and capability development
+    weight: 15
+    profile: standard
+    question: >
+      Are the roles the model requires actually defined and staffed, with a
+      deliberate path to build the skills the work needs?
+    levels:
+      0: No defined roles; whoever is available does the work.
+      1: Roles exist in name; responsibilities overlap and gaps are covered informally.
+      2: Job descriptions exist for core SOC roles; detection engineering, threat modeling and emulation are collateral duties.
+      3: Distinct roles are defined and staffed for intelligence, detection engineering, hunting, emulation/purple team and response, with documented responsibilities and a competency framework.
+      4: Skills are assessed against the framework, gaps drive a training plan with budget, and key-person dependency is measured and reduced; succession and cross-training are deliberate.
+      5: Capability development is continuous — internal ranges, rotation between offensive and defensive roles, published research — and retention and competency are measured as leading indicators of capability.
+    evidence:
+      - Role definitions and competency framework
+      - Skills assessment and funded training plan
+      - Key-person dependency analysis
+    crosswalk:
+      nist_csf_2: [GV.RR-02, GV.RR-04, PR.AT-01, PR.AT-02]
+      soc_cmm: [People.Employees, People.Training, People.Roles]
+
+  - id: GV.3
+    name: Metrics and performance measurement
+    weight: 18
+    profile: essential
+    question: >
+      Are the metrics used to run and report the capability meaningful measures of
+      detection effectiveness, or activity counts?
+    levels:
+      0: No metrics beyond what tools display by default.
+      1: Activity counts reported — alerts handled, tickets closed, threats blocked.
+      2: Operational metrics exist (volumes, MTTD, MTTR) with inconsistent definitions and no target.
+      3: A defined metric set covers effectiveness (Validated Coverage Score, detection precision, time from adversary action to detection), efficiency (triage time, automation rate), and programme health (backlog ageing, gap closure), each with a written definition, owner and target.
+      4: Metrics are trended, reviewed in a formal forum, and acted on; the metric set is periodically challenged for gaming and perverse incentives; definitions are stable enough for period-on-period comparison.
+      5: Metrics link measured detection capability to business risk reduction and are used in prioritisation and investment; anti-gaming controls are explicit and metrics are independently verifiable from raw evidence.
+    evidence:
+      - Metric catalogue with definitions, owners and targets
+      - Trended reporting pack and review minutes
+      - Anti-gaming review record
+    crosswalk:
+      nist_csf_2: [GV.OV-01, GV.OV-02, GV.OV-03, ID.IM-03]
+      soc_cmm: [Business.Governance, Process.Reporting]
+
+  - id: GV.4
+    name: Risk and compliance alignment
+    weight: 14
+    profile: standard
+    question: >
+      Is detection capability expressed in the organisation's risk language and
+      mapped to the obligations it must satisfy — without letting compliance drive
+      the design?
+    levels:
+      0: No connection between detection capability and risk management or compliance.
+      1: Compliance obligations are met by assertion; detection is not represented in the risk register.
+      2: Detection appears in the risk register as a generic control; regulatory obligations are tracked separately.
+      3: Detection capability gaps appear as named risks with owners and treatment plans; obligations (NIS2, DORA, sector regulation, contractual) are mapped to specific model sub-capabilities; crosswalks to NIST CSF 2.0 and ISO 27001 are maintained.
+      4: Risk assessments cite measured coverage and validation evidence rather than control existence; residual risk per crown jewel is expressed with reference to the attack trees and validated efficacy scores.
+      5: Detection risk is quantified and integrated with enterprise risk quantification; compliance evidence is a by-product of the operating model rather than a separate exercise.
+    evidence:
+      - Risk register entries citing coverage and validation data
+      - Obligation-to-sub-capability mapping
+      - Automatically generated compliance evidence
+    crosswalk:
+      nist_csf_2: [GV.RM-02, GV.RM-04, GV.OC-03, ID.RA-05, ID.RA-06]
+      soc_cmm: [Business.Governance, Business.Compliance]
+
+  - id: GV.5
+    name: Executive and board reporting
+    weight: 13
+    profile: standard
+    question: >
+      Do decision-makers receive an honest, comparable picture of what the
+      organisation can and cannot detect?
+    levels:
+      0: No reporting above the security team.
+      1: Occasional narrative updates, usually after an incident.
+      2: Regular reporting of activity volumes and tool status.
+      3: Reporting states maturity by domain, validated coverage against the prioritised threat profile, known blind spots, and the risks accepted as a result — in business language, with the assumptions stated.
+      4: Reporting is comparable period on period, includes trend and forecast, distinguishes clearly between what has been tested and what is assumed, and explicitly reports capability that has degraded.
+      5: Reporting supports investment decisions with modelled risk reduction per option, is independently assured, and includes benchmarking against sector peers where credible data exists.
+    evidence:
+      - Executive reporting pack showing tested versus assumed capability
+      - Period-on-period comparability statement
+      - Independent assurance or benchmarking record
+    crosswalk:
+      nist_csf_2: [GV.OV-01, GV.OV-02, GV.RR-01, RS.CO-03]
+      soc_cmm: [Business.Governance, Process.Reporting]
+
+  - id: GV.6
+    name: Continuous improvement cadence
+    weight: 13
+    profile: standard
+    question: >
+      Is improvement a managed, funded, scheduled activity with measured outcomes?
+    levels:
+      0: Improvement happens only after a serious incident.
+      1: Individuals improve things when time allows.
+      2: An improvement backlog exists but competes unsuccessfully with operational work.
+      3: A defined cadence exists — regular retrospectives, a prioritised improvement backlog with protected capacity, and reassessment against this model at least annually.
+      4: Improvement outcomes are measured against the maturity baseline; reassessment is partly independent to counter self-assessment optimism; regression is investigated as seriously as stagnation.
+      5: Improvement is continuous and data-driven, with capacity formally allocated, cycle times measured, and demonstrable maturity progression across multiple assessment cycles.
+    evidence:
+      - Improvement backlog with protected capacity allocation
+      - Successive TID-CMM assessment results showing progression
+      - Independent or peer-reviewed reassessment record
+    crosswalk:
+      nist_csf_2: [ID.IM-01, ID.IM-03, GV.OV-03]
+      soc_cmm: [Business.Governance, Process]
+
+  - id: GV.7
+    name: Third-party and supply-chain detection
+    weight: 12
+    profile: comprehensive
+    question: >
+      Does detection extend to the third parties, managed services and software
+      supply chain through which adversaries reach you?
+    levels:
+      0: Third-party activity is outside the detection scope entirely.
+      1: Third-party access exists but is not distinguished in telemetry.
+      2: Third-party accounts are identifiable in logs; managed security providers report to defined SLAs that are not verified.
+      3: Third-party and vendor access paths are modelled as attack paths, monitored with specific detections, and outsourced detection responsibilities are explicitly divided in a documented responsibility matrix.
+      4: Provider performance is verified independently — including by emulation against provider-monitored scope — rather than accepted from their reporting; software supply chain and CI/CD telemetry is covered; fourth-party dependency risk is considered.
+      5: Supply-chain compromise scenarios are emulated end to end, detection responsibilities are contractually specified with testable service levels, and provider detection efficacy is measured as part of the coverage score.
+    evidence:
+      - Responsibility matrix for outsourced detection
+      - Emulation results against provider-monitored scope
+      - Supply-chain scenario emulation records
+    crosswalk:
+      nist_csf_2: [GV.SC-04, GV.SC-07, GV.SC-10, ID.AM-04, DE.CM-06]
+      soc_cmm: [Business.Customers, Business.Governance]

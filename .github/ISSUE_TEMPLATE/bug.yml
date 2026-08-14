@@ -1,0 +1,26 @@
+name: Bug
+description: Something in the tooling is broken
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options: ["Assessment tool (browser)", "Excel workbook", "Python engine / CLI", "Website", "Datasets", "Build scripts"]
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+  - type: input
+    id: env
+    attributes:
+      label: Browser / Python version
+  - type: markdown
+    attributes:
+      value: "**Security issue?** Do not open an issue — see [SECURITY.md](../SECURITY.md)."

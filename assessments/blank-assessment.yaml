@@ -1,0 +1,387 @@
+# TID-CMM assessment template
+# Model version: 1.0.0
+organisation: ""
+assessed_on: "2026-08-10"
+assessor: ""
+scope: ""
+strict: true
+responses:
+  # ---- TI: Threat Intelligence & Adversary Prioritisation (weight 12.0%) ----
+  # Are there documented, prioritised intelligence requirements that state what the organisation needs to know, tied to business risk and to named decisions?
+  TI.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is there a maintained, evidenced threat profile that names the actors, campaigns and behaviours most relevant to this organisation, and ranks them?
+  TI.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are technical indicators ingested, scored, deployed, aged and retired under a defined lifecycle, with measured operational value?
+  TI.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is finished reporting systematically decomposed into ATT&CK-mapped adversary behaviours with enough procedural detail to build a detection from?
+  TI.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Does intelligence reliably and measurably produce detection, hunting and emulation work — and can you prove the linkage?
+  TI.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is intelligence delivered in the form each consumer can act on, and does the organisation contribute back to sector and community sharing?
+  TI.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- TM: Threat Modeling & Attack Path Analysis (weight 12.0%) ----
+  # Do you know what you are actually protecting — the systems, data, identities and business processes whose compromise would matter most?
+  TM.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are systems threat-modelled using a recognised structured method, and does that modelling happen at the right point in the delivery lifecycle?
+  TM.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are attack trees built for the objectives that matter — decomposing an adversary goal into the alternative branches by which it can be achieved — and are all branches carried through to a detection decision?
+  TM.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Do you analyse real, computed attack paths through identity, network and cloud relationships in the live estate — not only hypothetical ones?
+  TM.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Can you trace a specific detection rule back to the threat model or attack tree node that justified it — and identify model nodes with no detection?
+  TM.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are threat models, attack trees and path analyses kept alive by defined triggers, or do they decay silently after first publication?
+  TM.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- DC: Telemetry & Detection Coverage (weight 14.0%) ----
+  # Is there a complete, owned inventory of telemetry sources with their scope, coverage percentage and criticality?
+  DC.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Do you measure whether the data arriving is complete, correctly parsed, timely and unaltered — and do you alert when it is not?
+  DC.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is telemetry normalised to a documented, versioned data model so detections are portable and analysts are not re-learning field names per source?
+  DC.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is coverage measured honestly at technique and sub-technique level, grounded in data-component availability and detection validity — not in rule counts?
+  DC.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Does visibility extend across every surface the prioritised adversaries use — endpoint, identity, cloud control plane, SaaS, network, email, application, container, OT/IoT and third-party — rather than concentrating on endpoint?
+  DC.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are known blind spots recorded, prioritised, costed and driven to closure — or quietly tolerated?
+  DC.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- DE: Detection Engineering (weight 16.0%) ----
+  # Is there a defined lifecycle from requirement through design, build, test, release, monitor and retire — with a controlled intake?
+  DE.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is detection content managed as code — versioned, peer-reviewed, and deployed through an automated pipeline?
+  DE.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Does every detection carry the metadata needed to operate, audit and improve it — and is a shared standard enforced?
+  DE.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is every detection proven to fire on true positive input and stay quiet on benign input, before it reaches production?
+  DE.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is alert precision measured per detection and improved deliberately, rather than by disabling noisy rules?
+  DE.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Would you know if a detection stopped working — not because it was deleted, but because its data stopped arriving or its schema changed?
+  DE.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is content retired deliberately when it no longer earns its place, with a record of why?
+  DE.7:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is the detection portfolio deliberately balanced across the pyramid of pain — or is it a pile of indicator matches with a few behavioural rules on top?
+  DE.8:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- AV: Adversarial Validation & Emulation (weight 14.0%) ----
+  # Are individual techniques executed safely and repeatably to verify that telemetry, detection and alerting actually fire?
+  AV.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is there automated, scheduled simulation providing continuous assurance across prevention and detection layers?
+  AV.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Do you emulate the full behaviour chains of the specific adversaries in your threat profile, in sequence, rather than isolated techniques?
+  AV.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is there a structured, recurring collaboration in which offensive execution and defensive engineering work the same exercise together and fix gaps live?
+  AV.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are penetration test findings systematically converted into detection requirements — not only into vulnerability remediation tickets?
+  AV.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is the detection and response capability tested by objective-based, intelligence-led adversarial engagements under realistic constraints?
+  AV.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Do validation findings reliably become closed detection or control changes, confirmed by re-test — and is the loop's speed measured?
+  AV.7:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are validation results expressed as a defensible efficacy score per technique across the prevent / detect / alert / respond chain, and used in reporting?
+  AV.8:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- AA: Analytics, Automation & Hunting (weight 12.0%) ----
+  # Does an alert arrive with the context an analyst needs, automatically, or does triage begin with twenty minutes of manual lookups?
+  AA.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are related alerts assembled into a single narrative of adversary progress, or triaged as isolated events?
+  AA.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is automation applied to response actions with appropriate safeguards, and is its coverage and value measured?
+  AA.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Where machine learning, UEBA or statistical analytics are used, are they governed, explainable and validated like any other detection?
+  AA.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is hunting hypothesis-driven, threat-informed and productive of new detection — or is it browsing?
+  AA.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is the knowledge generated by every investigation captured in a form that improves the next one?
+  AA.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- IR: Incident Response & Recovery (weight 10.0%) ----
+  # Are there current, tested response procedures covering the scenarios the threat profile says are most likely?
+  IR.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is the path from alert to responder defined, measured and reliable at all hours?
+  IR.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Can you acquire and defensibly preserve the evidence needed to answer what happened — including in cloud and SaaS?
+  IR.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Can you contain and recover at the speed and scale a real intrusion demands, and have you proven it?
+  IR.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are response and crisis capabilities exercised realistically, including at executive level, with findings tracked?
+  IR.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Does every incident measurably improve detection — and is the "why did we not see this sooner?" question answered structurally every time?
+  IR.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # ---- GV: Governance, Metrics & Continuous Improvement (weight 10.0%) ----
+  # Does the detection capability have an articulated strategy, an explicit mandate and funding tied to the risks it is meant to reduce?
+  GV.1:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are the roles the model requires actually defined and staffed, with a deliberate path to build the skills the work needs?
+  GV.2:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Are the metrics used to run and report the capability meaningful measures of detection effectiveness, or activity counts?
+  GV.3:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is detection capability expressed in the organisation's risk language and mapped to the obligations it must satisfy — without letting compliance drive the design?
+  GV.4:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Do decision-makers receive an honest, comparable picture of what the organisation can and cannot detect?
+  GV.5:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Is improvement a managed, funded, scheduled activity with measured outcomes?
+  GV.6:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""
+  # Does detection extend to the third parties, managed services and software supply chain through which adversaries reach you?
+  GV.7:
+    score: 0        # 0-5 or null for not applicable
+    target: 3       # desired level
+    evidence: ""    # required for a score of 4 or 5
+    owner: ""
+    notes: ""

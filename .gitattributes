@@ -1,0 +1,14 @@
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.xlsx binary
+*.docx binary
+*.zip binary
+
+# generated from the model — keep diffs readable but do not treat as authored content
+data/attack_*.csv linguist-generated=true
+data/attack_analytics.json linguist-generated=true
+build/** linguist-generated=true
+
+# the model itself is the substance of this repository
+model/**/*.yaml linguist-detectable=true

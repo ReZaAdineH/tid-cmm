@@ -1,0 +1,388 @@
+---
+# TID-CMM — Threat-Informed Detection Capability Maturity Model
+# Machine-readable model definition. See docs/ for narrative guidance.
+model:
+  id: TID-CMM
+  name: Threat-Informed Detection Capability Maturity Model
+  short_name: TDMM
+  version: "1.1.0"
+  released: "2026-08-12"
+  homepage: https://tid-cmm.com
+  repository: https://github.com/ReZaAdineH/tdmm
+  contact: hello@tid-cmm.com
+  licence: CC-BY-4.0 (model content) / Apache-2.0 (code)
+  abstract: >
+    TID-CMM measures whether an organisation's detection capability is genuinely
+    driven by adversary behaviour, and whether that capability has been proven to
+    work. It scores eight domains from 0 to 5, anchors coverage claims to MITRE
+    ATT&CK at technique level, and requires adversarial validation as evidence —
+    a control is not "detected" until an emulated adversary has triggered it.
+    High-fidelity detection means covering the context-rich, high-impact threats
+    first; identifying those requires mapping the attack surface and building
+    attack trees to crown jewels. A technique detection that does not contribute
+    to narrating a full attack scenario is telemetry, not defence.
+  positioning: >
+    TID-CMM operates within UTIOM (the Unified Threat-Informed Operations Model,
+    utiom doctrine: everything in the SOC is Incident Response). Detection is the
+    first phase of IR; TID-CMM measures how mature and ready that phase is. It is
+    deliberately partial on the later IR phases — containment, recovery and crisis
+    management are UTIOM's territory — which is why the IR domain carries a
+    deliberately modest weight here. The model is technology-agnostic: no level
+    requires a specific product, agent or analytic technique. It applies equally
+    to cloud (AWS, Azure, GCP), SaaS, on-premises and hybrid estates, with or
+    without EDR; what changes per environment is which telemetry is crucial,
+    and the tooling advises on that from ATT&CK data-component mappings.
+
+alignment:
+  attack:
+    framework: MITRE ATT&CK Enterprise
+    version: "19.2"
+    snapshot_date: "2026-08-05"
+    techniques: 697
+    parent_techniques: 222
+    sub_techniques: 475
+    tactics: 15
+    data_components: 109
+  crosswalks:
+    - id: nist-csf-2.0
+      name: NIST Cybersecurity Framework 2.0
+    - id: soc-cmm
+      name: SOC-CMM v2.x
+    - id: iso-27001-2022
+      name: ISO/IEC 27001:2022 Annex A
+    - id: mitre-d3fend
+      name: MITRE D3FEND
+    - id: ctem
+      name: Gartner Continuous Threat Exposure Management
+    - id: debmm
+      name: Elastic Detection Engineering Behavior Maturity Model
+
+# ---------------------------------------------------------------------------
+# Maturity scale. Applies uniformly to every sub-capability.
+# ---------------------------------------------------------------------------
+levels:
+  - value: 0
+    key: absent
+    name: Absent
+    summary: The capability does not exist in any recognisable form.
+    evidence_bar: Nothing to show.
+  - value: 1
+    key: ad_hoc
+    name: Ad hoc
+    summary: >
+      Happens occasionally, driven by individual initiative or an incident.
+      Undocumented, unrepeatable, lost when the individual leaves.
+    evidence_bar: Anecdote, a person who "knows how".
+  - value: 2
+    key: repeatable
+    name: Repeatable
+    summary: >
+      Documented and consistently performed, but driven by compliance, tooling
+      defaults or vendor content rather than by adversary behaviour.
+    evidence_bar: A written procedure and proof it was followed more than once.
+  - value: 3
+    key: threat_informed
+    name: Threat-Informed
+    summary: >
+      Driven by a prioritised adversary profile. Work is explicitly mapped to
+      ATT&CK techniques and traceable back to an intelligence requirement or a
+      threat model.
+    evidence_bar: ATT&CK-mapped artefacts with traceability to a threat driver.
+  - value: 4
+    key: validated
+    name: Measured & Validated
+    summary: >
+      Quantitatively managed and independently proven. Claims are tested by
+      emulation, results are measured over time, and gaps enter a managed backlog.
+    evidence_bar: Test results, trended metrics, closed-loop backlog records.
+  - value: 5
+    key: adaptive
+    name: Adaptive
+    summary: >
+      A self-correcting closed loop. Change in the threat landscape automatically
+      produces changes in telemetry, detection and validation, with measured cycle
+      time. The organisation contributes findings back to the community.
+    evidence_bar: Automated pipeline metrics, cycle-time trends, external contributions.
+
+# ---------------------------------------------------------------------------
+# Domain weights. Must sum to 100.
+# ---------------------------------------------------------------------------
+domains:
+  - id: TI
+    name: Threat Intelligence & Adversary Prioritisation
+    weight: 12
+    file: domains/TI.yaml
+  - id: TM
+    name: Threat Modeling & Attack Path Analysis
+    weight: 12
+    file: domains/TM.yaml
+  - id: DC
+    name: Telemetry & Detection Coverage
+    weight: 14
+    file: domains/DC.yaml
+  - id: DE
+    name: Detection Engineering
+    weight: 16
+    file: domains/DE.yaml
+  - id: AV
+    name: Adversarial Validation & Emulation
+    weight: 14
+    file: domains/AV.yaml
+  - id: AA
+    name: Analytics, Automation & Hunting
+    weight: 12
+    file: domains/AA.yaml
+  - id: IR
+    name: Incident Response & Recovery
+    weight: 10
+    file: domains/IR.yaml
+  - id: GV
+    name: Governance, Metrics & Continuous Improvement
+    weight: 10
+    file: domains/GV.yaml
+
+# ---------------------------------------------------------------------------
+# Scoring rules
+# ---------------------------------------------------------------------------
+scoring:
+  subcapability_score: "Integer 0-5, or 'NA' if formally scoped out."
+  domain_score: "Weighted mean of in-scope sub-capability scores, using sub-capability weights."
+  overall_score: "Weighted mean of domain scores using domain weights. Reported to 2 decimals."
+  maturity_band:
+    - {min: 0.00, max: 0.99, band: "Level 0 — Absent"}
+    - {min: 1.00, max: 1.99, band: "Level 1 — Ad hoc"}
+    - {min: 2.00, max: 2.99, band: "Level 2 — Repeatable"}
+    - {min: 3.00, max: 3.99, band: "Level 3 — Threat-Informed"}
+    - {min: 4.00, max: 4.99, band: "Level 4 — Measured & Validated"}
+    - {min: 5.00, max: 5.00, band: "Level 5 — Adaptive"}
+  constraints:
+    # These prevent the two most common ways maturity models get gamed.
+    - id: C1
+      name: Validation ceiling
+      rule: >
+        No domain may be scored above the AV domain score + 1. You cannot claim
+        measured, validated detection engineering if you have never emulated an
+        adversary against it.
+    - id: C2
+      name: Visibility ceiling
+      rule: >
+        DE (Detection Engineering) may not exceed DC (Telemetry & Detection
+        Coverage) + 1. Detection logic cannot be more mature than the telemetry
+        it runs on.
+    - id: C3
+      name: Evidence rule
+      rule: >
+        Any score of 4 or 5 requires a named artefact recorded in the evidence
+        field. Unevidenced 4s and 5s are downgraded to 3 by the scoring engine
+        in strict mode.
+    - id: C4
+      name: Intent ceiling
+      rule: >
+        DC and DE may not exceed max(TI, TM) + 1. Telemetry and detection content
+        cannot be more mature than the strategy directing them. Sensors without
+        architectural intent produce noise, not defence.
+
+  coverage_score:
+    name: ATT&CK Validated Coverage Score (VCS)
+    formula: >
+      For each in-scope technique: 0 = no telemetry, 1 = telemetry only,
+      2 = detection logic exists, 3 = detection validated by emulation within
+      the review period. VCS = sum(actual) / (3 * count(in-scope)) expressed as
+      a percentage. Report alongside, never instead of, the domain scores.
+    note: >
+      In-scope techniques are those relevant to the organisation's platforms and
+      prioritised threat profile — not all 697. Reporting coverage against the
+      full ATT&CK matrix is a vanity metric.
+  scenario_coverage:
+    name: Scenario Coverage Score (SCS)
+    principle: >
+      A technique detection that does not contribute to narrating a full attack
+      scenario is telemetry, not defence. A login attempt means nothing on its
+      own; a login attempt on the path to a crown jewel, correlated with the
+      steps before and after it, is a detection. Technique-level VCS is an
+      early-maturity metric; scenario coverage is the mature one.
+    formula: >
+      For each prioritised attack scenario (an attack tree or emulation chain to
+      a named crown-jewel objective): the scenario counts as covered when the
+      chain would be detected at two or more distinct kill-chain stages, at
+      least one of them validated by emulation. SCS = covered scenarios /
+      prioritised scenarios, expressed as a percentage, reported with the
+      scenario count.
+    note: >
+      Requires an attack tree or scenario register (TM.3). An organisation
+      without one has an SCS of "unmeasurable", which is itself the finding.
+
+# ---------------------------------------------------------------------------
+# Public maturity tiers. The 0-5 sub-capability scale is the measurement
+# instrument; these five tiers are the programme-level statement. A tier is
+# reached only when BOTH the weighted score band and every entry gate are met —
+# gates make tiers falsifiable rather than adjectival. The floor assumption for
+# Tier 1 is that default telemetry collection and default/vendor detections are
+# enabled; an estate below that floor is flagged rather than scored.
+# ---------------------------------------------------------------------------
+tiers:
+  - value: 1
+    name: Ad Hoc
+    summary: >
+      Reactive, unstructured detection with minimal process or visibility.
+      Default telemetry and vendor detection content are on; what happens next
+      depends on who is on shift.
+    min_score: 1.0
+    gates:
+      - {ref: DC.1, min: 1, why: "Some record exists of what telemetry is collected."}
+  - value: 2
+    name: Defined
+    summary: >
+      Documented processes, basic tooling, limited threat-intelligence use. The
+      first attack trees exist for the top crown-jewel objectives and deployed
+      detections are mapped to ATT&CK.
+    min_score: 2.0
+    gates:
+      - {ref: DC.1, min: 2, why: "A maintained log source inventory."}
+      - {ref: TM.3, min: 2, why: "Attack trees drawn for at least the top crown-jewel objectives."}
+      - {ref: DE.3, min: 2, why: "Detections documented and ATT&CK-mapped."}
+  - value: 3
+    name: Managed
+    summary: >
+      Threat intelligence informs operations; SIEM/EDR (or cloud-native
+      equivalents) well integrated. Attack trees and threat models exist for
+      all crown-jewel objectives and every in-scope detection traces to one.
+    min_score: 3.0
+    gates:
+      - {ref: TI.5, min: 3, why: "Intelligence reliably produces detection work with tracked disposition."}
+      - {ref: TM.3, min: 3, why: "Attack trees cover the prioritised adversary objectives, ATT&CK-mapped."}
+      - {ref: TM.5, min: 3, why: "Detections trace back to the model node that justified them."}
+      - {ref: DE.2, min: 3, why: "Detection content is version-controlled and peer-reviewed."}
+  - value: 4
+    name: Predictive
+    summary: >
+      Proactive hunting and behavioural analytics proportionate to the
+      behaviour being detected — the model mandates outcomes, never a specific
+      technology. Detection claims are proven by emulation, and deception is
+      placed at attack-tree choke points.
+    min_score: 4.0
+    gates:
+      - {ref: AV.1, min: 3, why: "Technique-level testing runs on a cadence with recorded outcomes."}
+      - {ref: AV.3, min: 3, why: "Prioritised actors are emulated as full chains, not isolated techniques."}
+      - {ref: AA.5, min: 4, why: "Hunting is hypothesis-driven and measured."}
+      - {ref: AA.7, min: 3, why: "Deception is deployed at modelled choke points."}
+  - value: 5
+    name: Optimized
+    summary: >
+      Fully integrated and continuously improved: threat change automatically
+      produces telemetry, detection and validation change, with measured cycle
+      time. Autonomy where it is safe, evidence everywhere.
+    min_score: 4.75
+    gates:
+      - {ref: AV.7, min: 4, why: "Findings close through a measured, re-tested loop."}
+      - {ref: GV.6, min: 4, why: "Improvement is a managed cadence with demonstrated progression."}
+
+# ---------------------------------------------------------------------------
+# Detection classes. Intent is an attribute of a detection, not a maturity level.
+# A single decisive alert is not immature; a chain detection is not superior.
+# Each class is held to its own bar; a mature portfolio contains all three.
+# ---------------------------------------------------------------------------
+detection_classes:
+  note: >
+    Every detection declares a class. Coverage status 0 and 1 must additionally
+    declare intent — "by design" (a deliberate Class H input, or an accepted blind
+    spot) or "gap" (it should alert and does not). Those are entirely different
+    findings and must never be reported as the same number.
+  classes:
+    - id: D
+      name: Decisive
+      purpose: A single event that justifies acting immediately, on its own.
+      examples: >
+        Honeytoken accessed; DCSync from a non-domain-controller; break-glass
+        account used; public exposure of a crown-jewel data store; known-ransomware
+        execution blocked.
+      bar: >
+        High precision, a response action pre-bound to the detection, tested end to
+        end, and an owner accountable for the false-positive rate.
+      prevents: Missing the one event that mattered while waiting for corroboration.
+    - id: C
+      name: Corroborative
+      purpose: Individually meaningless, decisive in sequence.
+      examples: >
+        A failed login; a service creation; an archive written to a temp directory.
+        Any one is noise; together, along a path to a crown jewel, they are an intrusion.
+      bar: >
+        Correlates into a single narrative with tactic progression, rather than
+        producing one alert per event.
+      prevents: Alert-per-event volume with no story an analyst can act on.
+    - id: H
+      name: Hunting and context
+      purpose: Never alerts by design. Exists to enable hypotheses and reconstruction.
+      examples: >
+        Authentication and process telemetry retained for baselining; DNS and proxy
+        records; benign-but-necessary events that make a hunt or investigation possible.
+      bar: >
+        Retained for a defined period, normalised, queryable at investigation speed,
+        and documented as a named hunt or investigation input.
+      prevents: Hunters with no ground truth and investigators unable to reconstruct.
+
+# ---------------------------------------------------------------------------
+# Applicability profiles. The full model is not proportionate for every
+# organisation. Each sub-capability carries a profile tag; assessments scope to it.
+# Modelled on the CIS Controls Implementation Group pattern.
+# ---------------------------------------------------------------------------
+profiles:
+  derivation:
+    mode: >
+      Derived automatically from the declared environment archetype and organisation
+      size, and overridable by the assessor.
+    challenge: >
+      An override that is implausible against the declared environment raises a
+      recorded notice — it does not block. An organisation declaring a multi-cloud
+      estate, an in-house SOC and regulatory obligations but selecting Essential is
+      told that the derived profile was Comprehensive, and that its score is not
+      comparable with peers assessed at the derived profile. The notice appears in
+      the report, not only on screen.
+    rationale_required: true
+  levels:
+    - id: essential
+      name: Essential
+      applies_to: >
+        Any organisation with something worth defending, including those relying on
+        a managed provider for monitoring. Achievable by a small team with no
+        dedicated detection engineering.
+      includes: Sub-capabilities tagged essential.
+    - id: standard
+      name: Standard
+      applies_to: >
+        Organisations operating a security operations function, in-house or hybrid,
+        with named detection ownership.
+      includes: essential + standard
+    - id: comprehensive
+      name: Comprehensive
+      applies_to: >
+        Organisations with dedicated detection engineering, an adversarial validation
+        capability, and regulatory or contractual assurance obligations.
+      includes: All sub-capabilities.
+
+# ---------------------------------------------------------------------------
+# Environment archetypes. The model is technology-neutral; the advice is not.
+# Archetype drives the in-scope technique set, profile derivation, and the
+# telemetry advisory that tells an organisation what it is structurally unable to
+# detect given what it currently collects.
+# ---------------------------------------------------------------------------
+environment_archetypes:
+  advisory: >
+    From the declared archetype the tooling computes, using ATT&CK data components,
+    which prioritised behaviours are structurally undetectable with current
+    collection, and names the minimum telemetry that would change that. An
+    organisation without commercial endpoint tooling is told which open-source
+    instrumentation reaches the same data components — never which product to buy.
+  neutrality: >
+    No descriptor in this model names a vendor or requires a specific technology.
+    Levels 4 and 5 are reachable with open-source instrumentation and content. The
+    model scores behaviours reached and evidence produced, never products owned.
+  dimensions:
+    estate: [on-premises, hybrid, cloud-native, saas-only, ot-ics, developer-platform]
+    cloud: [aws, azure, gcp, other, none]
+    productivity: [microsoft-365, google-workspace, other, none]
+    identity: [active-directory, entra-id, okta, other-idp, none]
+    endpoint_telemetry: [commercial-edr, open-source-instrumentation, native-os-logging-only, none]
+    network_telemetry: [inline-inspection, flow-only, passive-sensor, none]
+    workload: [servers, containers, serverless, mainframe, none]
+    operating_model: [in-house-soc, hybrid-mssp, fully-outsourced, no-soc]

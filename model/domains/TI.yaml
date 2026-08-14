@@ -1,0 +1,149 @@
+---
+domain:
+  id: TI
+  name: Threat Intelligence & Adversary Prioritisation
+  weight: 12
+  intent: >
+    Establishes *who* you are defending against and *why*. Without this domain the
+    rest of the model has no input signal — detection becomes vendor-content-driven
+    rather than threat-informed. This domain is scored on the quality of the
+    prioritisation decision, not on the number of feeds consumed.
+  anti_pattern: >
+    A large IOC feed volume with no documented threat profile. Feed count is not
+    intelligence; it is procurement.
+
+subcapabilities:
+  - id: TI.1
+    name: Intelligence requirements and PIRs
+    weight: 18
+    profile: standard
+    question: >
+      Are there documented, prioritised intelligence requirements that state what
+      the organisation needs to know, tied to business risk and to named decisions?
+    levels:
+      0: No intelligence requirements exist. Collection is undirected.
+      1: Informal requirements held by one analyst; expressed as topics of interest rather than questions.
+      2: A written PIR list exists and is reviewed annually, but is generic and not tied to specific decisions.
+      3: PIRs are decomposed into specific intelligence requirements (SIRs) and essential elements of information (EEIs), each tied to a named decision-maker and a business risk.
+      4: PIR satisfaction is measured — each requirement has a coverage and confidence rating, gaps are tracked, and collection is retasked on a defined cadence.
+      5: PIRs are dynamically re-prioritised from operational signal (incidents, hunts, emulation results, sector reporting) with measured time-to-retask.
+    evidence:
+      - Signed PIR/SIR register with named decision owners
+      - Requirement satisfaction and collection-gap tracker
+      - Retasking log with dates
+    crosswalk:
+      nist_csf_2: [ID.RA-03, ID.RA-04, GV.RM-01]
+      soc_cmm: [Intelligence.Business, Intelligence.Process]
+      iso_27001_2022: [A.5.7]
+
+  - id: TI.2
+    name: Threat profile and adversary prioritisation
+    weight: 20
+    profile: essential
+    question: >
+      Is there a maintained, evidenced threat profile that names the actors,
+      campaigns and behaviours most relevant to this organisation, and ranks them?
+    levels:
+      0: No threat profile. "Everyone is a target" is the operating assumption.
+      1: An informal list of headline actors, largely drawn from vendor marketing and news cycles.
+      2: A documented threat profile exists, refreshed annually, based mainly on sector reporting.
+      3: Threat profile is built from sector, geography, technology stack, crown-jewel exposure and observed activity; actors are ranked by a documented relevance methodology and mapped to ATT&CK Groups and Campaigns.
+      4: Profile is re-scored at least quarterly against new reporting and internal telemetry; changes in ranking produce recorded downstream tasking to threat modeling, detection engineering and emulation.
+      5: Profile is continuously maintained, includes emerging and unattributed behaviour clusters, incorporates supply-chain and insider actors, and drives automated re-prioritisation of the detection backlog.
+    evidence:
+      - Threat profile document with ranking methodology and ATT&CK Group/Campaign IDs
+      - Quarterly re-score records
+      - Tasking records showing profile change to backlog change
+    crosswalk:
+      nist_csf_2: [ID.RA-03, ID.RA-05]
+      soc_cmm: [Intelligence.Process]
+    attack_link: Uses ATT&CK Groups (G####), Campaigns (C####) and Software (S####).
+
+  - id: TI.3
+    name: Technical CTI ingestion and indicator lifecycle
+    weight: 14
+    profile: essential
+    question: >
+      Are technical indicators ingested, scored, deployed, aged and retired under
+      a defined lifecycle, with measured operational value?
+    levels:
+      0: No indicator ingestion, or manual copy-paste from emails.
+      1: Indicators are loaded ad hoc during incidents; nothing is retired.
+      2: A TIP or equivalent ingests feeds automatically; deduplication and basic scoring exist; retirement is manual and inconsistent.
+      3: Indicators carry confidence, source, ATT&CK context and expiry; deployment target (block, alert, enrich, hunt) is decided by score, not by default.
+      4: Indicator hit rates, false-positive rates and feed value are measured per source; low-value feeds are cancelled on the evidence.
+      5: Lifecycle is fully automated including sunset, with feedback from detection outcomes re-scoring source reliability, and internally derived indicators promoted back to the TIP.
+    evidence:
+      - TIP configuration and lifecycle policy
+      - Per-feed hit-rate/FP report
+      - Feed decommissioning decision record
+    crosswalk:
+      nist_csf_2: [ID.RA-02, DE.AE-07]
+      soc_cmm: [Intelligence.Technology]
+
+  - id: TI.4
+    name: TTP extraction and ATT&CK mapping discipline
+    weight: 18
+    profile: standard
+    question: >
+      Is finished reporting systematically decomposed into ATT&CK-mapped adversary
+      behaviours with enough procedural detail to build a detection from?
+    levels:
+      0: Reports are read and filed. No structured extraction.
+      1: Analysts occasionally note technique IDs in prose.
+      2: Reports are tagged with ATT&CK technique IDs, mostly at parent-technique level, stored in a searchable repository.
+      3: Extraction reaches sub-technique and *procedure* level — the specific command line, API call, registry path or protocol behaviour — recorded in a structured schema with source citation and confidence.
+      4: Extraction quality is reviewed; coverage of the prioritised threat profile by extracted procedures is measured; ambiguous mappings are arbitrated and the rationale recorded.
+      5: Extraction is partly automated (NLP-assisted with human validation), feeds a behaviour library reused by threat modeling, detection engineering and emulation, and is contributed to community knowledge bases.
+    evidence:
+      - Structured TTP/procedure library with citations
+      - Mapping quality-review records
+      - Behaviour library referenced by detection tickets
+    crosswalk:
+      nist_csf_2: [ID.RA-03, ID.IM-02]
+      soc_cmm: [Intelligence.Process]
+    attack_link: Mapping must reach sub-technique (T####.###) where one exists.
+
+  - id: TI.5
+    name: Intelligence-to-detection tasking
+    weight: 18
+    profile: essential
+    question: >
+      Does intelligence reliably and measurably produce detection, hunting and
+      emulation work — and can you prove the linkage?
+    levels:
+      0: No route from intelligence to engineering. The two functions do not interact.
+      1: Occasional informal requests, typically during a live incident.
+      2: A defined handoff exists (ticket or email) but is used inconsistently and without SLA.
+      3: Every prioritised behaviour produces a tracked work item routed to detection engineering, hunting or emulation, with a documented disposition even when the answer is "no action".
+      4: Time from publication to deployed-and-validated detection is measured per priority tier, trended, and reported; the backlog is triaged against the threat profile ranking.
+      5: Tasking is automated from the behaviour library, with measured cycle time under an agreed target and automatic escalation when a top-tier behaviour has no validated detection.
+    evidence:
+      - Intel-to-detection ticket trail with dispositions
+      - Publication-to-validated-detection cycle-time trend
+      - Escalation records for uncovered top-tier behaviours
+    crosswalk:
+      nist_csf_2: [ID.RA-06, ID.IM-01, DE.AE-08]
+      soc_cmm: [Intelligence.Process, Analysis.Process]
+
+  - id: TI.6
+    name: Dissemination, sharing and community contribution
+    weight: 12
+    profile: comprehensive
+    question: >
+      Is intelligence delivered in the form each consumer can act on, and does the
+      organisation contribute back to sector and community sharing?
+    levels:
+      0: No dissemination. Intelligence stays with the person who produced it.
+      1: Ad hoc emails and chat messages, one format for all audiences.
+      2: Regular scheduled reporting exists, but is a single product pushed to everyone.
+      3: Differentiated products by audience — executive risk narrative, SOC-actionable behaviour briefs, engineering-ready procedure detail — with a defined cadence.
+      4: Consumer feedback is collected and acted on; usefulness is measured; participation in ISAC/ISAO or sector sharing is active and reciprocal.
+      5: Bidirectional automated sharing (STIX/TAXII or equivalent), original research published, and community detection content contributed under an agreed disclosure policy.
+    evidence:
+      - Product catalogue by audience with cadence
+      - Consumer feedback and usefulness scores
+      - Sharing-community membership and contribution records
+    crosswalk:
+      nist_csf_2: [ID.RA-03, GV.OC-02, RS.CO-02]
+      soc_cmm: [Intelligence.Process, Business.Customers]

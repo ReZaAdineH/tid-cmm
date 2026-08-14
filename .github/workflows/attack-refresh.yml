@@ -1,0 +1,60 @@
+# ATT&CK ships several releases a year. This opens a PR when ours is stale rather than
+# silently drifting — a coverage score computed against a different version is not
+# comparable, so the drift has to be visible.
+name: ATT&CK version check
+
+on:
+  schedule: [{ cron: "0 7 1 * *" }]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r requirements.txt
+      - id: check
+        run: |
+          python - <<'PY' >> $GITHUB_OUTPUT
+          import json, urllib.request, yaml
+          ours = yaml.safe_load(open("model/meta.yaml"))["alignment"]["attack"]["version"]
+          url = "https://api.github.com/repos/mitre-attack/attack-stix-data/contents/enterprise-attack"
+          try:
+              names = [x["name"] for x in json.load(urllib.request.urlopen(url, timeout=30))]
+              vers = sorted(n.replace("enterprise-attack-","").replace(".json","")
+                            for n in names if n.startswith("enterprise-attack-"))
+              latest = vers[-1] if vers else ours
+          except Exception:
+              latest = ours
+          print(f"ours={ours}")
+          print(f"latest={latest}")
+          print(f"stale={'true' if latest != ours else 'false'}")
+          PY
+      - if: steps.check.outputs.stale == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { ours, latest } = ${{ toJSON(steps.check.outputs) }};
+            const title = `ATT&CK ${latest} released — model is aligned to ${ours}`;
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'attack-refresh' });
+            if (existing.data.some(i => i.title === title)) return;
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo, title, labels: ['attack-refresh','data'],
+              body: [
+                `MITRE has published ATT&CK Enterprise **${latest}**; this model is aligned to **${ours}**.`,
+                ``,
+                `To refresh:`,
+                `1. Regenerate \`data/attack_techniques.csv\`, \`attack_actors.csv\`, \`attack_detection.csv\` and \`attack_analytics.json\``,
+                `2. Update the \`alignment.attack\` block in \`model/meta.yaml\` (version, snapshot date, counts)`,
+                `3. \`make all\` and check the technique-count tests still pass`,
+                `4. Record the technique diff in \`CHANGELOG.md\` — added, deprecated and revoked`,
+                ``,
+                `Coverage scores computed against a different ATT&CK version are not directly comparable, so this needs a note in the release.`,
+              ].join('\n') });
