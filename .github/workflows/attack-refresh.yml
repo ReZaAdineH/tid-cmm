@@ -37,7 +37,7 @@ jobs:
           print(f"stale={'true' if latest != ours else 'false'}")
           PY
       - if: steps.check.outputs.stale == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const { ours, latest } = ${{ toJSON(steps.check.outputs) }};
