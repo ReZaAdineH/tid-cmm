@@ -2,8 +2,14 @@ Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 Copyright (c) 2022-2026 TID-CMM contributors
 
-This licence applies to the MODEL CONTENT in this repository: everything under
-model/, docs/, the white paper, and the descriptive text of the assessment tools.
+This licence covers everything in this repository: the model definition under
+model/, its level descriptors, weights, evidence criteria and crosswalks, and
+the derived datasets under data/.
+
+The TID-CMM assessment tool at https://tid-cmm.xyz is not covered by this
+licence and its source is not published here. It is free to use for any
+purpose, including commercial assessment work, and is not licensed for
+redistribution or for building derivative tooling. See NOTICE.md.
 Code and tooling are licensed separately under Apache-2.0; see LICENSE-CODE.
 
 You are free to:
