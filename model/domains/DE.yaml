@@ -1,0 +1,250 @@
+---
+domain:
+  id: DE
+  name: Detection Engineering
+  weight: 16
+  intent: >
+    The production engine of the model. Measures whether detection content is
+    built, tested, released, monitored and retired with the discipline of software
+    engineering — and whether the portfolio is deliberately composed rather than
+    accumulated.
+  anti_pattern: >
+    Thousands of enabled vendor rules, no version control, no test, no owner, and
+    a "we can't turn it off in case we need it" culture.
+  ceiling_rule: >
+    DE may not score more than one level above DC. Detection logic cannot be more
+    mature than the telemetry it runs on.
+
+subcapabilities:
+  - id: DE.1
+    name: Detection lifecycle and intake
+    weight: 10
+    profile: essential
+    question: >
+      Is there a defined lifecycle from requirement through design, build, test,
+      release, monitor and retire — with a controlled intake?
+    levels:
+      0: No lifecycle. Rules appear when someone has an idea or a vendor ships content.
+      1: Informal build-and-deploy by individuals; no stages, no record.
+      2: A documented process exists covering build and deploy; test and retire stages are weak or skipped under pressure.
+      3: A full lifecycle is defined and enforced, with a single intake queue accepting requests from intelligence, threat modeling, hunting, incidents, emulation and audit — each item carrying a source and a priority.
+      4: Stage transition criteria are explicit and gated; lifecycle metrics (queue depth, lead time, stage ageing, rejection reasons) are measured and reviewed.
+      5: The lifecycle is automated end to end with policy-as-code gates; lead time from intake to validated production is measured against a target and continuously reduced.
+    evidence:
+      - Documented lifecycle with stage gates
+      - Intake queue showing source attribution per item
+      - Lead-time and queue-depth trends
+    crosswalk:
+      nist_csf_2: [DE.CM-09, ID.IM-01]
+      soc_cmm: [Process.Use case management]
+      debmm: [Foundational to Advanced]
+
+  - id: DE.2
+    name: Detection-as-code
+    weight: 12
+    profile: standard
+    question: >
+      Is detection content managed as code — versioned, peer-reviewed, and
+      deployed through an automated pipeline?
+    levels:
+      0: Rules are edited directly in the console. No history beyond the tool's audit log.
+      1: Occasional manual exports kept in a shared folder as backup.
+      2: Content is stored in version control but deployed manually; commits are not reviewed.
+      3: All detection content lives in version control with mandatory peer review, branch protection, meaningful commit history and a documented release process.
+      4: CI validates syntax, schema, metadata completeness and test results before merge; deployment is automated with rollback; production drift from the repository is detected and alerted.
+      5: Full GitOps — the repository is the single source of truth, environments are reproducible, deployments are automated with progressive rollout, and drift is auto-remediated.
+    evidence:
+      - Repository with branch protection and review history
+      - CI pipeline definition and passing runs
+      - Drift detection alerts and rollback records
+    crosswalk:
+      nist_csf_2: [PR.PS-01, PR.PS-06, DE.CM-09]
+      soc_cmm: [Technology.SIEM, Process.Use case management]
+
+  - id: DE.3
+    name: Detection standards, metadata and documentation
+    weight: 10
+    profile: essential
+    question: >
+      Does every detection carry the metadata needed to operate, audit and improve
+      it — and is a shared standard enforced?
+    levels:
+      0: No standard. Rule names are the only documentation.
+      1: Some rules have descriptions; quality varies by author.
+      2: A template exists; completion is voluntary and partial.
+      3: A mandatory schema is enforced — unique ID, author, owner, ATT&CK technique and sub-technique, data sources required, logic rationale, known false positives, severity and risk score, triage guidance, response playbook link, validation reference, and version.
+      4: Metadata completeness and accuracy are measured; incomplete content cannot pass CI; analyst-facing triage guidance is reviewed for usability by the people who use it at 3am.
+      5: Metadata is machine-consumable and powers automated coverage reporting, response routing, validation targeting and impact analysis when a log source degrades.
+    evidence:
+      - Enforced detection schema (e.g. Sigma-compatible) and CI validation rule
+      - Metadata completeness metric
+      - Automated report built from detection metadata
+    crosswalk:
+      nist_csf_2: [DE.AE-02, DE.CM-09, RS.MA-02]
+      soc_cmm: [Process.Use case management, Process.Detection engineering]
+
+  - id: DE.4
+    name: Testing and pre-deployment validation
+    weight: 13
+    profile: standard
+    question: >
+      Is every detection proven to fire on true positive input and stay quiet on
+      benign input, before it reaches production?
+    levels:
+      0: No testing. Rules are enabled and observed.
+      1: Author eyeballs a historical search and calls it tested.
+      2: Manual testing against sample events for some rules; results not retained.
+      3: Every detection has a positive test (a reproducible execution or synthetic event that must trigger it) and a negative test set of benign activity that must not; results are recorded against the rule version.
+      4: Tests run automatically in CI against a representative dataset or lab range; regression tests re-run on every change and on data model changes; test coverage of the detection portfolio is measured.
+      5: Tests are generated from the emulation library, run continuously against production-like telemetry, and any detection without a passing test in the current period is automatically flagged as unverified in coverage reporting.
+    evidence:
+      - Test definitions stored with the detection content
+      - CI test run history and coverage-of-portfolio metric
+      - Unverified-detection report
+    crosswalk:
+      nist_csf_2: [ID.IM-02, DE.CM-09, PR.PS-06]
+      soc_cmm: [Process.Use case management]
+
+  - id: DE.5
+    name: Tuning, precision and false-positive management
+    weight: 10
+    profile: essential
+    question: >
+      Is alert precision measured per detection and improved deliberately, rather
+      than by disabling noisy rules?
+    levels:
+      0: No feedback loop. Noisy rules are muted or ignored by analysts.
+      1: Tuning happens reactively when analysts complain loudly enough.
+      2: Tuning requests are logged and actioned; changes are made in the console without a record of rationale.
+      3: Every detection has measured true-positive/false-positive outcomes captured at case closure; precision is calculated per rule; tuning changes are version-controlled with a stated rationale and expected effect.
+      4: Precision and volume thresholds are agreed; rules breaching them enter a formal remediation path with a deadline, ending in fix, demote-to-hunt, or retire; the effect of each change is measured after the fact.
+      5: Tuning is partly automated with statistical baselining and allow-list governance; suppression is time-boxed and expires by default; precision is trended per rule and per domain with alerting on degradation.
+    evidence:
+      - Per-rule precision and volume report
+      - Tuning change records with rationale and post-change effect
+      - Expiring suppression policy and audit
+    crosswalk:
+      nist_csf_2: [DE.AE-08, ID.IM-01, RS.AN-08]
+      soc_cmm: [Process.Monitoring, Technology.SIEM tuning]
+
+  - id: DE.6
+    name: Detection health and silent-failure monitoring
+    weight: 10
+    profile: essential
+    question: >
+      Would you know if a detection stopped working — not because it was deleted,
+      but because its data stopped arriving or its schema changed?
+    levels:
+      0: No health monitoring. Silent failure is discovered during an incident, or never.
+      1: Occasional manual review of whether rules have fired recently.
+      2: Basic "rule has not fired in N days" reporting exists, treated as informational.
+      3: Health is monitored on multiple signals — data source availability for each rule's required components, execution errors, schema drift, scheduling failures, and unexpected volume change — with defined thresholds.
+      4: Health failures raise operational tickets with SLAs; the percentage of the portfolio in a healthy state is a reported KPI; dependency mapping shows which detections a given log source outage disables.
+      5: Health monitoring is closed-loop with canary events proving the full path from generation to alert; failures auto-open incidents, and coverage reporting automatically discounts unhealthy detections.
+    evidence:
+      - Detection health dashboard with dependency mapping
+      - Portfolio-health KPI trend
+      - Canary-to-alert proof and auto-ticketing configuration
+    crosswalk:
+      nist_csf_2: [DE.CM-09, PR.PS-04, DE.AE-03]
+      soc_cmm: [Technology.SIEM, Process.Monitoring]
+
+  - id: DE.7
+    name: Versioning, deprecation and retirement
+    weight: 8
+    profile: standard
+    question: >
+      Is content retired deliberately when it no longer earns its place, with a
+      record of why?
+    levels:
+      0: Nothing is ever retired. The rule set only grows.
+      1: Rules are occasionally disabled without record.
+      2: Retirement happens during periodic clean-ups, driven by performance not by value.
+      3: Retirement criteria are defined (superseded, permanently unsupported telemetry, technique no longer relevant, unfixable precision) and each retirement is recorded with rationale and approval.
+      4: The portfolio is reviewed on a cadence against the threat profile; retirement volume and reasons are reported; retired content is archived and recoverable with its history.
+      5: Deprecation is automated against ATT&CK changes, telemetry decommissioning and threat profile shifts, with impact analysis run before removal and coverage recomputed after.
+    evidence:
+      - Retirement criteria and decision log
+      - Portfolio review records and retirement statistics
+      - Automated deprecation impact analysis
+    crosswalk:
+      nist_csf_2: [ID.IM-03, PR.PS-06]
+      soc_cmm: [Process.Use case management]
+
+  - id: DE.8
+    name: Portfolio composition and detection strategy
+    weight: 12
+    profile: standard
+    question: >
+      Is the detection portfolio deliberately balanced across the pyramid of pain —
+      or is it a pile of indicator matches with a few behavioural rules on top?
+    levels:
+      0: No concept of portfolio. Content is whatever the tool shipped with.
+      1: Predominantly signature and indicator matching; behavioural detection is incidental.
+      2: A mix exists but is unplanned; nobody can state the balance or defend it.
+      3: The portfolio is explicitly classified — atomic indicator, tool artefact, behavioural/TTP, anomaly, correlation, deception — with a documented target mix, and behavioural detection is prioritised for the top-tier threat profile.
+      4: Composition is measured and reported against target; resilience to adversary evasion is assessed (would this survive a renamed binary, a new C2 domain, a different LOLBIN?); brittle detections are identified and reworked.
+      5: Detection strategy is derived from attack-tree choke points and cost-to-adversary analysis; the portfolio is optimised to raise adversary cost, and this is demonstrated through emulation results rather than asserted.
+    evidence:
+      - Portfolio classification with target and actual mix
+      - Evasion-resilience assessment
+      - Choke-point-driven detection strategy document
+    crosswalk:
+      nist_csf_2: [DE.CM-09, ID.IM-02, PR.IR-01]
+      soc_cmm: [Process.Use case management]
+
+  - id: DE.9
+    name: Detection content sourcing and provenance
+    weight: 8
+    profile: essential
+    question: >
+      Do you have a deliberate strategy for where detection ideas come from, and
+      is the provenance of every deployed detection recorded?
+    levels:
+      0: Detection content is whatever the platform shipped with. Nobody can say where a rule came from.
+      1: Content is copied ad hoc from blog posts and vendor reports when someone happens to read one.
+      2: Named sources are used routinely — vendor content subscriptions, community rule repositories — but adoption is uncritical and provenance is not recorded.
+      3: A documented sourcing strategy spans annual threat reports (for example Red Canary, CrowdStrike, Mandiant, Verizon DBIR), vendor and government advisories, community rule repositories (SigmaHQ, Elastic, Splunk Security Content, YARA collections), intelligence platforms (MISP, OpenCTI) and in-house research; every deployed detection records its source, licence and adoption date.
+      4: Content is evaluated before adoption against the organisation's own threat profile and telemetry — not enabled wholesale — and the value of each source is measured by the true positives and validated coverage it actually produced.
+      5: "Sourcing is automated and bidirectional: upstream repositories are tracked for updates and deprecations with impact analysis, sector campaign reporting triggers targeted content review within a defined window, and internally developed detections are contributed back."
+    evidence:
+      - Documented sourcing strategy naming the report, repository and intel-platform sources in use
+      - Provenance, licence and adoption date recorded per detection
+      - Per-source value report (true positives, validated coverage contributed)
+      - Upstream change tracking with impact analysis
+    crosswalk:
+      nist_csf_2: [ID.RA-02, ID.RA-03, GV.SC-07, DE.CM-09]
+      soc_cmm: [Intelligence.Process, Process.Use case management]
+    attack_link: Adopted content must be ATT&CK-mapped on intake, not after the fact.
+    note: >
+      The named reports, repositories and platforms are illustrative of the kinds of
+      source a strategy should span — they are not requirements. No level here depends
+      on any subscription. An organisation sourcing entirely from free advisories,
+      open rule repositories and its own incidents can score 5.
+
+  - id: DE.10
+    name: Detection modality breadth
+    weight: 7
+    profile: standard
+    question: >
+      Does detection span the modalities the adversary can be caught in — event
+      analytics, file and memory content, network, identity behaviour, integrity
+      and deception — rather than relying on one?
+    levels:
+      0: A single modality, almost always log or event analytics in a SIEM.
+      1: A second modality exists incidentally because a product provides it, but nobody plans across them.
+      2: Two or three modalities are in use and configured, but chosen by tooling rather than by what the prioritised behaviours require.
+      3: Modalities are selected deliberately per behaviour — event and process analytics, file and memory content matching (for example YARA), network signature and protocol analysis, identity and entitlement behaviour, configuration and integrity drift, and deception — with the choice recorded and justified against the threat profile.
+      4: Modality coverage is measured per prioritised scenario, and gaps are closed with the modality that fits rather than the tool already owned; where commercial endpoint tooling is absent, open-source equivalents are deliberately deployed to reach the same behaviours.
+      5: Modalities are composed rather than parallel — a single scenario is detected across several modalities that corroborate each other, raising both confidence and the cost of evasion, and the composition is validated end to end.
+    evidence:
+      - Modality map per prioritised scenario with justification
+      - Deployed content in more than one modality (for example Sigma plus YARA plus network signatures)
+      - Evidence of corroboration across modalities in a real or emulated case
+    crosswalk:
+      nist_csf_2: [DE.CM-01, DE.CM-02, DE.CM-04, DE.CM-09, PR.DS-06]
+      soc_cmm: [Technology, Process.Use case management]
+    note: >
+      Deliberately technology-neutral. An organisation with no EDR and no commercial
+      antivirus can reach level 3 or 4 here using open-source instrumentation and
+      content; the model scores the behaviours reached, never the products owned.

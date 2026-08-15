@@ -1,0 +1,178 @@
+---
+domain:
+  id: TM
+  name: Threat Modeling & Attack Path Analysis
+  weight: 12
+  intent: >
+    Converts "which adversary" into "which path through *our* estate". Threat
+    intelligence tells you what an adversary does in general; threat modeling and
+    attack path analysis tell you what that behaviour looks like against your
+    specific architecture, identities and crown jewels. This is the domain that
+    stops ATT&CK coverage from being a generic checklist.
+  anti_pattern: >
+    A threat model produced once for an audit, in a diagram tool, never revisited,
+    and never referenced by a single detection rule.
+
+subcapabilities:
+  - id: TM.1
+    name: Asset, identity and crown-jewel identification
+    weight: 13
+    profile: essential
+    question: >
+      Do you know what you are actually protecting — the systems, data, identities
+      and business processes whose compromise would matter most?
+    levels:
+      0: No asset inventory beyond what infrastructure teams happen to hold.
+      1: Partial inventories in spreadsheets, stale, no criticality rating.
+      2: A CMDB or asset inventory exists with ownership and basic criticality, refreshed periodically; identities and cloud resources are covered inconsistently.
+      3: Crown jewels are formally identified through business impact analysis and include data stores, privileged identity paths, build/CI systems and trust relationships; each has a named owner and an impact statement.
+      4: Inventory completeness is measured against independent discovery (network, cloud API, identity provider, EDR) and the delta is tracked and closed; criticality is reviewed on change.
+      5: Asset, identity and exposure inventories are continuously reconciled and automatically feed threat modeling, detection scoping and validation targeting.
+    evidence:
+      - Crown-jewel register with business impact statements
+      - Discovery-versus-inventory reconciliation report
+      - Owner attestation records
+    crosswalk:
+      nist_csf_2: [ID.AM-01, ID.AM-02, ID.AM-05, ID.AM-07]
+      soc_cmm: [Business.Customers, Process.Use case management]
+
+  - id: TM.2
+    name: System and data-flow threat modeling
+    weight: 16
+    profile: standard
+    question: >
+      Are systems threat-modelled using a recognised structured method, and does
+      that modelling happen at the right point in the delivery lifecycle?
+    levels:
+      0: No threat modeling.
+      1: Occasional whiteboard sessions for high-profile projects, no method, no record.
+      2: A method is nominated (STRIDE, PASTA, LINDDUN, or equivalent) and used for major projects at design review; outputs are documents.
+      3: Threat modeling is mandatory for crown-jewel systems and material changes, uses data-flow diagrams with trust boundaries, and outputs are recorded as structured, queryable threats rather than prose.
+      4: Coverage of the crown-jewel estate by current threat models is measured; model quality is peer-reviewed; findings are tracked to closure with owners and dates.
+      5: Threat modeling is embedded in the delivery pipeline (threat-model-as-code, diagrams generated from IaC), automatically re-triggered by architectural change, and its output is machine-consumable by the detection backlog.
+    evidence:
+      - Threat model repository with trust-boundary DFDs
+      - Crown-jewel threat-model coverage metric
+      - Threat-model-as-code artefacts and pipeline hooks
+    crosswalk:
+      nist_csf_2: [ID.RA-01, ID.RA-04, PR.PS-06]
+      soc_cmm: [Process.Use case management]
+
+  - id: TM.7
+    name: Attack surface enumeration
+    weight: 14
+    profile: essential
+    question: >
+      Do you continuously know every way in — external exposure, APIs, SaaS
+      tenants, cloud services, identity federation, shadow IT and third-party
+      ingress — so attack trees are rooted in reality rather than in the
+      architecture diagram?
+    levels:
+      0: No attack surface enumeration. Exposure is whatever the last audit happened to notice.
+      1: An informal, partial picture held by individuals; discovered assets surprise the team regularly.
+      2: Periodic external scanning of known ranges and domains; cloud, SaaS and API exposure tracked inconsistently; shadow IT invisible.
+      3: Enumeration is continuous and deliberate across external services, APIs, cloud resources and identity federation, reconciled against the asset inventory; deltas are triaged and every internet-reachable path to a crown jewel is known and appears as an attack tree root.
+      4: Independent discovery (external ASM, cloud API inventory, certificate and DNS monitoring, SaaS discovery) is diffed against the declared surface; unknown-asset rate is measured and trended; new exposure automatically triggers threat model review and telemetry onboarding.
+      5: Attack surface change is handled as a live event — new exposure raises detection and modeling work items in near real time, pre-approved telemetry and baseline detections deploy with the asset, and surface reduction is a reported, incentivised metric.
+    evidence:
+      - Attack surface register reconciled against independent discovery
+      - Unknown-asset rate metric and trend
+      - Change-triggered modeling and onboarding records
+    crosswalk:
+      nist_csf_2: [ID.AM-01, ID.AM-02, ID.AM-04, ID.RA-01, DE.CM-06]
+      soc_cmm: [Business.Services, Process.Use case management]
+      ctem: [Scoping, Discovery]
+    attack_link: >
+      Roots the attack trees (TM.3) and scopes the in-scope technique set:
+      surface you do not know about produces techniques you will not scope in.
+
+  - id: TM.3
+    name: Attack tree construction
+    weight: 16
+    profile: standard
+    question: >
+      Are attack trees built for the objectives that matter — decomposing an
+      adversary goal into the alternative branches by which it can be achieved —
+      and are all branches carried through to a detection decision?
+    levels:
+      0: No attack trees. Threats are described as single-step statements.
+      1: Occasional informal "how would I break in" discussions, not recorded.
+      2: Attack trees are drawn for selected scenarios but stay as diagrams; leaves are not mapped to techniques or to controls.
+      3: Trees are built for prioritised adversary objectives (e.g. "obtain domain dominance", "exfiltrate the customer database", "tamper with the payment file"); every node is mapped to ATT&CK techniques, and every leaf carries a prevent/detect/accept decision.
+      4: Trees are annotated with feasibility and cost-to-adversary, are reviewed against real incident and emulation outcomes, and drive an explicitly prioritised choke-point strategy — nodes that appear in many trees are treated as high-value detection targets.
+      5: Attack trees are maintained as structured data (not pictures), versioned, automatically re-evaluated when the estate or the threat profile changes, and used to compute residual risk per objective.
+    evidence:
+      - Attack tree library in structured form (YAML/JSON/graph DB)
+      - Node-to-ATT&CK mapping and per-leaf control decisions
+      - Choke-point analysis showing nodes shared across trees
+    crosswalk:
+      nist_csf_2: [ID.RA-01, ID.RA-04, ID.IM-02]
+      soc_cmm: [Process.Use case management]
+    attack_link: Every attack tree node carries one or more ATT&CK technique IDs.
+
+  - id: TM.4
+    name: Attack path and exposure analysis
+    weight: 15
+    profile: comprehensive
+    question: >
+      Do you analyse real, computed attack paths through identity, network and
+      cloud relationships in the live estate — not only hypothetical ones?
+    levels:
+      0: No attack path analysis. Exposure is understood only as a vulnerability list.
+      1: Path thinking happens only after a red team or pentest report describes one.
+      2: Point-in-time path analysis is run occasionally with a tool (identity graph, cloud permission analysis, AD path tooling) for specific reviews.
+      3: Path analysis runs on a defined cadence across identity, cloud entitlement, network reachability and trust relationships; results are ranked by proximity to crown jewels and issued as remediation and detection work.
+      4: Path exposure is trended as a metric (number and shortest length of viable paths to each crown jewel); choke points are instrumented for detection where remediation is not feasible; reduction is reported.
+      5: Continuous path computation is integrated with change management and CTEM cycles; new paths raise alerts in near real time and automatically create both a remediation and a detection work item.
+    evidence:
+      - Attack path analysis output with paths to crown jewels
+      - Trend of viable path count and shortest path length
+      - Choke-point instrumentation records
+    crosswalk:
+      nist_csf_2: [ID.RA-01, ID.RA-05, ID.IM-02, PR.AA-05]
+      soc_cmm: [Process.Use case management]
+      ctem: [Scoping, Discovery, Prioritisation]
+
+  - id: TM.5
+    name: Abuse cases to detection requirements traceability
+    weight: 14
+    profile: standard
+    question: >
+      Can you trace a specific detection rule back to the threat model or attack
+      tree node that justified it — and identify model nodes with no detection?
+    levels:
+      0: No traceability. Detections exist for reasons nobody records.
+      1: Traceability exists in individuals' memory only.
+      2: Some detection tickets reference a threat model informally in free text.
+      3: A maintained traceability matrix links threat model / attack tree nodes to detection requirements, to deployed detections, and to validation results, with a unique identifier at each step.
+      4: Orphaned nodes (modelled but undetected and un-prevented) and orphaned detections (deployed but justified by nothing) are both reported as defects and worked down; coverage of model nodes is a reported metric.
+      5: Traceability is automated end to end — model node, requirement, rule, test, validation outcome and incident are linked in one queryable graph used for assurance reporting.
+    evidence:
+      - Traceability matrix or graph query output
+      - Orphaned-node and orphaned-detection reports
+      - Assurance report tracing an incident back to a model node
+    crosswalk:
+      nist_csf_2: [ID.IM-01, ID.IM-02, DE.CM-09]
+      soc_cmm: [Process.Use case management]
+
+  - id: TM.6
+    name: Model maintenance and change triggers
+    weight: 12
+    profile: comprehensive
+    question: >
+      Are threat models, attack trees and path analyses kept alive by defined
+      triggers, or do they decay silently after first publication?
+    levels:
+      0: Models, where they exist, are never updated.
+      1: Updated only when someone remembers or an auditor asks.
+      2: A calendar-based review cycle exists (typically annual) and is partially honoured.
+      3: Defined triggers force review — architecture change, new crown jewel, new prioritised actor, significant incident, major ATT&CK release — and review completion is tracked.
+      4: Model freshness is measured (age distribution, percentage overdue), overdue models are escalated to owners, and drift between model and reality is sampled and reported.
+      5: Change detection is automated from CI/CD, cloud control plane and identity change events; affected models are flagged and re-validated with measured turnaround.
+    evidence:
+      - Documented change triggers and review completion log
+      - Model freshness metric and overdue escalations
+      - Automated change-trigger integration
+    crosswalk:
+      nist_csf_2: [ID.IM-03, ID.RA-07, GV.OV-03]
+      soc_cmm: [Process.Use case management, Business.Governance]

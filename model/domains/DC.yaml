@@ -1,0 +1,148 @@
+---
+domain:
+  id: DC
+  name: Telemetry & Detection Coverage
+  weight: 14
+  intent: >
+    Detection is bounded by visibility. This domain measures whether the right
+    telemetry exists, whether it is trustworthy, and whether ATT&CK coverage claims
+    are grounded in data rather than in a spreadsheet of intentions.
+  anti_pattern: >
+    A green ATT&CK Navigator layer produced by counting rule names, with no check
+    that the underlying data components are actually collected and healthy.
+
+subcapabilities:
+  - id: DC.1
+    name: Log source inventory and ownership
+    weight: 14
+    profile: essential
+    question: >
+      Is there a complete, owned inventory of telemetry sources with their scope,
+      coverage percentage and criticality?
+    levels:
+      0: No inventory. Nobody can list what is being collected.
+      1: A partial list held by the platform team, out of date.
+      2: An inventory exists with source names and destinations, reviewed periodically; deployment coverage per source is estimated.
+      3: Each source has a named business and technical owner, defined scope (which estate it covers), measured deployment coverage, criticality rating and mapping to ATT&CK data components.
+      4: Inventory completeness is validated against independent asset discovery; unmonitored assets are reported as a defect class with an owner and a target date.
+      5: Inventory is continuously reconciled and automatically drives onboarding, alerting on unmonitored crown-jewel assets within a defined time window.
+    evidence:
+      - Log source inventory with owners, coverage % and data-component mapping
+      - Unmonitored asset report and closure trend
+    crosswalk:
+      nist_csf_2: [ID.AM-01, DE.CM-01, DE.CM-09]
+      soc_cmm: [Technology.SIEM tuning, Process.Log management]
+
+  - id: DC.2
+    name: Telemetry quality, completeness and timeliness
+    weight: 18
+    profile: essential
+    question: >
+      Do you measure whether the data arriving is complete, correctly parsed,
+      timely and unaltered — and do you alert when it is not?
+    levels:
+      0: Data quality is unknown. Gaps are discovered during investigations.
+      1: Occasional manual checks; problems found reactively when a search returns nothing.
+      2: Basic volume monitoring exists with static thresholds; parsing errors are noticed when someone reports them.
+      3: Quality is measured on defined dimensions — completeness, field-level fill rate, parsing success, ingestion latency, time-source accuracy, retention conformance — per source, with alerting on deviation.
+      4: Quality SLOs are agreed with source owners, breaches are ticketed and trended, and known-gap periods are recorded so investigations and coverage claims are adjusted for them.
+      5: Quality is enforced automatically — schema validation at ingest, synthetic canary events per source to prove the path end to end, self-healing pipelines, and measured mean time to detect a telemetry outage.
+    evidence:
+      - Per-source data quality dashboard with SLOs
+      - Canary event configuration and results
+      - Telemetry outage MTTD metric
+    crosswalk:
+      nist_csf_2: [DE.CM-09, DE.AE-03, PR.PS-04]
+      soc_cmm: [Technology.Log management, Process.Monitoring]
+
+  - id: DC.3
+    name: Normalisation and data model discipline
+    weight: 14
+    profile: standard
+    question: >
+      Is telemetry normalised to a documented, versioned data model so detections
+      are portable and analysts are not re-learning field names per source?
+    levels:
+      0: Raw, source-specific fields only. Every search is bespoke.
+      1: Inconsistent ad hoc field extractions built by whoever needed them.
+      2: A data model is used for the main sources (OCSF, ECS, CIM, ASIM or in-house) but coverage is partial and undocumented.
+      3: A documented, versioned schema is mandated for onboarding; conformance is checked at onboarding; entity resolution (user, host, process, identity) is defined.
+      4: Schema conformance is measured continuously across all sources; non-conformant sources are tracked as debt; schema changes go through change control with impact analysis on affected detections.
+      5: Normalisation is automated and tested, detections are written against the model rather than the source, and the same detection content runs across multiple platforms with proven equivalence.
+    evidence:
+      - Versioned schema document and onboarding conformance gate
+      - Schema conformance metric per source
+      - Cross-platform detection portability proof
+    crosswalk:
+      nist_csf_2: [DE.AE-03, PR.DS-01]
+      soc_cmm: [Technology.SIEM, Process.Log management]
+
+  - id: DC.4
+    name: ATT&CK technique coverage measurement
+    weight: 20
+    profile: standard
+    question: >
+      Is coverage measured honestly at technique and sub-technique level, grounded
+      in data-component availability and detection validity — not in rule counts?
+    levels:
+      0: Coverage is not measured.
+      1: A hand-drawn Navigator layer produced once, based on opinion.
+      2: Coverage is mapped by tagging existing rules with technique IDs; parent-technique level only; no distinction between "we have a rule" and "it works".
+      3: Coverage is scored on a defined scale that separates telemetry availability, detection logic presence and detection quality; measured at sub-technique level for the in-scope set defined by the threat profile and platform mix.
+      4: Coverage scoring requires evidence from validation (see AV domain); the Validated Coverage Score is trended over time; regressions are investigated.
+      5: Coverage is computed automatically from the detection repository, telemetry health and the latest validation results, refreshed on every ATT&CK release, with automated diff reporting on new and deprecated techniques.
+    evidence:
+      - Coverage model definition and scoring scale
+      - Navigator layer generated from the detection repository
+      - Validated Coverage Score trend and ATT&CK release diff report
+    crosswalk:
+      nist_csf_2: [DE.CM-09, ID.IM-02]
+      soc_cmm: [Process.Use case management]
+    attack_link: >
+      Scored against ATT&CK Enterprise v19.2 (697 techniques; 222 parent, 475 sub)
+      restricted to the in-scope platform and threat-profile set.
+
+  - id: DC.5
+    name: Coverage breadth across attack surfaces
+    weight: 20
+    profile: essential
+    question: >
+      Does visibility extend across every surface the prioritised adversaries use —
+      endpoint, identity, cloud control plane, SaaS, network, email, application,
+      container, OT/IoT and third-party — rather than concentrating on endpoint?
+    levels:
+      0: One or two surfaces instrumented, typically endpoint and perimeter.
+      1: Additional sources exist but are unmonitored or only searched during incidents.
+      2: Most traditional surfaces are covered; cloud control plane, SaaS and identity are partial; OT/IoT and CI/CD are absent.
+      3: Coverage is deliberately scoped per surface against the threat profile, with documented decisions on surfaces deliberately not covered and the risk accepted.
+      4: Per-surface coverage is measured and reported separately, preventing a strong endpoint programme from masking a blind cloud or identity plane; gaps carry owners and dates.
+      5: New surfaces are onboarded as part of technology adoption governance — no material new platform reaches production without a telemetry plan and baseline detections.
+    evidence:
+      - Per-surface coverage report
+      - Accepted-risk records for uncovered surfaces
+      - Technology-adoption gate requiring a telemetry plan
+    crosswalk:
+      nist_csf_2: [DE.CM-01, DE.CM-02, DE.CM-03, DE.CM-06, ID.AM-04]
+      soc_cmm: [Technology.Log management, Business.Services]
+
+  - id: DC.6
+    name: Visibility gap management
+    weight: 14
+    profile: essential
+    question: >
+      Are known blind spots recorded, prioritised, costed and driven to closure —
+      or quietly tolerated?
+    levels:
+      0: Blind spots are not recorded.
+      1: Known informally; raised in conversation, not tracked.
+      2: A gap list exists but has no owners, priorities or dates.
+      3: Gaps are registered with the technique(s) they blind, the crown jewels affected, an owner, a priority derived from the threat profile, and a target date.
+      4: Gap closure rate and ageing are reported; gaps that cannot be closed are compensated with alternative detection or explicit risk acceptance at the right level.
+      5: Gaps are generated automatically from coverage and validation results, costed, and fed into budget planning with demonstrated closure of the highest-risk items each cycle.
+    evidence:
+      - Visibility gap register with owners and dates
+      - Gap ageing and closure-rate trend
+      - Risk acceptance records for tolerated gaps
+    crosswalk:
+      nist_csf_2: [ID.RA-06, ID.IM-01, ID.IM-03]
+      soc_cmm: [Process.Use case management, Business.Governance]

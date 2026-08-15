@@ -1,0 +1,193 @@
+---
+domain:
+  id: AV
+  name: Adversarial Validation & Emulation
+  weight: 14
+  intent: >
+    The evidence engine. Every other domain makes claims; this domain tests them.
+    It spans atomic testing, automated breach and attack simulation, threat-actor
+    emulation, purple teaming, penetration testing and red teaming — and, critically,
+    the loop that turns findings into closed detection gaps.
+  anti_pattern: >
+    An annual penetration test whose report is read by the risk team, filed, and
+    never converted into a single detection or a single re-test.
+  ceiling_rule: >
+    No other domain may score more than one level above AV. An untested capability
+    is an assumed capability.
+
+subcapabilities:
+  - id: AV.1
+    name: Atomic testing and control verification
+    weight: 13
+    profile: essential
+    question: >
+      Are individual techniques executed safely and repeatably to verify that
+      telemetry, detection and alerting actually fire?
+    levels:
+      0: No technique-level testing.
+      1: Occasional manual tests by a curious engineer, undocumented.
+      2: A test library (e.g. Atomic Red Team or in-house) is used sporadically against a lab; results are informal.
+      3: Atomic tests are run on a defined cadence against a representative production-like environment, mapped to ATT&CK sub-techniques, with recorded outcomes at each stage — telemetry generated, event ingested, detection fired, alert raised.
+      4: Test coverage of the in-scope technique set is measured; failures create tracked defects; re-test after fix is mandatory; results feed coverage scoring directly.
+      5: Atomic testing is continuous and automated with safe-execution guardrails and change control, results stream into coverage dashboards in near real time, and untested techniques are automatically reported as unproven.
+    evidence:
+      - Test library mapped to sub-technique IDs
+      - Per-stage outcome records (telemetry/ingest/detect/alert)
+      - Defect and re-test records
+    crosswalk:
+      nist_csf_2: [ID.IM-02, DE.CM-09, PR.PS-06]
+      soc_cmm: [Process.Use case management]
+
+  - id: AV.2
+    name: Breach and attack simulation automation
+    weight: 12
+    profile: standard
+    question: >
+      Is there automated, scheduled simulation providing continuous assurance
+      across prevention and detection layers?
+    levels:
+      0: No automated simulation capability.
+      1: A trial or proof of concept was run once.
+      2: A BAS tool is deployed against a limited scope, run manually and irregularly.
+      3: Simulation runs on a defined schedule across representative segments, covering prevention, detection and alerting layers, with scenarios selected from the prioritised threat profile rather than the vendor default set.
+      4: Results are trended, control drift (a previously passing test that now fails) is alerted on, and simulation scope covers all critical segments and cloud/identity planes as well as endpoint.
+      5: Simulation is integrated into change management — infrastructure or control changes trigger targeted re-simulation — and results are an input to control investment decisions.
+    evidence:
+      - Simulation schedule, scope and scenario provenance
+      - Control drift alerts and trend
+      - Change-triggered simulation records
+    crosswalk:
+      nist_csf_2: [ID.IM-02, PR.PS-06, DE.CM-09]
+      soc_cmm: [Technology, Process.Use case management]
+
+  - id: AV.3
+    name: Threat-actor emulation plans
+    weight: 15
+    profile: comprehensive
+    question: >
+      Do you emulate the full behaviour chains of the specific adversaries in your
+      threat profile, in sequence, rather than isolated techniques?
+    levels:
+      0: No emulation. Testing, where it exists, is technique-by-technique only.
+      1: A single generic scenario borrowed from a public plan, run once.
+      2: Public emulation plans are executed occasionally with limited tailoring to the environment.
+      3: Emulation plans are authored for the top-ranked actors in the threat profile, sequencing techniques into realistic operations against realistic objectives, tailored to the organisation's platforms and crown jewels.
+      4: Plans are refreshed as actor tradecraft evolves; coverage of the prioritised actor set by current emulation plans is measured; detection outcomes are recorded per step in the chain, showing where in the kill chain detection actually occurs.
+      5: Emulation is derived automatically from the behaviour library and attack trees, includes evasion variants of previously detected behaviours to test resilience, and produces a measured "adversary dwell time before detection" per scenario.
+    evidence:
+      - Emulation plan library referencing ATT&CK Group/Campaign IDs
+      - Per-step detection outcome records showing earliest detection point
+      - Evasion-variant test results
+    crosswalk:
+      nist_csf_2: [ID.IM-02, ID.RA-03, DE.CM-09]
+      soc_cmm: [Process.Use case management]
+
+  - id: AV.4
+    name: Purple team programme
+    weight: 13
+    profile: comprehensive
+    question: >
+      Is there a structured, recurring collaboration in which offensive execution
+      and defensive engineering work the same exercise together and fix gaps live?
+    levels:
+      0: No purple teaming. Offence and defence do not work together.
+      1: Occasional informal collaboration after a red team engagement.
+      2: Purple team exercises happen once or twice a year, ad hoc in scope, with a report at the end.
+      3: A defined programme with a regular cadence, scenarios drawn from the threat profile, agreed rules of engagement, and detection engineers present during execution making fixes in the session.
+      4: Every exercise produces measured outcomes per technique (prevented / detected-and-alerted / detected-not-alerted / logged-only / invisible), a tracked backlog, and a mandatory re-test that confirms closure.
+      5: Purple teaming is continuous rather than episodic, integrated with the detection pipeline so improvements are shipped within the exercise window, and its findings measurably improve time-to-detect over successive cycles.
+    evidence:
+      - Programme charter, cadence and rules of engagement
+      - Per-technique outcome matrix and re-test confirmations
+      - Time-to-detect improvement trend across cycles
+    crosswalk:
+      nist_csf_2: [ID.IM-02, ID.IM-01, RS.MA-01]
+      soc_cmm: [Process.Use case management, People.Training]
+
+  - id: AV.5
+    name: Penetration testing integration
+    weight: 12
+    profile: standard
+    question: >
+      Are penetration test findings systematically converted into detection
+      requirements — not only into vulnerability remediation tickets?
+    levels:
+      0: Penetration testing is not performed, or reports never reach the detection team.
+      1: Tests are run for compliance; the detection team occasionally hears about the results.
+      2: Reports are shared with the SOC after the fact; a few detections may be built informally.
+      3: Every engagement has a defined detection-feedback stage — the tester's activity timeline is reconciled against SOC telemetry and alerts to determine what was seen, and each unseen action becomes a detection requirement.
+      4: The "detection rate" of each engagement is measured (percentage of tester actions that produced telemetry, a detection, and an alert), trended across engagements, and improvement is a stated objective of the testing programme.
+      5: Testers deliver machine-readable activity timelines that are automatically diffed against SIEM data; detection gaps are auto-created; scoping of subsequent tests deliberately targets previously blind areas.
+    evidence:
+      - Tester activity timeline reconciled against SOC telemetry
+      - Engagement detection-rate metric and trend
+      - Detection requirements traced to specific test actions
+    crosswalk:
+      nist_csf_2: [ID.IM-02, ID.RA-01, PR.PS-06]
+      soc_cmm: [Process.Use case management]
+
+  - id: AV.6
+    name: Red teaming and independent assurance
+    weight: 12
+    profile: comprehensive
+    question: >
+      Is the detection and response capability tested by objective-based,
+      intelligence-led adversarial engagements under realistic constraints?
+    levels:
+      0: No red teaming.
+      1: A one-off engagement, scoped as an extended penetration test.
+      2: Periodic red team engagements with limited objectives and heavy scope restrictions; the blue team is usually informed.
+      3: Objective-based, intelligence-led engagements against crown-jewel objectives, with a genuinely uninformed blue team, control group, and formal rules of engagement and legal cover.
+      4: Engagements follow a recognised framework where applicable (TIBER-EU, CBEST, CORIE, AASE, iCAST) or an equivalent internal standard; detection and response performance is measured against defined objectives; findings drive a tracked remediation plan with executive visibility.
+      5: A continuous or high-frequency adversarial assurance capability exists; results are compared across cycles to demonstrate improving detection depth and reducing adversary freedom of movement; findings feed threat models and attack trees, not only detections.
+    evidence:
+      - Intelligence-led engagement scope and rules of engagement
+      - Objective-by-objective detection and response performance record
+      - Cross-cycle comparison showing improvement
+    crosswalk:
+      nist_csf_2: [ID.IM-02, GV.OV-02, RS.MA-01]
+      soc_cmm: [Business.Governance, Process.Use case management]
+
+  - id: AV.7
+    name: Findings-to-closure loop
+    weight: 13
+    profile: standard
+    question: >
+      Do validation findings reliably become closed detection or control changes,
+      confirmed by re-test — and is the loop's speed measured?
+    levels:
+      0: Findings are not tracked. Reports are the deliverable.
+      1: Findings are noted in a document; closure is unverified.
+      2: Findings enter a tracker; closure is claimed by the assignee without re-test.
+      3: Every finding has an owner, a severity derived from threat-profile relevance and crown-jewel proximity, a target date, and a mandatory re-test before it can be closed.
+      4: Closure rate, ageing and re-test pass rate are reported; overdue findings escalate; recurrence of previously closed findings is treated as a systemic defect and investigated.
+      5: The loop is automated — validation results create work items, deployment triggers re-validation, and mean time from finding to validated closure is a headline KPI under active reduction.
+    evidence:
+      - Findings register with re-test evidence per closure
+      - Ageing, closure-rate and recurrence reports
+      - Mean-time-to-validated-closure trend
+    crosswalk:
+      nist_csf_2: [ID.IM-01, ID.IM-03, RS.MA-05]
+      soc_cmm: [Process.Use case management, Business.Governance]
+
+  - id: AV.8
+    name: Control efficacy scoring
+    weight: 10
+    profile: comprehensive
+    question: >
+      Are validation results expressed as a defensible efficacy score per technique
+      across the prevent / detect / alert / respond chain, and used in reporting?
+    levels:
+      0: No efficacy scoring. Controls are described as present or absent.
+      1: Subjective assessment of "good" or "weak" coverage by opinion.
+      2: Pass/fail per test, aggregated informally.
+      3: A defined scale scores each in-scope technique separately for prevention, telemetry, detection, alerting and response, based on recorded validation evidence with a stated recency window.
+      4: Efficacy scores expire — a result older than the defined window is downgraded to unproven; scores drive the Validated Coverage Score and appear in domain reporting; disagreements are arbitrated by evidence.
+      5: Efficacy scoring is automated from validation pipelines, feeds risk quantification and investment cases, and is used to demonstrate risk reduction per pound or dollar spent.
+    evidence:
+      - Efficacy scoring scale definition with recency rules
+      - Per-technique efficacy matrix
+      - Investment case referencing efficacy-derived risk reduction
+    crosswalk:
+      nist_csf_2: [ID.IM-02, GV.RM-06, DE.CM-09]
+      soc_cmm: [Process.Use case management, Business.Governance]

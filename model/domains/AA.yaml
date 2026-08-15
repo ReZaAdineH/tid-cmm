@@ -1,0 +1,202 @@
+---
+domain:
+  id: AA
+  name: Analytics, Automation & Hunting
+  weight: 12
+  intent: >
+    Determines whether detection output becomes usable decisions at operational
+    tempo. Covers enrichment, correlation into attack narratives, automation,
+    advanced analytics governance, and hypothesis-driven hunting as a producer of
+    new detection.
+  anti_pattern: >
+    A SOAR platform used exclusively to close tickets faster, and a "hunting"
+    function that is really unstructured dashboard browsing.
+
+subcapabilities:
+  - id: AA.1
+    name: Triage enrichment and context automation
+    weight: 13
+    profile: essential
+    question: >
+      Does an alert arrive with the context an analyst needs, automatically, or
+      does triage begin with twenty minutes of manual lookups?
+    levels:
+      0: No enrichment. Analysts pivot manually across consoles.
+      1: A few manual lookup shortcuts maintained by individual analysts.
+      2: Basic automated enrichment for some alert types (reputation, geolocation, asset name).
+      3: Enrichment is defined per detection type and covers asset criticality and owner, identity role and privilege, recent related activity, vulnerability and exposure state, threat intelligence context and prior case history.
+      4: Enrichment coverage and its effect on triage time are measured; enrichment failures are monitored; the enrichment set is reviewed against what analysts actually use.
+      5: Enrichment is adaptive — driven by detection metadata and case type, includes automated preliminary verdicts with confidence, and demonstrably reduces mean time to triage.
+    evidence:
+      - Enrichment specification per detection class
+      - Triage-time effect measurement
+      - Enrichment failure monitoring
+    crosswalk:
+      nist_csf_2: [DE.AE-02, DE.AE-07, RS.AN-03]
+      soc_cmm: [Process.Monitoring, Technology.SOAR]
+
+  - id: AA.2
+    name: Correlation and attack-chain assembly
+    weight: 14
+    profile: standard
+    question: >
+      Are related alerts assembled into a single narrative of adversary progress,
+      or triaged as isolated events?
+    levels:
+      0: Alerts are handled individually with no relationship awareness.
+      1: Analysts manually notice patterns from experience.
+      2: Basic correlation by entity (host, user) within a time window.
+      3: Correlation assembles alerts into incidents along entity and temporal relationships, annotated with ATT&CK tactic progression so an analyst can see how far along the chain the adversary is.
+      4: Risk-based alerting aggregates weak signals into scored entities; the balance between raw alert volume and assembled incidents is measured; correlation quality (false grouping and missed grouping) is reviewed.
+      5: Graph-based correlation spans identity, endpoint, cloud and network, reconstructs full attack paths against the estate's real topology, and predicts likely next steps from attack-tree data to prompt pre-emptive containment.
+    evidence:
+      - Correlation logic documentation with tactic progression
+      - Alert-to-incident aggregation ratio and quality review
+      - Graph correlation output showing a reconstructed path
+    crosswalk:
+      nist_csf_2: [DE.AE-02, DE.AE-03, DE.AE-04, DE.AE-06]
+      soc_cmm: [Process.Monitoring, Technology.SIEM]
+
+  - id: AA.3
+    name: Response automation and orchestration
+    weight: 12
+    profile: standard
+    question: >
+      Is automation applied to response actions with appropriate safeguards, and is
+      its coverage and value measured?
+    levels:
+      0: All response is manual.
+      1: A few scripts maintained by individuals; no governance.
+      2: A SOAR platform exists with playbooks for a small number of high-volume alert types; mostly enrichment rather than action.
+      3: Playbooks cover the highest-volume and highest-severity detection types, include automated containment for defined scenarios with explicit approval gates, and are version-controlled and tested.
+      4: Automation coverage of alert volume is measured, along with time saved and error rate; playbook failures are monitored and remediated; blast-radius controls and rollback procedures exist and are tested.
+      5: Automation decisions are risk-adaptive — confidence and asset criticality determine whether an action is automatic or approval-gated — and every detection ships with a linked response action by default.
+    evidence:
+      - Version-controlled playbook repository with tests
+      - Automation coverage and time-saved metrics
+      - Rollback and blast-radius test records
+    crosswalk:
+      nist_csf_2: [RS.MA-01, RS.MI-01, RS.MI-02, PR.IR-01]
+      soc_cmm: [Technology.SOAR, Process.Incident response]
+
+  - id: AA.4
+    name: Advanced analytics governance
+    weight: 11
+    profile: comprehensive
+    question: >
+      Where machine learning, UEBA or statistical analytics are used, are they
+      governed, explainable and validated like any other detection?
+    levels:
+      0: No advanced analytics, or vendor black boxes running unmonitored.
+      1: Vendor ML features enabled with default settings and no evaluation.
+      2: Some analytics tuned by trial and error; behaviour is not understood by the team operating it.
+      3: Each analytic has a documented purpose, the behaviour it targets mapped to ATT&CK, its input features, training or baselining approach, expected output, and a named owner.
+      4: Analytics are evaluated on precision, recall and drift with a defined re-baselining cadence; outputs are explainable enough for an analyst to justify an action; failure modes and adversarial manipulation risks are documented.
+      5: Analytics are lifecycle-managed as models — versioned, monitored for drift and poisoning, validated by emulation like signature-based content, and retired when they stop earning their place.
+    evidence:
+      - Analytic register with owners, features and ATT&CK mapping
+      - Precision/recall/drift evaluation records
+      - Model lifecycle and adversarial-risk documentation
+    crosswalk:
+      nist_csf_2: [DE.AE-02, DE.AE-03, GV.SC-04, ID.RA-09]
+      soc_cmm: [Technology.SIEM, Process.Monitoring]
+
+  - id: AA.5
+    name: Threat hunting programme
+    weight: 15
+    profile: standard
+    question: >
+      Is hunting hypothesis-driven, threat-informed and productive of new detection
+      — or is it browsing?
+    levels:
+      0: No hunting capability exists in any form.
+      1: Occasional unstructured exploration when analysts have spare time.
+      2: Scheduled hunts with loose scope; findings recorded inconsistently; little output beyond "nothing found".
+      3: Hunts are hypothesis-driven, derived from the threat profile, threat models, attack trees and validation gaps; each has a documented hypothesis, data scope, method, result and a required output — a new detection, a tuning change, a visibility gap, or an evidenced negative result.
+      4: Hunt outcomes are measured — coverage of hypotheses against prioritised techniques, conversion rate to deployed detections, findings per hunt — and negative results are retained so the same ground is not re-covered blindly.
+      5: Hunting is continuous, partly automated (recurring hunts promoted to scheduled analytics), integrated with emulation so hunts are validated against known-good ground truth, and is a primary source of the detection backlog.
+    evidence:
+      - Hunt library with hypotheses, methods and outcomes
+      - Hunt-to-detection conversion metric
+      - Promoted-hunt-to-analytic records
+    crosswalk:
+      nist_csf_2: [DE.AE-02, DE.CM-09, ID.RA-01, ID.IM-02]
+      soc_cmm: [Process.Threat hunting]
+
+  - id: AA.7
+    name: Deception and adversary engagement
+    weight: 13
+    profile: standard
+    question: >
+      Are deception assets — honeytokens, canary credentials, decoy hosts and
+      services, tripwire data — deliberately placed at attack-tree choke points,
+      so that touching them is a high-fidelity signal an adversary cannot avoid
+      without abandoning the objective?
+    levels:
+      0: No deception capability of any kind.
+      1: An unofficial honeypot someone once stood up; nobody monitors it and nobody would notice it firing.
+      2: A small set of deception assets deployed opportunistically — some canary files or a default honeypot — alerting exists but placement is unrelated to any threat model.
+      3: Deception is placed deliberately at attack-tree choke points and along modelled paths to crown jewels — canary credentials where credential theft is expected, decoy shares where discovery is expected, honeytokens inside the data an adversary would steal; every asset has an owner, a high-severity alert, and a response playbook, because a deception alert is close to zero false positive.
+      4: Deception coverage of modelled choke points is measured; assets are refreshed so they age like the estate around them; breadcrumbs lead credibly toward the decoys rather than leaving them to be stumbled upon; triggers are exercised in purple team scenarios and the alert path is proven end to end; alert noise is measured and kept negligible, and legitimate-touch incidents are investigated as placement defects.
+      5: Deception is adaptive — placement is recomputed as attack trees and the estate change, interaction telemetry feeds intelligence and emulation, and measured adversary cost (time wasted, tradecraft revealed, early eviction) is reported as a programme outcome.
+    evidence:
+      - Deception asset register mapped to attack-tree choke points
+      - Choke-point coverage metric and refresh records
+      - Purple-team validation of trigger-to-alert path
+      - Measured alert noise rate, including periods with no trips
+    crosswalk:
+      nist_csf_2: [DE.CM-01, DE.AE-02, ID.RA-01]
+      soc_cmm: [Process.Threat hunting, Technology]
+      mitre_engage: [Expose, Affect, Elicit]
+    attack_link: >
+      Placement is derived from TM.3 attack trees; a deception alert at a choke
+      point contributes status-3 evidence for the techniques that node carries.
+
+  - id: AA.6
+    name: Case management and knowledge capture
+    weight: 11
+    profile: essential
+    question: >
+      Is the knowledge generated by every investigation captured in a form that
+      improves the next one?
+    levels:
+      0: Investigations are tracked in email, chat or spreadsheets.
+      1: A ticketing system is used, with free-text notes of variable quality.
+      2: A case management platform exists with basic categorisation; quality depends on the analyst.
+      3: Cases carry a mandatory structure — ATT&CK classification, verdict, root cause, affected assets and identities, actions taken, and the detection(s) that fired or should have — enabling analysis across cases.
+      4: Case data is analysed for patterns (which detections produce value, which alert types waste time, which techniques recur) and this analysis directly drives the detection backlog and tuning priorities.
+      5: Case knowledge is a managed asset feeding a reusable investigation knowledge base, automated triage guidance, and analyst onboarding, with measured effect on time to competence and time to resolve.
+    evidence:
+      - Mandatory case schema and completion metric
+      - Cross-case analysis driving backlog items
+      - Knowledge base usage and effect on resolution time
+    crosswalk:
+      nist_csf_2: [RS.MA-02, RS.AN-03, RS.AN-08, ID.IM-04]
+      soc_cmm: [Process.Incident response, Technology.Case management]
+
+  - id: AA.8
+    name: Agentic and AI-assisted operations
+    weight: 11
+    profile: standard
+    question: >
+      Where AI assistants or autonomous agents take part in detection, triage,
+      hunting or response, are they governed, bounded, auditable and measured?
+    levels:
+      0: No AI or agentic assistance, or unmanaged personal use of assistants with operational data.
+      1: Individual analysts use general-purpose assistants informally; no policy, no record of what was pasted into them.
+      2: An approved assistant is available for defined tasks such as summarisation or query drafting, with a data-handling policy, but its output is unmeasured.
+      3: Agent roles are defined with an explicit task scope, the data they may see, the actions they may take, and the human approval points; agent-authored detection content enters the same lifecycle, testing and evidence requirements as human-authored content.
+      4: Agent output quality is measured against human baselines (triage accuracy, false-verdict rate, detection quality), agent actions are fully audited and attributable, authority is bounded by asset criticality and confidence, and rollback is tested.
+      5: Agents operate inside the closed loop with measured cycle-time benefit and no loss of assurance — their work is validated by emulation like any other detection, their identities and tool access are modelled as attack paths, and prompt-injection resistance is explicitly tested using untrusted content in the telemetry they read.
+    evidence:
+      - Agent role definitions with task scope, data scope, authority and approval points
+      - Audit trail attributing agent actions and decisions
+      - Quality measurement against a human baseline
+      - Prompt-injection test results using adversary-controlled log content
+    crosswalk:
+      nist_csf_2: [GV.RR-02, GV.SC-04, ID.RA-09, DE.AE-02, RS.MA-01, PR.AA-05]
+      soc_cmm: [Technology, People.Roles, Business.Governance]
+    note: >
+      Scored on governance and demonstrated quality, never on whether AI is used.
+      An organisation that deliberately uses no agents scores this as not applicable;
+      one that uses them without bounds or audit scores low.
