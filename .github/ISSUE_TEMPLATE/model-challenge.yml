@@ -1,0 +1,50 @@
+name: Model or descriptor challenge
+description: Challenge a TID-CMM descriptor, weight, constraint or scoring behaviour with evidence.
+title: "[Model challenge] "
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you challenging?
+      options:
+        - Level descriptor
+        - Domain or sub-capability weight
+        - Integrity constraint
+        - Scoring behaviour
+        - Applicability/profile behaviour
+        - Other model logic
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Model reference
+      description: For example DE.3 level 4, C2, TI domain weight.
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Counter-example or observed problem
+      description: What happened in practice that the current model does not represent correctly?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or reasoning
+      description: Provide anonymised evidence, measurements, references or reasoning. Do not include confidential information.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Suggested change
+      description: Optional. Describe the smallest useful change you think would improve the model.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I have removed confidential, customer, credential and production-sensitive information.
+          required: true
