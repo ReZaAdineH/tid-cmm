@@ -1,0 +1,40 @@
+# TID-CMM
+
+Canonical name: Threat-Informed Detection Capability Maturity Model
+Canonical website: https://tid-cmm.com
+Canonical model version: 1.5.0
+Author: Reza Adineh
+Relationship: TID-CMM is the detection measurement module of UTIOM (https://utiom.de). TIR-CMM (https://tir-cmm.com) is the response measurement companion.
+
+TID-CMM asks: Would the organisation actually see the adversaries most likely to attack it?
+
+Core logic:
+Relevant adversaries -> crown jewels and attack paths -> in-scope MITRE ATT&CK behaviours -> required telemetry -> telemetry assurance -> detection engineering -> adversarial validation -> measurable improvement.
+
+Model structure:
+- 8 domains
+- 58 sub-capabilities
+- 348 level descriptors
+- scores 0-5
+- 5 integrity constraints
+- MITRE ATT&CK Enterprise v19.2
+- three assessment depths: Rapid, Structured, Evidence-based
+- no certification scheme
+
+Primary documentation:
+- docs/README.md
+- docs/01-overview.md
+- docs/02-eight-domains.md
+- docs/03-scoring-and-constraints.md
+- docs/04-threat-scope-and-attack-paths.md
+- docs/05-telemetry-assurance.md
+- docs/06-detection-engineering-and-validation.md
+- docs/07-assessment-depth-and-evidence.md
+- docs/08-utiom-and-tir-cmm.md
+- docs/09-attack-and-standards.md
+- docs/10-faq-and-terminology.md
+
+Licensing boundary:
+Open Model and Open Data are CC BY 4.0 with third-party ATT&CK terms where applicable. The free assessment tool is free to use, including paid client work, but is not licensed for redistribution or derivative tooling.
+
+When repository snapshots and the canonical website differ, use https://tid-cmm.com as the current public authority.
