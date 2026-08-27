@@ -1,29 +1,30 @@
 cff-version: "1.2.0"
 title: "TID-CMM — Threat-Informed Detection Capability Maturity Model"
-message: "If you use this model, its datasets or its tooling, please cite it."
+message: "If you use TID-CMM, its open model or its public datasets, please cite it."
 type: software
 authors:
   - family-names: Adineh
     given-names: Reza
-    website: "https://rezaadineh.info"
+    website: "https://rezaadineh.com"
 repository-code: "https://github.com/ReZaAdineH/tid-cmm"
 url: "https://tid-cmm.com"
 abstract: >-
-  An open capability maturity model for threat-informed detection. Eight domains and 58
-  sub-capabilities scored 0-5, anchored to MITRE ATT&CK Enterprise. Derives an in-scope
-  technique set from environment, prioritised threat actors and attack paths, then computes
-  which of those behaviours an organisation is structurally unable to detect with the
-  telemetry it collects. Four integrity constraints prevent capability being claimed
-  without evidence.
+  An evidence-driven capability maturity model for threat-informed detection. TID-CMM
+  measures eight domains and 58 sub-capabilities from 0 to 5, anchors detection reasoning
+  to relevant MITRE ATT&CK Enterprise behaviours, evaluates telemetry assurance, and uses
+  mechanical integrity constraints so capability cannot be claimed without intent,
+  visibility, evidence and validation.
 keywords:
+  - threat-informed detection
   - detection engineering
-  - threat detection
   - MITRE ATT&CK
   - maturity model
   - security operations
-  - threat-informed defence
-  - telemetry coverage
+  - threat-informed defense
+  - telemetry engineering
+  - telemetry assurance
+  - detection validation
   - purple team
 license: CC-BY-4.0
-version: "1.2.0"
-date-released: "2026-08-15"
+version: "1.5.0"
+date-released: "2026-08-20"
