@@ -1,0 +1,31 @@
+title: "[Implementation] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share a real, lab or anonymised TID-CMM implementation story. The most useful stories include what the model predicted, what reality contradicted and what changed as a result.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and starting problem
+    validations:
+      required: true
+  - type: textarea
+    id: application
+    attributes:
+      label: How TID-CMM was applied
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Findings, outcomes and counter-examples
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Publication check
+      options:
+        - label: I have removed confidential, employer/customer-sensitive and security-sensitive information.
+          required: true
