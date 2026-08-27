@@ -1,0 +1,5 @@
+Contact: mailto:hello@tid-cmm.com
+Policy: https://github.com/ReZaAdineH/tid-cmm/blob/main/SECURITY.md
+Canonical: https://tid-cmm.com
+Preferred-Languages: en
+Expires: 2027-08-31T23:59:59Z
