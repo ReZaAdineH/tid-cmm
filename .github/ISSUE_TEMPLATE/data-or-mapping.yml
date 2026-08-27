@@ -1,0 +1,36 @@
+name: Data, telemetry or mapping correction
+description: Report an ATT&CK-derived data issue, telemetry catalogue gap or standards crosswalk correction.
+title: "[Data/mapping] "
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - ATT&CK technique / actor / analytic data
+        - Telemetry catalogue
+        - Log-source mapping
+        - NIST / SOC-CMM / ISO / other crosswalk
+        - Dataset documentation
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What appears incorrect or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Supporting source or evidence
+      description: Provide the authoritative source, public reference or reproducible reasoning where possible.
+    validations:
+      required: true
+  - type: checkboxes
+    id: generated
+    attributes:
+      label: Dataset note
+      options:
+        - label: I understand generated ATT&CK datasets should be corrected through the derivation process rather than hand-edited.
+          required: true
