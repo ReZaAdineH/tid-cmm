@@ -1,19 +1,23 @@
-# What this licence covers
+# TID-CMM Repository and Licensing Notice
 
-**Covered by CC-BY-4.0 (see LICENSE):** everything in this repository — the model
-definition in `model/`, all 58 sub-capabilities and their level descriptors, weights,
-evidence criteria and crosswalks, and the derived datasets in `data/`. Use commercially,
-including inside a product, provided attribution is retained.
+Canonical website: https://tid-cmm.com
 
-**Not covered:** the TID-CMM assessment tool at <https://tid-cmm.xyz>. It is free to use
-for any purpose including commercial assessment work, and it is not licensed for
-redistribution or for building derivative tooling. Its source is not published here.
+The current public model is **TID-CMM 1.5.0**. Some files under `model/` remain historical machine-readable snapshots from earlier public versions for reproducibility; see `model/README.md`.
 
-**Third party:** ATT&CK content within `data/` is © The MITRE Corporation, used under the
-ATT&CK Terms of Use. Redistribution of that content carries MITRE's attribution
-requirement in addition to this licence.
+## Covered by CC BY 4.0
 
-Attribution for the model reads:
+The intentionally open TID-CMM model content and public datasets are licensed CC BY 4.0, subject to third-party terms where applicable. Commercial use and adaptation are permitted with attribution.
 
-> TID-CMM — Threat-Informed Detection Capability Maturity Model v1.2.0,
-> Reza Adineh, licensed CC-BY-4.0, https://tid-cmm.com
+## Free assessment tool — separate boundary
+
+The browser-based assessment tool at https://tid-cmm.com is free to use for any purpose, including paid client assessment work, but it is **not licensed for redistribution, rebranding or derivative tooling**. Its source is not made public by this repository merely because the tool is free to use.
+
+## Third-party ATT&CK material
+
+ATT&CK-derived content within `data/` remains © The MITRE Corporation and is used under the ATT&CK Terms of Use. Redistribution of that material carries MITRE's attribution and usage requirements in addition to the TID-CMM licensing terms.
+
+TID-CMM is an independent project and is not affiliated with or endorsed by MITRE, NIST or SOC-CMM.
+
+Suggested attribution:
+
+> TID-CMM — Threat-Informed Detection Capability Maturity Model v1.5.0, Reza Adineh, CC BY 4.0, https://tid-cmm.com
