@@ -1,0 +1,30 @@
+title: "[General] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for broad TID-CMM community discussion. Actionable model/data changes belong in Issues; security findings belong in the private reporting path described in SECURITY.md.
+  - type: textarea
+    id: topic
+    attributes:
+      label: What would you like to discuss?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Threat Intelligence
+        - Threat Modeling and Attack Paths
+        - Telemetry Assurance
+        - Detection Engineering
+        - Adversarial Validation
+        - Analytics / Automation / Hunting
+        - Detection-to-Response Interface
+        - Governance and Metrics
+        - Scoring / Constraints
+        - Standards / Crosswalks
+        - Other
+    validations:
+      required: true
