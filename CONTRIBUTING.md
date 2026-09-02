@@ -4,6 +4,16 @@ TID-CMM is intended to be argued with. The most useful contribution is not a gen
 
 Canonical site: https://tid-cmm.com
 
+## Your first contribution
+
+Choose the smallest route that fits what you found:
+
+1. Ask a question or share early experience in [Discussions](https://github.com/ReZaAdineH/tid-cmm/discussions).
+2. Use the [structured Issue forms](https://github.com/ReZaAdineH/tid-cmm/issues/new/choose) when you can identify a specific model, data or mapping problem.
+3. Open a pull request when the change is already clear and scoped. Explain the operational problem, the evidence behind the change and whether it could alter an assessment result.
+
+You do not need to represent an organisation, disclose a score or publish internal evidence. Remove customer, employer, architecture and incident details before posting. If the contribution concerns a vulnerability, use the private process in [SECURITY.md](SECURITY.md).
+
 ## What is most wanted
 
 ### Descriptor challenges
@@ -46,4 +56,4 @@ This repository is the open model/data/community repository. The free assessment
 
 ## Community channels
 
-Use Discussions for questions, implementation stories, research and early ideas. Use Issues for concrete model/data/documentation changes. See `COMMUNITY.md` and `CODE_OF_CONDUCT.md`.
+Use [Discussions](https://github.com/ReZaAdineH/tid-cmm/discussions) for questions, implementation stories, research and early ideas. Use the [Issue forms](https://github.com/ReZaAdineH/tid-cmm/issues/new/choose) for concrete model, data and documentation changes. See [`COMMUNITY.md`](COMMUNITY.md) and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).

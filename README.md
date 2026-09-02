@@ -18,6 +18,22 @@ TID-CMM is the **detection measurement module of UTIOM**, the Unified Threat-Inf
 
 ---
 
+## Start here: use it, challenge it, help it improve
+
+You do not need to adopt the whole UTIOM ecosystem or ask permission to begin. Run TID-CMM on a real environment, keep sensitive information inside your organisation, and bring back only what can be shared safely.
+
+| If you want to… | Start here |
+| --- | --- |
+| Find your first detection gaps | [Run the free rapid assessment](https://tid-cmm.com/assess) |
+| Ask how to apply or interpret the model | [Join the GitHub Discussions](https://github.com/ReZaAdineH/tid-cmm/discussions) |
+| Challenge a descriptor, weight or constraint | [Open a structured model challenge](https://github.com/ReZaAdineH/tid-cmm/issues/new/choose) |
+| Correct telemetry, ATT&CK or standards data | [Open a data or mapping correction](https://github.com/ReZaAdineH/tid-cmm/issues/new/choose) |
+| Share what happened in practice | [Post an anonymised implementation story](https://github.com/ReZaAdineH/tid-cmm/discussions) |
+
+A contribution does not need to be a pull request. One clear counter-example, one mapping correction, or one anonymised lesson from an assessment can improve the model for everyone.
+
+---
+
 ## What TID-CMM measures
 
 The model contains **8 domains, 58 sub-capabilities and 348 explicit level descriptors**, each scored from 0 to 5.
@@ -117,7 +133,7 @@ See [`LICENSE`](LICENSE), [`NOTICE.md`](NOTICE.md) and https://tid-cmm.com/licen
 
 ## Community
 
-TID-CMM is intended to be challenged with evidence.
+The TID-CMM community is the practitioners who use the model, question it and share what they learn. There is no membership process.
 
 Especially useful contributions include:
 
@@ -129,7 +145,7 @@ Especially useful contributions include:
 - anonymised assessment data suitable for future benchmarking;
 - implementation stories from internal, outsourced and hybrid SOCs.
 
-Read [`COMMUNITY.md`](COMMUNITY.md), [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+Start a [Discussion](https://github.com/ReZaAdineH/tid-cmm/discussions), choose an [Issue template](https://github.com/ReZaAdineH/tid-cmm/issues/new/choose), or read [`COMMUNITY.md`](COMMUNITY.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md) for the evidence and privacy guidance.
 
 **Security findings must not be posted publicly.** See [`SECURITY.md`](SECURITY.md).
 
