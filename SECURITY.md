@@ -43,4 +43,4 @@ Please allow a reasonable period for investigation and remediation before public
 
 ## Public/private boundary
 
-The public model and data are intentionally open under their stated licences. The assessment tool may be free to use without being licensed for redistribution, and private production implementation, credentials and operational infrastructure remain outside the public repository.
+The public model and reference data are published and free to use under the permitted-use terms at https://tid-cmm.com/licence/; publication is not an open-source grant. The assessment tool may be free to use without being licensed for redistribution, and private production implementation, credentials and operational infrastructure remain outside the public repository.

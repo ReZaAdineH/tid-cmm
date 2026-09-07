@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tid-cmm.com/api/tid-cmm-export.schema.json",
+  "title": "TID-CMM export for TIR-CMM",
+  "description": "The document the TID-CMM assessment tool writes for TIR-CMM. It satisfies TIR-CMM's import contract (https://tir-cmm.com/schemas/tid-cmm-import.schema.json) and adds the provenance a score needs to travel: the model version it was scored against, the assessment depth, the constraint log, the raw figures behind every derived one, and the derivations themselves. Every field except the schema tag is optional, because an assessment that has scoped but not scored is still worth handing over. Free to use under the permissions at https://tid-cmm.com/licence/.",
+  "type": "object",
+  "required": [
+    "schema"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schema": {
+      "const": "tid-cmm/export/1.0"
+    },
+    "generator": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "model_version": {
+          "type": "string",
+          "description": "TID-CMM model version the scores were computed against. Two exports are only comparable if this did not move."
+        },
+        "tool_build": {
+          "type": "string",
+          "description": "Date of the tool build, YYYY-MM-DD."
+        },
+        "export_schema": {
+          "type": "string",
+          "format": "uri"
+        },
+        "import_contract": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "organisation": {
+      "type": "string"
+    },
+    "assessed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "assessor": {
+      "type": "string"
+    },
+    "depth": {
+      "enum": [
+        "rapid",
+        "structured",
+        "evidence"
+      ],
+      "description": "Assessment depth. Rapid is held at 3.0 by C3 and is a floor, not a finding."
+    },
+    "strict": {
+      "type": "boolean",
+      "description": "Whether the integrity constraints were applied."
+    },
+    "profile": {
+      "enum": [
+        "essential",
+        "standard",
+        "comprehensive"
+      ]
+    },
+    "actor_provenance": {
+      "enum": [
+        "declared",
+        "suggested",
+        "reviewed"
+      ],
+      "description": "How the adversary set was arrived at. 'suggested' means the tool's threat profile was accepted unmodified, which C5 caps."
+    },
+    "detection_score_pre_substitution": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "The constrained TID-CMM overall before any TIR-CMM result is substituted into the IR domain. TIR-CMM reads this as D for its constraint R4."
+    },
+    "overall": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "overall_raw": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Self-assessed overall before constraints."
+    },
+    "ir_substitution": {
+      "enum": [
+        "none"
+      ],
+      "description": "Whether a TIR-CMM overall was substituted into IR before scoring. The browser tool never substitutes."
+    },
+    "domains": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 5
+      },
+      "description": "Constrained domain scores keyed by domain id (TI, TM, DC, DE, AV, AA, IR, GV)."
+    },
+    "domains_raw": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 5
+      }
+    },
+    "constraint_log": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Every constraint that changed a number, as the tool reported it."
+    },
+    "crown_jewels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "asset_classes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "asset_classes": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "A1",
+                "A2",
+                "A3",
+                "A4",
+                "A5",
+                "A6",
+                "A7",
+                "A8"
+              ]
+            }
+          },
+          "tid_cmm_category": {
+            "enum": [
+              "identity",
+              "data",
+              "cloud",
+              "code",
+              "backup",
+              "endpoint",
+              "email",
+              "ot",
+              "other"
+            ]
+          },
+          "impact": {
+            "enum": [
+              "low",
+              "moderate",
+              "high",
+              "severe"
+            ]
+          },
+          "why": {
+            "type": "string"
+          },
+          "asset_type": {
+            "type": "string",
+            "description": "Structured asset type chosen in the tool (model 1.6.0 onwards), when one was chosen; tid_cmm_category then carries its legacy category."
+          }
+        }
+      }
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[GC]\\d{4}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "group",
+              "campaign"
+            ]
+          }
+        }
+      }
+    },
+    "attack_paths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "stages",
+          "asset_classes",
+          "techniques"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "actor": {
+            "type": "string"
+          },
+          "actor_name": {
+            "type": "string"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "S0",
+                "S1",
+                "S2",
+                "S3",
+                "S4",
+                "S5",
+                "S6",
+                "S7"
+              ]
+            }
+          },
+          "asset_classes": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "A1",
+                "A2",
+                "A3",
+                "A4",
+                "A5",
+                "A6",
+                "A7",
+                "A8"
+              ]
+            }
+          },
+          "techniques": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^T\\d{4}(\\.\\d{3})?$"
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "in_scope_techniques": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "tier",
+          "mitigations"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^T\\d{4}(\\.\\d{3})?$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tier": {
+            "enum": [
+              "A",
+              "B",
+              "C"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Validated Coverage status. 0 and 1 are telemetry reach as computed by the tool. 2 is written only where the tool's detection register evidences a deployed, enabled detection with healthy required telemetry and a named artefact; 3 only where a validation with a recorded method and a 'fired' outcome falls inside the stated recency window. A technique without a detection answer keeps the reach-based 0 or 1. Absent when the technique has no ATT&CK analytic to compute reach from."
+          },
+          "visibility_percent": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "assurance": {
+            "enum": [
+              "assured",
+              "partial",
+              "weak",
+              "blind",
+              "unassessed"
+            ]
+          },
+          "deception_route": {
+            "type": "boolean"
+          },
+          "mitigations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^M\\d{4}$"
+            }
+          }
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "in_scope": {
+          "type": "integer"
+        },
+        "tier_a": {
+          "type": "integer"
+        },
+        "tier_b": {
+          "type": "integer"
+        },
+        "tier_c": {
+          "type": "integer"
+        },
+        "techniques_with_analytics": {
+          "type": "integer"
+        },
+        "blind_percent": {
+          "type": "number"
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The derivations, written into the file so a reader does not need this schema to understand what was inferred."
+    }
+  }
+}

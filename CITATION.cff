@@ -1,6 +1,6 @@
 cff-version: "1.2.0"
 title: "TID-CMM — Threat-Informed Detection Capability Maturity Model"
-message: "If you use TID-CMM, its open model or its public datasets, please cite it."
+message: "If you use TID-CMM, its published model or its reference datasets, please cite it."
 type: software
 authors:
   - family-names: Adineh
@@ -25,5 +25,6 @@ keywords:
   - telemetry assurance
   - detection validation
   - purple team
-license: CC-BY-4.0
-version: "1.5.0"
+license-url: "https://tid-cmm.com/licence/"
+version: "1.6.0"
+date-released: "2026-09-06"

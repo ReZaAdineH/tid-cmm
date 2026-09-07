@@ -2,7 +2,7 @@
 
 Canonical website: https://tid-cmm.com
 
-Canonical model: **1.5.0** · 8 domains · 58 sub-capabilities · 348 level descriptors · MITRE ATT&CK Enterprise v19.2.
+Canonical model: **1.6.0** · documents **v1.6** · 8 domains · 58 sub-capabilities · 348 level descriptors · MITRE ATT&CK Enterprise v19.2.
 
 TID-CMM — the Threat-Informed Detection Capability Maturity Model — measures whether detection is driven by relevant adversary behaviour, whether the required telemetry exists, and whether the capability has actually been validated.
 

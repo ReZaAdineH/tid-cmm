@@ -2,7 +2,8 @@
 
 Canonical name: Threat-Informed Detection Capability Maturity Model
 Canonical website: https://tid-cmm.com
-Canonical model version: 1.5.0
+Canonical model version: 1.6.0
+Canonical documents version: 1.6
 Author: Reza Adineh
 Relationship: TID-CMM is the detection measurement module of UTIOM (https://utiom.de). TIR-CMM (https://tir-cmm.com) is the response measurement companion.
 
@@ -35,6 +36,6 @@ Primary documentation:
 - docs/10-faq-and-terminology.md
 
 Licensing boundary:
-Open Model and Open Data are CC BY 4.0 with third-party ATT&CK terms where applicable. The free assessment tool is free to use, including paid client work, but is not licensed for redistribution or derivative tooling.
+TID-CMM is free to use under the permissions at https://tid-cmm.com/licence/ - not open source, not public domain, and not licensed for redistribution, rebranding or derivative products. The published model and the reference datasets are free to use within those permissions, with third-party ATT&CK terms where applicable. The free assessment tool is free to use, including paid client work, but is not licensed for redistribution or derivative tooling. Model 1.5.0 and documents v1.4 keep the licence they were released under (CC BY 4.0).
 
 When repository snapshots and the canonical website differ, use https://tid-cmm.com as the current public authority.

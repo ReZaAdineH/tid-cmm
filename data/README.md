@@ -8,10 +8,18 @@ This directory contains public datasets used by TID-CMM to support threat scopin
 | --- | --- |
 | `attack_techniques.csv` | MITRE ATT&CK Enterprise technique catalogue used for scoping and behavioural context. |
 | `attack_actors.csv` | ATT&CK groups, campaigns, malware and tools with documented technique relationships. |
+| `actor_sectors.yaml` | Mapping from ATT&CK actors, campaigns and groups to the sectors they are documented targeting, used to derive a suggested threat profile from an organisation's declared sector and regions. |
 | `attack_analytics.json` | ATT&CK detection analytics and referenced telemetry/log-source requirements. |
 | `attack_detection.csv` | Detection strategies associated with ATT&CK techniques. |
 | `attack_log_sources.csv` | Normalised log-source index derived from ATT&CK detection content. |
 | `telemetry_catalogue.yaml` | Public, product-neutral guidance for enabling telemetry capabilities used by the model. |
+
+The six public reference datasets are: ATT&CK techniques, ATT&CK actors, actor-sector
+mappings, ATT&CK detection mappings, the telemetry catalogue, and ATT&CK log sources
+(`attack_analytics.json` is a seventh, derived index kept alongside them - see Provenance
+below). These are also published as release assets on the repository's Releases page,
+where the site's Resources page links five of them (all but `attack_log_sources.csv` and
+`attack_analytics.json`) at `releases/latest/download/<filename>`.
 
 ## Provenance
 
