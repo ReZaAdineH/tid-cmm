@@ -1,0 +1,1677 @@
+---
+# Actor-to-sector mapping for TID-CMM. GENERATED — do not edit by hand.
+# Regenerate: python3 tools/build_actor_sectors.py
+# Corrections belong in data/actor_sectors.overrides.yaml.
+#
+# ATT&CK has no structured targeting field; sector and region appear only in
+# group description prose, which this extract truncates at 400 characters. An
+# absent sector is therefore evidence about the extract, not about the
+# adversary, and is recorded as `unknown` rather than as an empty list.
+#
+# confidence:
+#   high         stated in the description, which was not truncated
+#   medium       stated in the description, which was truncated — may be partial
+#   curated      restored by hand from public attribution; challengeable
+#   cross_sector selects by opportunity, not industry; matches every sector
+#   unknown      no reliable signal; excluded from suggestions
+
+sectors:
+  government: 'Government & public sector'
+  defence: 'Defence & aerospace'
+  financial: 'Financial services'
+  healthcare: 'Healthcare & pharmaceutical'
+  energy: 'Energy & utilities'
+  manufacturing: 'Manufacturing & industrial'
+  technology: 'Technology & software'
+  telecom: 'Telecommunications'
+  retail: 'Retail & hospitality'
+  education: 'Education & research'
+  transport: 'Transport & logistics'
+  legal: 'Legal & professional services'
+  media: 'Media & publishing'
+  ngo: 'NGOs, activists & civil society'
+  critical_infra: 'Critical national infrastructure'
+
+regions:
+  - europe
+  - north_america
+  - ukraine_russia
+  - middle_east
+  - east_asia
+  - south_asia
+  - southeast_asia
+  - africa
+  - latin_america
+  - global
+
+actors:
+  - id: C0001
+    name: 'Frankenstein'
+    kind: campaign
+    techniques: 84
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0002
+    name: 'Night Dragon'
+    kind: campaign
+    techniques: 42
+    confidence: medium
+    sectors: [critical_infra, energy, financial, manufacturing]
+    regions: [east_asia, north_america]
+  - id: C0004
+    name: 'CostaRicto'
+    kind: campaign
+    techniques: 64
+    confidence: medium
+    sectors: [financial]
+    regions: [africa, europe, global, south_asia]
+  - id: C0005
+    name: 'Operation Spalax'
+    kind: campaign
+    techniques: 66
+    confidence: medium
+    sectors: [energy, government]
+    regions: [latin_america]
+  - id: C0006
+    name: 'Operation Honeybee'
+    kind: campaign
+    techniques: 33
+    confidence: unknown
+    sectors: []
+    regions: [east_asia, latin_america, north_america, southeast_asia]
+  - id: C0007
+    name: 'FunnyDream'
+    kind: campaign
+    techniques: 60
+    confidence: medium
+    sectors: [government]
+    regions: [east_asia, southeast_asia]
+  - id: C0010
+    name: 'C0010'
+    kind: campaign
+    techniques: 28
+    confidence: medium
+    sectors: [energy, government, healthcare, transport]
+    regions: [middle_east]
+  - id: C0011
+    name: 'C0011'
+    kind: campaign
+    techniques: 38
+    confidence: medium
+    sectors: [education]
+    regions: [south_asia]
+  - id: C0012
+    name: 'Operation CuckooBees'
+    kind: campaign
+    techniques: 35
+    confidence: medium
+    sectors: [manufacturing, technology]
+    regions: [east_asia, europe, north_america]
+  - id: C0013
+    name: 'Operation Sharpshooter'
+    kind: campaign
+    techniques: 32
+    confidence: medium
+    sectors: [defence, energy, financial, government]
+    regions: [europe, global, middle_east, north_america]
+  - id: C0014
+    name: 'Operation Wocao'
+    kind: campaign
+    techniques: 108
+    confidence: medium
+    sectors: [energy, government, technology, transport]
+    regions: [east_asia, europe, global, latin_america, north_america]
+  - id: C0015
+    name: 'C0015'
+    kind: campaign
+    techniques: 120
+    confidence: cross_sector
+    sectors: []
+    regions: []
+  - id: C0016
+    name: 'Operation Dust Storm'
+    kind: campaign
+    techniques: 65
+    confidence: medium
+    sectors: [defence, government]
+    regions: [east_asia, europe, north_america, southeast_asia]
+  - id: C0017
+    name: 'C0017'
+    kind: campaign
+    techniques: 114
+    confidence: medium
+    sectors: [government]
+    regions: [north_america]
+  - id: C0018
+    name: 'C0018'
+    kind: campaign
+    techniques: 116
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0021
+    name: 'C0021'
+    kind: campaign
+    techniques: 81
+    confidence: medium
+    sectors: [education, energy, government, healthcare, manufacturing, ngo, retail]
+    regions: [north_america]
+  - id: C0022
+    name: 'Operation Dream Job'
+    kind: campaign
+    techniques: 69
+    confidence: medium
+    sectors: [defence, government]
+    regions: [middle_east, north_america, south_asia, ukraine_russia]
+  - id: C0023
+    name: 'Operation Ghost'
+    kind: campaign
+    techniques: 39
+    confidence: medium
+    sectors: [government]
+    regions: [europe]
+  - id: C0024
+    name: 'SolarWinds Compromise'
+    kind: campaign
+    techniques: 160
+    confidence: curated
+    sectors: [defence, education, government, legal, technology]
+    regions: [europe, north_america]
+    note: 'Supply chain compromise; victim set was selected from a far larger install base.'
+  - id: C0025
+    name: '2016 Ukraine Electric Power Attack'
+    kind: campaign
+    techniques: 36
+    confidence: medium
+    sectors: [energy]
+    regions: [ukraine_russia]
+  - id: C0026
+    name: 'C0026'
+    kind: campaign
+    techniques: 44
+    confidence: unknown
+    sectors: []
+    regions: [ukraine_russia]
+  - id: C0027
+    name: 'C0027'
+    kind: campaign
+    techniques: 38
+    confidence: medium
+    sectors: [financial, telecom]
+    regions: []
+  - id: C0028
+    name: '2015 Ukraine Electric Power Attack'
+    kind: campaign
+    techniques: 50
+    confidence: curated
+    sectors: [critical_infra, energy]
+    regions: [ukraine_russia]
+  - id: C0029
+    name: 'Cutting Edge'
+    kind: campaign
+    techniques: 72
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+    note: 'Edge-appliance exploitation; victim set follows exposure, not industry.'
+  - id: C0030
+    name: 'Triton Safety Instrumented System Attack'
+    kind: campaign
+    techniques: 26
+    confidence: medium
+    sectors: [manufacturing]
+    regions: []
+  - id: C0032
+    name: 'C0032'
+    kind: campaign
+    techniques: 33
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0033
+    name: 'C0033'
+    kind: campaign
+    techniques: 26
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0034
+    name: '2022 Ukraine Electric Power Attack'
+    kind: campaign
+    techniques: 16
+    confidence: medium
+    sectors: [critical_infra, energy]
+    regions: [ukraine_russia]
+  - id: C0035
+    name: 'KV Botnet Activity'
+    kind: campaign
+    techniques: 20
+    confidence: medium
+    sectors: [manufacturing]
+    regions: []
+  - id: C0036
+    name: 'Pikabot Distribution February 2024'
+    kind: campaign
+    techniques: 25
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0037
+    name: 'Water Curupira Pikabot Distribution'
+    kind: campaign
+    techniques: 91
+    confidence: cross_sector
+    sectors: []
+    regions: []
+  - id: C0038
+    name: 'HomeLand Justice'
+    kind: campaign
+    techniques: 88
+    confidence: medium
+    sectors: [government]
+    regions: []
+  - id: C0039
+    name: 'Versa Director Zero Day Exploitation'
+    kind: campaign
+    techniques: 16
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0040
+    name: 'APT41 DUST'
+    kind: campaign
+    techniques: 107
+    confidence: medium
+    sectors: [media, transport]
+    regions: [europe, middle_east]
+  - id: C0041
+    name: 'FrostyGoop Incident'
+    kind: campaign
+    techniques: 5
+    confidence: medium
+    sectors: [government]
+    regions: [ukraine_russia]
+  - id: C0042
+    name: 'Outer Space'
+    kind: campaign
+    techniques: 22
+    confidence: unknown
+    sectors: []
+    regions: [middle_east]
+  - id: C0043
+    name: 'Indian Critical Infrastructure Intrusions'
+    kind: campaign
+    techniques: 35
+    confidence: medium
+    sectors: [critical_infra, energy, transport]
+    regions: [east_asia, south_asia]
+  - id: C0044
+    name: 'Juicy Mix'
+    kind: campaign
+    techniques: 23
+    confidence: unknown
+    sectors: []
+    regions: [middle_east]
+  - id: C0045
+    name: 'ShadowRay'
+    kind: campaign
+    techniques: 10
+    confidence: medium
+    sectors: [education, financial]
+    regions: []
+  - id: C0046
+    name: 'ArcaneDoor'
+    kind: campaign
+    techniques: 29
+    confidence: medium
+    sectors: [critical_infra, government]
+    regions: []
+  - id: C0047
+    name: 'RedDelta Modified PlugX Infection Chain Operations'
+    kind: campaign
+    techniques: 70
+    confidence: curated
+    sectors: [government, ngo]
+    regions: [east_asia, southeast_asia]
+  - id: C0048
+    name: 'Operation MidnightEclipse'
+    kind: campaign
+    techniques: 29
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0049
+    name: 'Leviathan Australian Intrusions'
+    kind: campaign
+    techniques: 26
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0050
+    name: 'J-magic Campaign'
+    kind: campaign
+    techniques: 11
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0051
+    name: 'APT28 Nearest Neighbor Campaign'
+    kind: campaign
+    techniques: 22
+    confidence: unknown
+    sectors: []
+    regions: [ukraine_russia]
+  - id: C0052
+    name: 'SPACEHOP Activity'
+    kind: campaign
+    techniques: 4
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: C0053
+    name: 'FLORAHOX Activity'
+    kind: campaign
+    techniques: 7
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0055
+    name: 'Quad7 Activity'
+    kind: campaign
+    techniques: 17
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0056
+    name: 'RedPenguin'
+    kind: campaign
+    techniques: 34
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: C0057
+    name: '3CX Supply Chain Attack'
+    kind: campaign
+    techniques: 30
+    confidence: medium
+    sectors: [technology]
+    regions: []
+  - id: C0058
+    name: 'SharePoint ToolShell Exploitation'
+    kind: campaign
+    techniques: 62
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: C0059
+    name: 'Salesforce Data Exfiltration'
+    kind: campaign
+    techniques: 19
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: C0060
+    name: 'Operation AkaiRyū'
+    kind: campaign
+    techniques: 79
+    confidence: curated
+    sectors: [education, government, ngo]
+    regions: [east_asia, europe]
+  - id: C0061
+    name: 'Operation Digital Eye'
+    kind: campaign
+    techniques: 41
+    confidence: medium
+    sectors: [technology]
+    regions: [east_asia, europe]
+  - id: C0062
+    name: 'Anthropic AI-orchestrated Campaign'
+    kind: campaign
+    techniques: 26
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: C0063
+    name: '2025 Poland Wiper Attacks'
+    kind: campaign
+    techniques: 82
+    confidence: medium
+    sectors: [energy, manufacturing]
+    regions: [europe, ukraine_russia]
+  - id: G0001
+    name: 'Axiom'
+    kind: group
+    techniques: 101
+    confidence: medium
+    sectors: [defence, government, manufacturing, media]
+    regions: [east_asia]
+  - id: G0002
+    name: 'Moafee'
+    kind: group
+    techniques: 16
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: G0003
+    name: 'Cleaver'
+    kind: group
+    techniques: 34
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0004
+    name: 'Ke3chang'
+    kind: group
+    techniques: 90
+    confidence: medium
+    sectors: [defence, government]
+    regions: [east_asia, europe, latin_america, north_america]
+  - id: G0005
+    name: 'APT12'
+    kind: group
+    techniques: 24
+    confidence: high
+    sectors: [government, media]
+    regions: [east_asia]
+  - id: G0006
+    name: 'APT1'
+    kind: group
+    techniques: 79
+    confidence: high
+    sectors: [defence]
+    regions: [east_asia]
+  - id: G0007
+    name: 'APT28'
+    kind: group
+    techniques: 184
+    confidence: medium
+    sectors: [defence]
+    regions: [ukraine_russia]
+  - id: G0008
+    name: 'Carbanak'
+    kind: group
+    techniques: 50
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G0009
+    name: 'Deep Panda'
+    kind: group
+    techniques: 53
+    confidence: medium
+    sectors: [defence, financial, government, healthcare, telecom]
+    regions: [east_asia]
+  - id: G0010
+    name: 'Turla'
+    kind: group
+    techniques: 189
+    confidence: medium
+    sectors: [defence, education, government, healthcare]
+    regions: [ukraine_russia]
+  - id: G0011
+    name: 'PittyTiger'
+    kind: group
+    techniques: 53
+    confidence: curated
+    sectors: [defence, energy, government, telecom]
+    regions: [east_asia, europe]
+  - id: G0012
+    name: 'Darkhotel'
+    kind: group
+    techniques: 24
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: G0013
+    name: 'APT30'
+    kind: group
+    techniques: 27
+    confidence: high
+    sectors: [government]
+    regions: [east_asia]
+  - id: G0016
+    name: 'APT29'
+    kind: group
+    techniques: 230
+    confidence: medium
+    sectors: [education, government]
+    regions: [europe, ukraine_russia]
+  - id: G0017
+    name: 'DragonOK'
+    kind: group
+    techniques: 54
+    confidence: curated
+    sectors: [manufacturing, technology]
+    regions: [east_asia]
+  - id: G0018
+    name: 'admin@338'
+    kind: group
+    techniques: 41
+    confidence: medium
+    sectors: [financial]
+    regions: [east_asia]
+  - id: G0019
+    name: 'Naikon'
+    kind: group
+    techniques: 67
+    confidence: medium
+    sectors: [defence]
+    regions: [east_asia]
+  - id: G0020
+    name: 'Equation'
+    kind: group
+    techniques: 4
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0021
+    name: 'Molerats'
+    kind: group
+    techniques: 51
+    confidence: curated
+    sectors: [defence, financial, government, media, ngo]
+    regions: [middle_east]
+  - id: G0022
+    name: 'APT3'
+    kind: group
+    techniques: 85
+    confidence: curated
+    sectors: [defence, manufacturing, technology, telecom, transport]
+    regions: [east_asia, north_america]
+  - id: G0023
+    name: 'APT16'
+    kind: group
+    techniques: 4
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: G0024
+    name: 'Putter Panda'
+    kind: group
+    techniques: 13
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: G0025
+    name: 'APT17'
+    kind: group
+    techniques: 9
+    confidence: high
+    sectors: [defence, government, legal, technology]
+    regions: [east_asia, north_america]
+  - id: G0026
+    name: 'APT18'
+    kind: group
+    techniques: 36
+    confidence: high
+    sectors: [government, healthcare, manufacturing, ngo, technology]
+    regions: []
+  - id: G0027
+    name: 'Threat Group-3390'
+    kind: group
+    techniques: 178
+    confidence: medium
+    sectors: [defence, energy, government, manufacturing, technology]
+    regions: [east_asia]
+  - id: G0028
+    name: 'Threat Group-1314'
+    kind: group
+    techniques: 21
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0029
+    name: 'Scarlet Mimic'
+    kind: group
+    techniques: 15
+    confidence: medium
+    sectors: [government, ngo]
+    regions: [east_asia]
+  - id: G0030
+    name: 'Lotus Blossom'
+    kind: group
+    techniques: 65
+    confidence: medium
+    sectors: [government]
+    regions: []
+  - id: G0032
+    name: 'Lazarus Group'
+    kind: group
+    techniques: 146
+    confidence: curated
+    sectors: [critical_infra, defence, financial, government, media, technology]
+    regions: [east_asia, global]
+    note: 'Unusual in combining espionage with revenue generation; the financial and cryptocurrency targeting is a funding operation, not opportunism.'
+  - id: G0033
+    name: 'Poseidon Group'
+    kind: group
+    techniques: 8
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0034
+    name: 'Sandworm Team'
+    kind: group
+    techniques: 225
+    confidence: medium
+    sectors: [defence, technology]
+    regions: [europe, north_america, ukraine_russia]
+  - id: G0035
+    name: 'Dragonfly'
+    kind: group
+    techniques: 115
+    confidence: medium
+    sectors: [critical_infra, defence, transport]
+    regions: [europe, ukraine_russia]
+  - id: G0036
+    name: 'GCMAN'
+    kind: group
+    techniques: 2
+    confidence: high
+    sectors: [financial]
+    regions: []
+  - id: G0037
+    name: 'FIN6'
+    kind: group
+    techniques: 146
+    confidence: high
+    sectors: [financial, healthcare, retail]
+    regions: []
+  - id: G0038
+    name: 'Stealth Falcon'
+    kind: group
+    techniques: 16
+    confidence: high
+    sectors: [government, media, ngo]
+    regions: [middle_east]
+  - id: G0039
+    name: 'Suckfly'
+    kind: group
+    techniques: 8
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: G0040
+    name: 'Patchwork'
+    kind: group
+    techniques: 88
+    confidence: medium
+    sectors: [government]
+    regions: [south_asia]
+  - id: G0041
+    name: 'Strider'
+    kind: group
+    techniques: 32
+    confidence: unknown
+    sectors: []
+    regions: [east_asia, ukraine_russia]
+  - id: G0043
+    name: 'Group5'
+    kind: group
+    techniques: 38
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0044
+    name: 'Winnti Group'
+    kind: group
+    techniques: 68
+    confidence: curated
+    sectors: [education, healthcare, manufacturing, technology, telecom]
+    regions: [east_asia, global]
+  - id: G0045
+    name: 'menuPass'
+    kind: group
+    techniques: 169
+    confidence: medium
+    sectors: [government, technology]
+    regions: [east_asia]
+  - id: G0046
+    name: 'FIN7'
+    kind: group
+    techniques: 185
+    confidence: medium
+    sectors: [energy, financial, healthcare, legal, media, retail, transport]
+    regions: [north_america]
+  - id: G0047
+    name: 'Gamaredon Group'
+    kind: group
+    techniques: 94
+    confidence: medium
+    sectors: [defence, government, ngo]
+    regions: [ukraine_russia]
+  - id: G0048
+    name: 'RTM'
+    kind: group
+    techniques: 41
+    confidence: high
+    sectors: [financial]
+    regions: [ukraine_russia]
+  - id: G0049
+    name: 'OilRig'
+    kind: group
+    techniques: 140
+    confidence: medium
+    sectors: [energy, financial, government, manufacturing, telecom]
+    regions: [middle_east]
+  - id: G0050
+    name: 'APT32'
+    kind: group
+    techniques: 168
+    confidence: medium
+    sectors: [government, media, ngo]
+    regions: [east_asia, southeast_asia]
+  - id: G0051
+    name: 'FIN10'
+    kind: group
+    techniques: 79
+    confidence: high
+    sectors: [financial]
+    regions: [north_america]
+  - id: G0052
+    name: 'CopyKittens'
+    kind: group
+    techniques: 127
+    confidence: curated
+    sectors: [defence, education, government, media, technology]
+    regions: [middle_east]
+  - id: G0053
+    name: 'FIN5'
+    kind: group
+    techniques: 23
+    confidence: medium
+    sectors: [financial, retail]
+    regions: [ukraine_russia]
+  - id: G0054
+    name: 'Sowbug'
+    kind: group
+    techniques: 17
+    confidence: high
+    sectors: [government]
+    regions: [east_asia, latin_america, southeast_asia]
+  - id: G0055
+    name: 'NEODYMIUM'
+    kind: group
+    techniques: 9
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0056
+    name: 'PROMETHIUM'
+    kind: group
+    techniques: 31
+    confidence: unknown
+    sectors: []
+    regions: [global]
+  - id: G0059
+    name: 'Magic Hound'
+    kind: group
+    techniques: 144
+    confidence: medium
+    sectors: [defence, education, government, media]
+    regions: [europe, middle_east, north_america]
+  - id: G0060
+    name: 'BRONZE BUTLER'
+    kind: group
+    techniques: 95
+    confidence: medium
+    sectors: [government, healthcare, manufacturing, technology]
+    regions: [east_asia]
+  - id: G0061
+    name: 'FIN8'
+    kind: group
+    techniques: 98
+    confidence: medium
+    sectors: [financial, healthcare, manufacturing, retail, technology]
+    regions: []
+  - id: G0062
+    name: 'TA459'
+    kind: group
+    techniques: 67
+    confidence: curated
+    sectors: [defence, education, energy, government, telecom]
+    regions: [east_asia, ukraine_russia]
+  - id: G0063
+    name: 'BlackOasis'
+    kind: group
+    techniques: 1
+    confidence: medium
+    sectors: [education, ngo]
+    regions: [middle_east]
+  - id: G0064
+    name: 'APT33'
+    kind: group
+    techniques: 163
+    confidence: high
+    sectors: [energy, transport]
+    regions: [east_asia, middle_east, north_america]
+  - id: G0065
+    name: 'Leviathan'
+    kind: group
+    techniques: 180
+    confidence: curated
+    sectors: [defence, education, energy, government, healthcare, technology, transport]
+    regions: [east_asia, global, southeast_asia]
+    note: 'Maritime and naval research is the consistent thread across reporting.'
+  - id: G0066
+    name: 'Elderwood'
+    kind: group
+    techniques: 45
+    confidence: medium
+    sectors: [defence, manufacturing, ngo, technology]
+    regions: [east_asia]
+  - id: G0067
+    name: 'APT37'
+    kind: group
+    techniques: 109
+    confidence: curated
+    sectors: [defence, education, government, manufacturing, media, ngo]
+    regions: [east_asia]
+  - id: G0068
+    name: 'PLATINUM'
+    kind: group
+    techniques: 35
+    confidence: high
+    sectors: [government]
+    regions: [east_asia, southeast_asia]
+  - id: G0069
+    name: 'MuddyWater'
+    kind: group
+    techniques: 172
+    confidence: medium
+    sectors: [government, telecom]
+    regions: []
+  - id: G0070
+    name: 'Dark Caracal'
+    kind: group
+    techniques: 52
+    confidence: curated
+    sectors: [defence, education, financial, government, manufacturing, media, ngo]
+    regions: [global, middle_east]
+  - id: G0071
+    name: 'Orangeworm'
+    kind: group
+    techniques: 33
+    confidence: medium
+    sectors: [healthcare]
+    regions: [europe, north_america]
+  - id: G0073
+    name: 'APT19'
+    kind: group
+    techniques: 127
+    confidence: medium
+    sectors: [defence, education, energy, financial, healthcare, legal, manufacturing, telecom]
+    regions: [east_asia]
+  - id: G0075
+    name: 'Rancor'
+    kind: group
+    techniques: 23
+    confidence: unknown
+    sectors: []
+    regions: [east_asia]
+  - id: G0076
+    name: 'Thrip'
+    kind: group
+    techniques: 34
+    confidence: high
+    sectors: [defence, telecom]
+    regions: [east_asia, north_america, southeast_asia]
+  - id: G0077
+    name: 'Leafminer'
+    kind: group
+    techniques: 39
+    confidence: high
+    sectors: [government]
+    regions: [middle_east]
+  - id: G0078
+    name: 'Gorgon Group'
+    kind: group
+    techniques: 68
+    confidence: high
+    sectors: [government]
+    regions: [europe, north_america, south_asia, ukraine_russia]
+  - id: G0079
+    name: 'DarkHydrus'
+    kind: group
+    techniques: 102
+    confidence: high
+    sectors: [education, government]
+    regions: [middle_east]
+  - id: G0080
+    name: 'Cobalt Group'
+    kind: group
+    techniques: 112
+    confidence: medium
+    sectors: [financial]
+    regions: [europe]
+  - id: G0081
+    name: 'Tropic Trooper'
+    kind: group
+    techniques: 75
+    confidence: medium
+    sectors: [government, healthcare, transport]
+    regions: [east_asia, southeast_asia]
+  - id: G0082
+    name: 'APT38'
+    kind: group
+    techniques: 110
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G0083
+    name: 'SilverTerrier'
+    kind: group
+    techniques: 76
+    confidence: high
+    sectors: [education, manufacturing, technology]
+    regions: [africa]
+  - id: G0084
+    name: 'Gallmaker'
+    kind: group
+    techniques: 6
+    confidence: high
+    sectors: [defence, government]
+    regions: [middle_east]
+  - id: G0085
+    name: 'FIN4'
+    kind: group
+    techniques: 12
+    confidence: medium
+    sectors: [financial, healthcare]
+    regions: []
+  - id: G0087
+    name: 'APT39'
+    kind: group
+    techniques: 93
+    confidence: medium
+    sectors: [education, government, healthcare, retail, telecom]
+    regions: []
+  - id: G0088
+    name: 'TEMP.Veles'
+    kind: group
+    techniques: 22
+    confidence: high
+    sectors: [critical_infra, manufacturing]
+    regions: [ukraine_russia]
+  - id: G0089
+    name: 'The White Company'
+    kind: group
+    techniques: 59
+    confidence: high
+    sectors: [defence, government]
+    regions: [south_asia]
+  - id: G0090
+    name: 'WIRTE'
+    kind: group
+    techniques: 125
+    confidence: medium
+    sectors: [defence, financial, government, legal, technology]
+    regions: [africa, europe, middle_east]
+  - id: G0091
+    name: 'Silence'
+    kind: group
+    techniques: 90
+    confidence: medium
+    sectors: [financial]
+    regions: [europe, ukraine_russia]
+  - id: G0092
+    name: 'TA505'
+    kind: group
+    techniques: 165
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G0093
+    name: 'GALLIUM'
+    kind: group
+    techniques: 108
+    confidence: medium
+    sectors: [financial, government, telecom]
+    regions: [southeast_asia, ukraine_russia]
+  - id: G0094
+    name: 'Kimsuky'
+    kind: group
+    techniques: 188
+    confidence: medium
+    sectors: [education, government]
+    regions: [east_asia]
+  - id: G0095
+    name: 'Machete'
+    kind: group
+    techniques: 49
+    confidence: unknown
+    sectors: []
+    regions: [europe, latin_america, north_america, ukraine_russia]
+  - id: G0096
+    name: 'APT41'
+    kind: group
+    techniques: 213
+    confidence: medium
+    sectors: [education, financial, healthcare, technology, telecom]
+    regions: [east_asia]
+  - id: G0098
+    name: 'BlackTech'
+    kind: group
+    techniques: 61
+    confidence: medium
+    sectors: [media]
+    regions: [east_asia, north_america]
+  - id: G0099
+    name: 'APT-C-36'
+    kind: group
+    techniques: 105
+    confidence: medium
+    sectors: [energy, financial, government, manufacturing]
+    regions: [latin_america]
+  - id: G0100
+    name: 'Inception'
+    kind: group
+    techniques: 40
+    confidence: medium
+    sectors: [government]
+    regions: [africa, europe, middle_east, north_america, ukraine_russia]
+  - id: G0102
+    name: 'Wizard Spider'
+    kind: group
+    techniques: 213
+    confidence: medium
+    sectors: [financial]
+    regions: [ukraine_russia]
+  - id: G0103
+    name: 'Mofang'
+    kind: group
+    techniques: 39
+    confidence: medium
+    sectors: [critical_infra, defence, government]
+    regions: [east_asia]
+  - id: G0105
+    name: 'DarkVishnya'
+    kind: group
+    techniques: 14
+    confidence: high
+    sectors: [financial]
+    regions: [europe]
+  - id: G0106
+    name: 'Rocke'
+    kind: group
+    techniques: 36
+    confidence: medium
+    sectors: [financial]
+    regions: [east_asia]
+  - id: G0107
+    name: 'Whitefly'
+    kind: group
+    techniques: 25
+    confidence: unknown
+    sectors: []
+    regions: [southeast_asia]
+  - id: G0108
+    name: 'Blue Mockingbird'
+    kind: group
+    techniques: 47
+    confidence: high
+    sectors: [financial]
+    regions: []
+  - id: G0112
+    name: 'Windshift'
+    kind: group
+    techniques: 31
+    confidence: high
+    sectors: [critical_infra, government]
+    regions: [middle_east]
+  - id: G0114
+    name: 'Chimera'
+    kind: group
+    techniques: 128
+    confidence: curated
+    sectors: [manufacturing, transport]
+    regions: [east_asia]
+  - id: G0115
+    name: 'GOLD SOUTHFIELD'
+    kind: group
+    techniques: 44
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G0117
+    name: 'Fox Kitten'
+    kind: group
+    techniques: 73
+    confidence: medium
+    sectors: [defence, energy, government, manufacturing, technology]
+    regions: [africa, europe, middle_east, north_america]
+  - id: G0119
+    name: 'Indrik Spider'
+    kind: group
+    techniques: 159
+    confidence: medium
+    sectors: [financial]
+    regions: [ukraine_russia]
+  - id: G0120
+    name: 'Evilnum'
+    kind: group
+    techniques: 41
+    confidence: high
+    sectors: [financial]
+    regions: []
+  - id: G0121
+    name: 'Sidewinder'
+    kind: group
+    techniques: 47
+    confidence: medium
+    sectors: [defence, government]
+    regions: [east_asia, south_asia]
+  - id: G0122
+    name: 'Silent Librarian'
+    kind: group
+    techniques: 13
+    confidence: medium
+    sectors: [education, government]
+    regions: [global]
+  - id: G0123
+    name: 'Volatile Cedar'
+    kind: group
+    techniques: 26
+    confidence: unknown
+    sectors: []
+    regions: [global]
+  - id: G0124
+    name: 'Windigo'
+    kind: group
+    techniques: 28
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0125
+    name: 'HAFNIUM'
+    kind: group
+    techniques: 71
+    confidence: medium
+    sectors: [defence, education, legal]
+    regions: [east_asia, north_america]
+  - id: G0126
+    name: 'Higaisa'
+    kind: group
+    techniques: 69
+    confidence: medium
+    sectors: [government]
+    regions: [east_asia, europe, ukraine_russia]
+  - id: G0127
+    name: 'TA551'
+    kind: group
+    techniques: 115
+    confidence: high
+    sectors: [financial]
+    regions: [east_asia]
+  - id: G0128
+    name: 'ZIRCONIUM'
+    kind: group
+    techniques: 29
+    confidence: unknown
+    sectors: []
+    regions: [east_asia, north_america]
+  - id: G0129
+    name: 'Mustang Panda'
+    kind: group
+    techniques: 195
+    confidence: medium
+    sectors: [government]
+    regions: [east_asia]
+  - id: G0130
+    name: 'Ajax Security Team'
+    kind: group
+    techniques: 7
+    confidence: medium
+    sectors: [defence, manufacturing, technology]
+    regions: [north_america]
+  - id: G0131
+    name: 'Tonto Team'
+    kind: group
+    techniques: 83
+    confidence: medium
+    sectors: [defence, government]
+    regions: [east_asia, europe, north_america]
+  - id: G0133
+    name: 'Nomadic Octopus'
+    kind: group
+    techniques: 23
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0134
+    name: 'Transparent Tribe'
+    kind: group
+    techniques: 64
+    confidence: high
+    sectors: [defence, government]
+    regions: [south_asia]
+  - id: G0135
+    name: 'BackdoorDiplomacy'
+    kind: group
+    techniques: 66
+    confidence: high
+    sectors: [government, telecom]
+    regions: [africa, europe, middle_east]
+  - id: G0136
+    name: 'IndigoZebra'
+    kind: group
+    techniques: 32
+    confidence: high
+    sectors: [government]
+    regions: [east_asia]
+  - id: G0137
+    name: 'Ferocious Kitten'
+    kind: group
+    techniques: 29
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G0138
+    name: 'Andariel'
+    kind: group
+    techniques: 38
+    confidence: medium
+    sectors: [defence, government]
+    regions: [east_asia]
+  - id: G0139
+    name: 'TeamTNT'
+    kind: group
+    techniques: 74
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+    note: 'Targets exposed cloud and container infrastructure irrespective of sector.'
+  - id: G0140
+    name: 'LazyScripter'
+    kind: group
+    techniques: 132
+    confidence: curated
+    sectors: [transport]
+    regions: [middle_east]
+    note: 'Consistently reported against airlines and aviation job applicants.'
+  - id: G0142
+    name: 'Confucius'
+    kind: group
+    techniques: 41
+    confidence: medium
+    sectors: [defence, government]
+    regions: [south_asia]
+  - id: G0143
+    name: 'Aquatic Panda'
+    kind: group
+    techniques: 117
+    confidence: medium
+    sectors: [government, manufacturing, technology, telecom]
+    regions: [east_asia]
+  - id: G1001
+    name: 'HEXANE'
+    kind: group
+    techniques: 136
+    confidence: medium
+    sectors: [telecom, transport]
+    regions: [africa, middle_east]
+  - id: G1002
+    name: 'BITTER'
+    kind: group
+    techniques: 24
+    confidence: medium
+    sectors: [energy, government]
+    regions: [east_asia, middle_east, south_asia]
+  - id: G1003
+    name: 'Ember Bear'
+    kind: group
+    techniques: 123
+    confidence: curated
+    sectors: [critical_infra, defence, energy, government, media]
+    regions: [europe, ukraine_russia]
+  - id: G1004
+    name: 'LAPSUS$'
+    kind: group
+    techniques: 58
+    confidence: medium
+    sectors: [government, manufacturing]
+    regions: [global]
+  - id: G1005
+    name: 'POLONIUM'
+    kind: group
+    techniques: 18
+    confidence: medium
+    sectors: [defence, manufacturing, technology]
+    regions: [middle_east]
+  - id: G1006
+    name: 'Earth Lusca'
+    kind: group
+    techniques: 138
+    confidence: curated
+    sectors: [education, financial, government, healthcare, media, ngo, telecom]
+    regions: [east_asia, global, southeast_asia]
+  - id: G1007
+    name: 'Aoqin Dragon'
+    kind: group
+    techniques: 29
+    confidence: medium
+    sectors: [education, government, telecom]
+    regions: [east_asia, southeast_asia]
+  - id: G1008
+    name: 'SideCopy'
+    kind: group
+    techniques: 28
+    confidence: medium
+    sectors: [government]
+    regions: [south_asia]
+  - id: G1009
+    name: 'Moses Staff'
+    kind: group
+    techniques: 39
+    confidence: unknown
+    sectors: []
+    regions: [middle_east]
+  - id: G1011
+    name: 'EXOTIC LILY'
+    kind: group
+    techniques: 77
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G1012
+    name: 'CURIUM'
+    kind: group
+    techniques: 27
+    confidence: medium
+    sectors: [media, technology]
+    regions: [middle_east]
+  - id: G1013
+    name: 'Metador'
+    kind: group
+    techniques: 47
+    confidence: medium
+    sectors: [education, telecom]
+    regions: [africa, middle_east]
+  - id: G1014
+    name: 'LuminousMoth'
+    kind: group
+    techniques: 115
+    confidence: medium
+    sectors: [government]
+    regions: [east_asia, southeast_asia]
+  - id: G1015
+    name: 'Scattered Spider'
+    kind: group
+    techniques: 139
+    confidence: medium
+    sectors: [technology, telecom]
+    regions: []
+  - id: G1016
+    name: 'FIN13'
+    kind: group
+    techniques: 116
+    confidence: medium
+    sectors: [financial, healthcare, retail]
+    regions: [latin_america]
+  - id: G1017
+    name: 'Volt Typhoon'
+    kind: group
+    techniques: 125
+    confidence: medium
+    sectors: [critical_infra]
+    regions: [east_asia, north_america]
+  - id: G1018
+    name: 'TA2541'
+    kind: group
+    techniques: 116
+    confidence: medium
+    sectors: [defence, manufacturing, transport]
+    regions: []
+  - id: G1019
+    name: 'MoustachedBouncer'
+    kind: group
+    techniques: 34
+    confidence: high
+    sectors: [government]
+    regions: []
+  - id: G1020
+    name: 'Mustard Tempest'
+    kind: group
+    techniques: 92
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G1021
+    name: 'Cinnamon Tempest'
+    kind: group
+    techniques: 132
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G1022
+    name: 'ToddyCat'
+    kind: group
+    techniques: 110
+    confidence: high
+    sectors: [defence, government]
+    regions: [europe]
+  - id: G1023
+    name: 'APT5'
+    kind: group
+    techniques: 100
+    confidence: medium
+    sectors: [defence, telecom]
+    regions: [east_asia, europe, north_america]
+  - id: G1024
+    name: 'Akira'
+    kind: group
+    techniques: 62
+    confidence: cross_sector
+    sectors: []
+    regions: []
+  - id: G1026
+    name: 'Malteiro'
+    kind: group
+    techniques: 29
+    confidence: medium
+    sectors: [financial]
+    regions: [latin_america]
+  - id: G1028
+    name: 'APT-C-23'
+    kind: group
+    techniques: 16
+    confidence: medium
+    sectors: [defence]
+    regions: [middle_east]
+  - id: G1030
+    name: 'Agrius'
+    kind: group
+    techniques: 68
+    confidence: medium
+    sectors: [government]
+    regions: [middle_east]
+  - id: G1031
+    name: 'Saint Bear'
+    kind: group
+    techniques: 54
+    confidence: curated
+    sectors: [critical_infra, defence, government]
+    regions: [ukraine_russia]
+  - id: G1032
+    name: 'INC Ransom'
+    kind: group
+    techniques: 59
+    confidence: medium
+    sectors: [education, healthcare, manufacturing]
+    regions: [global]
+  - id: G1033
+    name: 'Star Blizzard'
+    kind: group
+    techniques: 28
+    confidence: medium
+    sectors: [defence, education, government, ngo]
+    regions: [ukraine_russia]
+  - id: G1034
+    name: 'Daggerfly'
+    kind: group
+    techniques: 89
+    confidence: medium
+    sectors: [government, ngo, telecom]
+    regions: [africa, east_asia]
+  - id: G1035
+    name: 'Winter Vivern'
+    kind: group
+    techniques: 27
+    confidence: medium
+    sectors: [government, ngo]
+    regions: [europe, north_america, south_asia, ukraine_russia]
+  - id: G1036
+    name: 'Moonstone Sleet'
+    kind: group
+    techniques: 73
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G1037
+    name: 'TA577'
+    kind: group
+    techniques: 92
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G1038
+    name: 'TA578'
+    kind: group
+    techniques: 68
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G1039
+    name: 'RedCurl'
+    kind: group
+    techniques: 41
+    confidence: medium
+    sectors: [financial]
+    regions: [europe, north_america, ukraine_russia]
+  - id: G1040
+    name: 'Play'
+    kind: group
+    techniques: 142
+    confidence: medium
+    sectors: [critical_infra, government, healthcare, media]
+    regions: [europe, latin_america, north_america]
+  - id: G1041
+    name: 'Sea Turtle'
+    kind: group
+    techniques: 29
+    confidence: unknown
+    sectors: []
+    regions: [europe, north_america]
+  - id: G1042
+    name: 'RedEcho'
+    kind: group
+    techniques: 25
+    confidence: medium
+    sectors: [critical_infra]
+    regions: [east_asia, south_asia]
+  - id: G1043
+    name: 'BlackByte'
+    kind: group
+    techniques: 118
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G1044
+    name: 'APT42'
+    kind: group
+    techniques: 37
+    confidence: unknown
+    sectors: []
+    regions: [middle_east]
+  - id: G1045
+    name: 'Salt Typhoon'
+    kind: group
+    techniques: 18
+    confidence: high
+    sectors: [telecom]
+    regions: [east_asia, north_america]
+  - id: G1046
+    name: 'Storm-1811'
+    kind: group
+    techniques: 147
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G1047
+    name: 'Velvet Ant'
+    kind: group
+    techniques: 72
+    confidence: curated
+    sectors: [financial, technology]
+    regions: [east_asia]
+  - id: G1048
+    name: 'UNC3886'
+    kind: group
+    techniques: 72
+    confidence: medium
+    sectors: [defence, technology, telecom]
+    regions: [east_asia, north_america]
+  - id: G1049
+    name: 'AppleJeus'
+    kind: group
+    techniques: 2
+    confidence: unknown
+    sectors: []
+    regions: []
+  - id: G1050
+    name: 'Water Galura'
+    kind: group
+    techniques: 56
+    confidence: cross_sector
+    sectors: []
+    regions: [ukraine_russia]
+  - id: G1051
+    name: 'Medusa Group'
+    kind: group
+    techniques: 86
+    confidence: cross_sector
+    sectors: []
+    regions: [global]
+  - id: G1052
+    name: 'Contagious Interview'
+    kind: group
+    techniques: 84
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G1053
+    name: 'Storm-0501'
+    kind: group
+    techniques: 150
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G1054
+    name: 'MirrorFace'
+    kind: group
+    techniques: 134
+    confidence: curated
+    sectors: [defence, education, government, media, technology]
+    regions: [east_asia]
+  - id: G1055
+    name: 'VOID MANTICORE'
+    kind: group
+    techniques: 63
+    confidence: medium
+    sectors: [critical_infra, government]
+    regions: [middle_east]
+  - id: G1056
+    name: 'TeamPCP'
+    kind: group
+    techniques: 99
+    confidence: medium
+    sectors: [financial]
+    regions: []
+  - id: G1057
+    name: 'ShinyHunters'
+    kind: group
+    techniques: 46
+    confidence: cross_sector
+    sectors: []
+    regions: []

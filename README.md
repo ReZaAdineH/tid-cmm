@@ -2,13 +2,13 @@
 
 **Would you actually see the adversaries most likely to attack you?**
 
-**Canonical model: 1.5.0 · released 20 August 2026**  
-**Documents: v1.4**  
+**Canonical model: 1.6.0 · released 6 September 2026**  
+**Documents: v1.6**  
 **MITRE ATT&CK Enterprise: v19.2 · 697 techniques**  
 **Canonical website: https://tid-cmm.com**  
 **Assessment: https://tid-cmm.com/assess**
 
-TID-CMM is an open, evidence-driven capability maturity model for **threat-informed detection engineering**. It measures whether detection is driven by relevant adversary behaviour, whether the telemetry exists to observe that behaviour, and whether the claimed capability has actually been proven to work.
+TID-CMM is an evidence-driven capability maturity model for **threat-informed detection engineering**. It measures whether detection is driven by relevant adversary behaviour, whether the telemetry exists to observe that behaviour, and whether the claimed capability has actually been proven to work.
 
 **Focus areas:** Detection Engineering · Threat-Informed Defense · MITRE ATT&CK · Threat Intelligence · Threat Modeling · Attack Paths · Telemetry Engineering · Telemetry Assurance · Detection Validation · Purple Teaming · Threat Hunting · SOC Maturity · Security Operations
 
@@ -83,11 +83,11 @@ Assessments are self-declared. **There is no TID-CMM certification scheme.** A c
 
 ## Repository contents
 
-This repository is the **public model, open-data and community repository**.
+This repository is the **public model, reference-data and community repository**. The assessment implementation and the build system are not published here.
 
 | Path | Contents |
 | --- | --- |
-| `model/` | Versioned model source, domain definitions and schemas. Historical source snapshots may remain for reproducibility; the canonical current model version is stated above and on https://tid-cmm.com. |
+| `model/` | The canonical machine-readable model 1.6.0 under `model/1.6.0/`, byte for byte as the site's API publishes it, beside historical snapshots kept for reproducibility. See [`model/README.md`](model/README.md). |
 | `data/` | ATT&CK-derived datasets and the telemetry catalogue. See [`data/README.md`](data/README.md). |
 | `docs/` | Search- and citation-friendly public knowledge base mirroring the canonical website. |
 | `.github/` | Contribution, community, discussion and repository-integrity automation. |
@@ -117,15 +117,15 @@ For AI/search discovery, see [`llms.txt`](llms.txt) and the terminology/entity d
 
 ---
 
-## Open model, open data, free assessment tool
+## Free to use — not open source
 
-The licensing boundary follows the canonical site:
+The licensing boundary follows the canonical site, https://tid-cmm.com/licence/:
 
-- **Open Model** — CC BY 4.0. Commercial use, adaptation and product integration are permitted with attribution.
-- **Open Data** — CC BY 4.0, while MITRE ATT&CK content remains © The MITRE Corporation under the ATT&CK Terms of Use.
-- **Free Assessment Tool** — free to use for any purpose, including paid client assessment work, but **not licensed for redistribution, rebranding or derivative tooling**.
+- **Published model** — domains, sub-capabilities, level descriptors, weights, evidence criteria, crosswalks and scoring rules — free to use within the permitted-use terms: assess with it, cite it and quote it with attribution. Republishing it, publishing a derivative of it, or embedding it in another product needs written permission.
+- **Reference datasets** — the derived ATT&CK datasets, telemetry catalogue and schemas — on the same terms, while MITRE ATT&CK content remains © The MITRE Corporation under the ATT&CK Terms of Use.
+- **Free official assessment tool** — free to use for any purpose, including paid client assessment work, but **not licensed for redistribution, rebranding or derivative tooling**. Its implementation is copyright, all rights reserved, and is intentionally not published in this repository.
 
-The assessment tool source is therefore intentionally not published as part of this repository.
+**TID-CMM is free to use under the permissions stated there. Free to use does not mean open source, public domain, or permission to redistribute, rebrand or create derivative products.** These are the author's own permitted-use terms, not an OSI-approved or Creative Commons licence. Model 1.5.0 and documents v1.4 keep the licence they were released under (CC BY 4.0).
 
 See [`LICENSE`](LICENSE), [`NOTICE.md`](NOTICE.md) and https://tid-cmm.com/licence/.
 
@@ -167,7 +167,7 @@ These are related instruments, not additional UTIOM lifecycle phases.
 
 Use [`CITATION.cff`](CITATION.cff). In prose:
 
-> Adineh, R. (2026). *TID-CMM: Threat-Informed Detection Capability Maturity Model* (v1.5.0). https://tid-cmm.com
+> Adineh, R. (2026). *TID-CMM: Threat-Informed Detection Capability Maturity Model* (v1.6.0). https://tid-cmm.com
 
 ---
 

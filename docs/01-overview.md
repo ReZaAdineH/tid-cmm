@@ -4,7 +4,7 @@ TID-CMM is the **Threat-Informed Detection Capability Maturity Model**. It measu
 
 It does not measure success by the number of deployed rules or by ATT&CK coverage percentages alone. A mapped detection can still be ineffective when the required data is missing, the detection has never been validated, or the covered technique is irrelevant to the organisation's actual threat profile.
 
-The current canonical model is **1.5.0**, with 8 domains, 58 sub-capabilities and 348 level descriptors, aligned to MITRE ATT&CK Enterprise v19.2.
+The current canonical model is **1.6.0** (documents v1.6), with 8 domains, 58 sub-capabilities and 348 level descriptors, aligned to MITRE ATT&CK Enterprise v19.2.
 
 ## Core questions
 

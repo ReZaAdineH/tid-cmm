@@ -52,7 +52,7 @@ ATT&CK-derived files in `data/` should not be hand-edited as the normal fix path
 
 ## Tool scope
 
-This repository is the open model/data/community repository. The free assessment tool is available at https://tid-cmm.com and is not licensed for redistribution or derivative tooling. Security findings affecting the tool must be reported privately under `SECURITY.md`.
+This repository is the public model, reference-data and community repository. The free assessment tool is available at https://tid-cmm.com and is not licensed for redistribution or derivative tooling. Security findings affecting the tool must be reported privately under `SECURITY.md`.
 
 ## Community channels
 

@@ -1,33 +1,104 @@
-Creative Commons Attribution 4.0 International (CC BY 4.0)
+TID-CMM permitted-use terms
+===========================
 
-Copyright (c) 2022-2026 TID-CMM contributors
+These are the author's own permitted-use terms for TID-CMM. They are not an
+OSI-approved open-source licence, not a Creative Commons licence and not a
+dedication to the public domain. The canonical statement of them is
+https://tid-cmm.com/licence/ ; if this file and that page ever differ, the page
+governs.
 
-This licence covers everything in this repository: the model definition under
-model/, its level descriptors, weights, evidence criteria and crosswalks, and
-the derived datasets under data/.
+They apply to model 1.6.0, documents v1.6, the current site, and the contents of
+this repository from the commit that introduces this file onward. Material
+published under an earlier licence keeps it: see "Earlier versions" below.
 
-The TID-CMM assessment tool at https://tid-cmm.xyz is not covered by this
-licence and its source is not published here. It is free to use for any
-purpose, including commercial assessment work, and is not licensed for
-redistribution or for building derivative tooling. See NOTICE.md.
+Copyright (c) 2022-2026 Reza Adineh. All rights reserved except as expressly
+permitted below.
 
-You are free to:
-  Share  — copy and redistribute the material in any medium or format
-  Adapt  — remix, transform, and build upon the material for any purpose,
-           including commercially
 
-Under the following terms:
-  Attribution — You must give appropriate credit to TID-CMM (https://tid-cmm.com),
-  provide a link to the licence, and indicate if changes were made. You may do so
-  in any reasonable manner, but not in any way that suggests the licensor endorses
-  you or your use.
+TID-CMM is free to use under the permissions stated here. Free to use does not
+mean open source, public domain, or permission to redistribute, rebrand or
+create derivative products.
 
-No additional restrictions — You may not apply legal terms or technological
-measures that legally restrict others from doing anything the licence permits.
 
-Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Permitted without written permission
+------------------------------------
+  - Reading, studying and citing TID-CMM.
+  - Using the official assessment tool to assess your own organisation.
+  - Using the official tool in paid engagements - consulting and MSSP assessment
+    work included. This is expressly permitted and needs no licence.
+  - Sharing the assessment reports you produce for the organisation you assessed.
+  - Quoting reasonable excerpts for research, education, review and commentary,
+    with attribution.
+  - Linking to https://tid-cmm.com and to this repository.
 
-MITRE ATT&CK(R) is a registered trademark of The MITRE Corporation. ATT&CK content
-included in data/ is (c) The MITRE Corporation and used under the ATT&CK Terms of
-Use: https://attack.mitre.org/resources/legal-and-branding/terms-of-use/
-This project is not affiliated with or endorsed by MITRE, NIST or SOC-CMM.
+Requires written permission
+---------------------------
+  - Republishing or redistributing the complete model, the datasets, the
+    workbooks or the assessment implementation.
+  - Publishing a modified or derivative version of TID-CMM.
+  - Embedding the model, the scoring specification or the datasets in another
+    commercial software product.
+  - Rebranding, white-labelling or reselling the model or the tool.
+  - Redistributing the offline assessment tool.
+  - Removing TID-CMM or Reza Adineh attribution.
+  - Representing an unofficial derivative as TID-CMM.
+  - Using the implementation as the basis of competing derivative tooling.
+
+Ask, and say what you want to do with it: hello@tid-cmm.com
+
+
+Copyright
+---------
+Copyright subsists in the expression of this work: the eight domains and their
+weights, the 58 sub-capabilities, all 348 level descriptors, the evidence
+criteria, the five integrity constraints, the Validated Coverage Score, the
+Scenario Coverage Score, the telemetry assurance method, the crosswalks, the
+derived datasets, the documentation, and the assessment and site implementation.
+
+The assessment and site implementation - the browser tool, the offline
+single-file build, the workbooks and the site's own code and styles - is
+copyright, all rights reserved. It is free to use as stated above; it is not
+open-source licensed, and its source is not published in this repository.
+
+
+Earlier versions keep the licence they were released under
+----------------------------------------------------------
+Model 1.5.0 and documents v1.4 were published under the Creative Commons
+Attribution 4.0 International licence (CC BY 4.0). Copies distributed under that
+licence remain under it, and nothing in this file withdraws a permission already
+granted for material already distributed. The terms above apply to model 1.6.0,
+documents v1.6 and the current site.
+
+
+How to attribute
+----------------
+  TID-CMM - Threat-Informed Detection Capability Maturity Model
+  (c) 2022-2026 Reza Adineh. Used by permission; see https://tid-cmm.com/licence/
+  https://tid-cmm.com
+
+In prose: Adineh, R. (2026). TID-CMM: Threat-Informed Detection Capability
+Maturity Model (v1.6.0). https://tid-cmm.com
+
+
+Third-party content
+-------------------
+MITRE ATT&CK(R) is a registered trademark of The MITRE Corporation. ATT&CK
+content inside the datasets is (c) The MITRE Corporation and is governed by
+MITRE's own Terms of Use, not by the terms in this file:
+https://attack.mitre.org/resources/legal-and-branding/terms-of-use/
+Nothing here claims ownership of MITRE content, of public facts, or of
+third-party standards such as NIST CSF 2.0, ISO/IEC 27001 or SOC-CMM: the
+crosswalks express this project's reading of them and nothing more. This project
+is independent and is not affiliated with, endorsed by or sponsored by MITRE,
+NIST or SOC-CMM.
+
+Using the model does not make a product, service or assessment "TID-CMM
+certified". There is no certification scheme and no accrediting body.
+
+
+No warranty
+-----------
+The model and the tool are provided as they are, without warranty of any kind.
+A maturity score is a management aid, not an assurance of security. Nobody - the
+author included - can be liable for a decision taken on the strength of a number
+this tool produced.
